@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://byncuir8hto51"]
+
+[ext_resource type="Script" uid="uid://dyk1ffd6qy7hj" path="res://Scripts/TextManager.gd" id="1_4g5cr"]
+[ext_resource type="AudioStream" uid="uid://c21p8r748hjld" path="res://Audio/The Legend.wav" id="1_i04dx"]
+[ext_resource type="Texture2D" uid="uid://clcbtgbgxwcqa" path="res://Textures/Scroll Panel.png" id="2_8pvmw"]
+[ext_resource type="Script" uid="uid://cwm6b7fpagkqs" path="res://Scripts/PanelManager.gd" id="3_vnucn"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="4_c3mwy"]
+[ext_resource type="Texture2D" uid="uid://dv2xemchmymuk" path="res://Textures/Tree Nation Panel.png" id="5_r3lo5"]
+[ext_resource type="Texture2D" uid="uid://cfm8habdu572n" path="res://Textures/Tree Falls Panel.png" id="6_qtxxq"]
+[ext_resource type="Texture2D" uid="uid://b48gvh65fb0dq" path="res://Textures/Chaos Panel.png" id="7_8fnbn"]
+
+[node name="Legend" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4g5cr")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_i04dx")
+autoplay = true
+
+[node name="Panels" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -226.0
+offset_top = -253.0
+offset_right = -26.0
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.22111, 2.22111)
+texture = ExtResource("5_r3lo5")
+stretch_mode = 2
+script = ExtResource("3_vnucn")
+panelTextures = Array[Texture2D]([ExtResource("2_8pvmw"), ExtResource("5_r3lo5"), ExtResource("6_qtxxq"), ExtResource("7_8fnbn")])
+
+[node name="Panel Block" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 648.0
+offset_right = 390.0
+offset_bottom = 688.0
+scale = Vector2(11.1062, -8.1779)
+color = Color(0, 0, 0, 1)
+
+[node name="Text" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0833333
+anchor_top = 0.59763
+anchor_right = 0.264757
+anchor_bottom = 0.671296
+offset_left = 159.0
+offset_top = -40.264
+offset_right = 179.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.79478, 2.79478)
+theme_override_fonts/normal_font = ExtResource("4_c3mwy")
+text = "Tehdá se vyprávěl příběh, který jsme si yappovali.
+"
+scroll_active = false
+autowrap_mode = 0
+justification_flags = 35
+metadata/_edit_use_anchors_ = true
+
+[node name="TypewriterTimer" type="Timer" parent="."]
+wait_time = 0.07
+
+[node name="EventsTimer" type="Timer" parent="."]
+wait_time = 0.9
