@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cvb2atda3y63q"
+path="res://.godot/imported/Who is YOU anyway.mp3-062c6bf5cbebf7466eeb51ddaa03cde4.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Who is YOU anyway.mp3"
+dest_files=["res://.godot/imported/Who is YOU anyway.mp3-062c6bf5cbebf7466eeb51ddaa03cde4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

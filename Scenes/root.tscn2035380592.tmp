@@ -1,0 +1,142 @@
+[gd_scene load_steps=17 format=3 uid="uid://byncuir8hto51"]
+
+[ext_resource type="Script" uid="uid://dyk1ffd6qy7hj" path="res://Scripts/LegendText.gd" id="1_4g5cr"]
+[ext_resource type="Texture2D" uid="uid://clcbtgbgxwcqa" path="res://Textures/Legend/Panels/panel1.png" id="2_8pvmw"]
+[ext_resource type="AudioStream" uid="uid://bu7vkdigihtmd" path="res://Audio/A Tale.mp3" id="2_lwnbm"]
+[ext_resource type="Script" uid="uid://600boddbuu55" path="res://Scripts/FadeMusic.gd" id="3_imcog"]
+[ext_resource type="Script" uid="uid://cwm6b7fpagkqs" path="res://Scripts/PanelManager.gd" id="3_vnucn"]
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="4_c3mwy"]
+[ext_resource type="Texture2D" uid="uid://dv2xemchmymuk" path="res://Textures/Legend/Panels/panel2.png" id="5_r3lo5"]
+[ext_resource type="Texture2D" uid="uid://cfm8habdu572n" path="res://Textures/Legend/Panels/panel3.png" id="6_qtxxq"]
+[ext_resource type="Texture2D" uid="uid://dwe3poad8g347" path="res://Textures/Legend/Panels/panel4.png" id="7_qtxxq"]
+[ext_resource type="Texture2D" uid="uid://cvhig74cg2iwn" path="res://Textures/Legend/Panels/panel6.png" id="8_lwnbm"]
+[ext_resource type="Texture2D" uid="uid://crjcn1r72jm0l" path="res://Textures/Legend/Panels/panel7.png" id="9_20eh2"]
+[ext_resource type="Texture2D" uid="uid://b3w6731ofeplk" path="res://Textures/Legend/Protagonists/Rabbitek.png" id="10_8fnbn"]
+[ext_resource type="Script" uid="uid://cc67sdv2m7dwb" path="res://Scripts/HeroPanels.gd" id="10_lwnbm"]
+[ext_resource type="Texture2D" uid="uid://bctqvxvju7j2s" path="res://Textures/Legend/Protagonists/xDaForge.png" id="11_a6f85"]
+[ext_resource type="Texture2D" uid="uid://bfgs44146wlvi" path="res://Textures/Legend/Protagonists/Gertofin.png" id="12_fu36u"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qtxxq"]
+load_path = "res://.godot/imported/panel5.png-5d304b6576da79993b9fa021376f76c5.ctex"
+
+[node name="Legend" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4g5cr")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_lwnbm")
+volume_db = 1.0
+script = ExtResource("3_imcog")
+
+[node name="MusicTimer" type="Timer" parent="Music"]
+
+[node name="Panels" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -226.0
+offset_top = -253.0
+offset_right = -26.0
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.22111, 2.22111)
+texture = ExtResource("5_r3lo5")
+stretch_mode = 2
+script = ExtResource("3_vnucn")
+panelTextures = Array[Texture2D]([ExtResource("2_8pvmw"), ExtResource("5_r3lo5"), ExtResource("6_qtxxq"), ExtResource("7_qtxxq"), SubResource("CompressedTexture2D_qtxxq"), ExtResource("8_lwnbm"), ExtResource("9_20eh2")])
+
+[node name="Panel Block" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 648.0
+offset_right = 390.0
+offset_bottom = 688.0
+scale = Vector2(11.1062, -8.1779)
+color = Color(0, 0, 0, 1)
+
+[node name="Text" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0833333
+anchor_top = 0.656272
+anchor_right = 0.264757
+anchor_bottom = 0.729938
+offset_left = 159.0
+offset_top = -40.264
+offset_right = 179.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.79478, 2.79478)
+theme_override_fonts/normal_font = ExtResource("4_c3mwy")
+text = "Editor Legend Text"
+scroll_active = false
+autowrap_mode = 0
+justification_flags = 35
+metadata/_edit_use_anchors_ = true
+
+[node name="TypewriterTimer" type="Timer" parent="."]
+wait_time = 0.08
+
+[node name="PanelTimer" type="Timer" parent="."]
+wait_time = 0.885
+
+[node name="EventsTimer" type="Timer" parent="."]
+
+[node name="Protagonists" type="Node" parent="." node_paths=PackedStringArray("heroTextureRects")]
+script = ExtResource("10_lwnbm")
+heroTextureRects = [NodePath("Rabbitek"), NodePath("xDaForge"), NodePath("Gertofin")]
+
+[node name="Rabbitek" type="TextureRect" parent="Protagonists"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 65.0
+offset_top = 32.0
+offset_right = 153.0
+offset_bottom = 213.0
+scale = Vector2(2.64399, 2.64399)
+texture = ExtResource("10_8fnbn")
+
+[node name="xDaForge" type="TextureRect" parent="Protagonists"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -111.0
+offset_top = 32.0
+offset_right = -22.9999
+offset_bottom = 213.0
+grow_horizontal = 2
+scale = Vector2(2.64399, 2.64399)
+texture = ExtResource("11_a6f85")
+
+[node name="Gertofin" type="TextureRect" parent="Protagonists"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 277.0
+offset_top = 32.0
+offset_right = 365.0
+offset_bottom = 213.0
+grow_horizontal = 2
+scale = Vector2(2.64399, 2.64399)
+texture = ExtResource("12_fu36u")
