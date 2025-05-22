@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdyvmfiwlxjxg"
-path="res://.godot/imported/panel7.png-d8bb0a77ade066ce99a3269f2986b50e.ctex"
+uid="uid://dbft6f7nqstnx"
+path="res://.godot/imported/Light.png-8472a06c3be8d2f9d0a21df2d776b4c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Legend/Panels/panel7.png"
-dest_files=["res://.godot/imported/panel7.png-d8bb0a77ade066ce99a3269f2986b50e.ctex"]
+source_file="res://Textures/ChooseCharacter/Light.png"
+dest_files=["res://.godot/imported/Light.png-8472a06c3be8d2f9d0a21df2d776b4c2.ctex"]
 
 [params]
 

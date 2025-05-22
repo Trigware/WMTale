@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdyvmfiwlxjxg"
-path="res://.godot/imported/panel7.png-d8bb0a77ade066ce99a3269f2986b50e.ctex"
+uid="uid://dmvwop0m0iybf"
+path="res://.godot/imported/icon.svg-cd123cebb8500290553fbb662ec03b75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Legend/Panels/panel7.png"
-dest_files=["res://.godot/imported/panel7.png-d8bb0a77ade066ce99a3269f2986b50e.ctex"]
+source_file="res://Textures/Other/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-cd123cebb8500290553fbb662ec03b75.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
