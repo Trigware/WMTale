@@ -4,7 +4,6 @@ extends Control
 @onready var lightTexture = $Light
 @onready var leafTexture = $Leaf
 @onready var textReminder = $"Text Reminder"
-@onready var musicNode = $Music
 
 const finalYPosition = -1296
 const hoverDuration = 2
@@ -12,15 +11,20 @@ const hoverDistance = 100
 
 var leafGoingUp = 1
 var continuedToNextText = false
-var leafTweenPending = false
-var chosenCharacter := PlayableCharacters.NotChosen
+var isLeafStoppingToHover = false
+var canSelectCharacter = false
+var chosenCharacter := PlayableCharacter.NotChosen
 
-enum PlayableCharacters
+const leafShrinkDuration = 2
+const leafCharacterSelectDuration = 0.35
+const leafSelectUpDistance = 100
+
+enum PlayableCharacter
 {
-	NotChosen,
-	Rabbitek,
-	XDaForge,
-	Gertofin
+	NotChosen = 0,
+	Rabbitek = 1,
+	xDaForge = 2,
+	Gertofin = 3
 }
 
 func _ready():
@@ -44,7 +48,7 @@ func summon_leaf():
 	
 	check_if_not_responding()
 	leaf_hover()
-	musicNode.play()
+	Audio.play_sound("res://Audio/Music/Who is YOU anyway.mp3")
 	await TextSystem.want_next_text
 	create_tween().tween_property(textReminder, "modulate:a", 0, 1)
 	continuedToNextText = true
@@ -62,10 +66,14 @@ func leaf_hover():
 			set_trans(Tween.TRANS_SINE)
 		await tween.finished
 		leafGoingUp *= -1
-		if leafTweenPending:
+		if isLeafStoppingToHover:
 			break
-	create_tween().tween_property(leafTexture, "position", Vector2(leafTexture.position.x + 32, 460), 2).set_trans(Tween.TRANS_SINE)
-	create_tween().tween_property(leafTexture, "scale", Vector2(0.5, 0.5), 2).set_trans(Tween.TRANS_SINE)
+	create_tween().tween_property(leafTexture, "position", Vector2(leafTexture.position.x + 32, 460), leafShrinkDuration).set_trans(Tween.TRANS_SINE)
+	var rescaleTween = create_tween()
+	rescaleTween.tween_property(leafTexture, "scale", Vector2(0.5, 0.5), leafShrinkDuration).set_trans(Tween.TRANS_SINE)
+	await rescaleTween.finished
+	canSelectCharacter = true
+	TextSystem.print_preset("A proto si musíš vybrat tvé tělo.")
 
 func check_if_not_responding():
 	await get_tree().create_timer(3).timeout
@@ -74,7 +82,37 @@ func check_if_not_responding():
 
 func show_characters():
 	create_tween().tween_property(lightTexture, "modulate:a", 0, 2)
-	leafTweenPending = true
+	isLeafStoppingToHover = true
 
-func _process(_delta: float):
-	print(chosenCharacter)
+func _unhandled_input(_event: InputEvent):
+	handle_character_selection()
+
+func handle_character_selection():
+	if not canSelectCharacter: return
+	var characterNotChosen = chosenCharacter == PlayableCharacter.NotChosen
+	var previousChosenCharacter = chosenCharacter
+	if Input.is_action_just_pressed("leaf_up") and characterNotChosen:
+		chosenCharacter = PlayableCharacter.xDaForge
+	if Input.is_action_just_pressed("leaf_left") and chosenCharacter != PlayableCharacter.Rabbitek:
+		chosenCharacter = PlayableCharacter.Rabbitek if characterNotChosen else chosenCharacter - 1
+	if Input.is_action_just_pressed("leaf_right") and chosenCharacter != PlayableCharacter.Gertofin:
+		chosenCharacter = PlayableCharacter.Gertofin if characterNotChosen else chosenCharacter + 1
+	if previousChosenCharacter != chosenCharacter:
+		move_leaf_to_chosen_character()
+	if Input.is_action_just_pressed("continue") and not characterNotChosen:
+		select_character()
+	
+func move_leaf_to_chosen_character():
+	var finalPosition = Vector2(337 * chosenCharacter - 137, 400)
+	var leafMoveTween = create_tween()
+	leafMoveTween.tween_property(leafTexture, "position", finalPosition, leafCharacterSelectDuration).\
+	set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	canSelectCharacter = false
+	await leafMoveTween.finished
+	canSelectCharacter = true
+
+func select_character():
+	var tween = create_tween()
+	tween.tween_property(leafTexture, "position:y", leafTexture.position.y - leafSelectUpDistance, 2).set_trans(Tween.TRANS_SINE).\
+	set_ease(Tween.EASE_IN_OUT)
+	SaveData.name = "!!!"

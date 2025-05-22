@@ -8,7 +8,7 @@ const standardScreenWidth = 1152
 var currentCharacterIndex := 0
 var printedText = ""
 var fontSize = 0
-var characterDelays: Dictionary[int, float] = {}
+var characterDelays := {}
 var delayed = false
 var textCanBeSkipped = false
 var originalSpeed
@@ -174,7 +174,7 @@ func skip_text():
 	currentCharacterIndex = printedText.length()
 
 func _unhandled_input(_event: InputEvent):
-	if (Input.is_action_just_pressed("continue_text") or Input.is_action_pressed("skip_text")) and typewritterTimer.is_stopped():
+	if (Input.is_action_just_pressed("continue") or Input.is_action_pressed("skip_text")) and typewritterTimer.is_stopped():
 		emit_signal("want_next_text")
 	if Input.is_action_just_pressed("reveal_text") or Input.is_action_pressed("skip_text"):
 		skip_text()
