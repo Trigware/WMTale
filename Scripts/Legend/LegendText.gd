@@ -1,18 +1,18 @@
 extends Control
 
-@onready var label = $Text
 @onready var eventsTimer = $PanelTimer
+@onready var skipNode = $"Skip Prompt"
 
 var legendDialog := [
-	"Tehdá se vyprávěl příběh, " + char(0x200B) + "který si lidé dál šeptali.",
+	"Tehdá se vyprávěl příběh, který si lidé dál šeptali.",
 	"Byl to příběh národa.\nByl to příběh jednoty.",
 	"Byl to příběh moudrosti.\nByl to příběh mystiky.",
-	"Tento příběh nesl název \"Wise Mystical Tale\".",
+	'Tento příběh nesl název "Wise Mystical Tale".',
 	"next panel",
-	"Po tisíciletí, svět žil pod Stromovcemi v míru.",
+	"Po tisíciletí svět žil pod Stromovcemi v míru.",
 	"Pod Stromem by si všichni byli rovni.",
 	"next panel",
-	"Ale kdyby se lid proti nim spikl..."	,
+	"Ale kdyby se lid proti nim spikl...",
 	"next panel",
 	"Wilbur Poop by zakalil oblaka,",
 	"Yapp Dollar by zničil trh",
@@ -25,28 +25,28 @@ var legendDialog := [
 	"next panel",
 	"JEDEN CHTĚL BÝT POLITIK",
 	"DRUHÝ ZAS POLICISTA",
-	"A TŘETÍ CHCĚL BÝT PROSTĚ BOHATEJ",
+	"A TŘETÍ CHTĚL BÝT PROSTĚ BOHATEJ",
 	"next panel",
-	"Jen oni mohou zabránit Stromovský pád",
+	"Jen oni mohou zabránit Stromovskému pád",
 	"a udržet národ v rovnováze.",
 	"Jen poté může WMT znovu růst",
 	"a svět může být zachráněn od krutosti Yapp Dollara.",
 	"next panel",
-	"Minulý týden, Trigware: starosta Kořenova,",
+	"Minulý týden Honzraj: starosta Modřína,",
 	"navrhl mírnější trest pro Smurf Caty.",
-	"Ti prohráli války, které začali kvůli jejich víře.",
+	"Ti prohráli války, které začaly kvůli jejich víře.",
 	"next panel",
-	"Poté co tak řekl, byl obviněn z velezrady a ztratil jeho titul.",
-	"A tak se stabilita národa začíná ničit.",
+	"Poté co tak řekl, byl obviněn z velezrady a ztratil svůj titul.",
 	"end legend"
 ]
 
 var currentCharacterIndex = 0
 var currentPrintedTextIndex = -1
-var currentPreset: TextSystem.Preset = TextSystem.Preset.LegendSmallPanel
 const lastTextBeforeBigPanel = 8
 
 func _ready():
+	TextSystem.fallbackPreset = TextSystem.Preset.LegendSmallPanel
+
 	eventsTimer.timeout.connect(print_next_text)
 	TextSystem.text_finished.connect(on_text_finished)
 	print_next_text()
@@ -56,22 +56,16 @@ func print_next_text():
 	eventsTimer.stop()
 	var currentText = legendDialog[currentPrintedTextIndex]
 	if currentText == "end legend":
-		$Panels.transparency_tween(0, 0.5, false)
+		skipNode.end_cutscene()
 		return
 	if currentText == "next panel":
 		$Panels.transparency_tween(0, 0.5, true)
 		return
-	TextSystem.print_preset(currentText, currentPreset)
-	
-func print_next_char():
-	var writtenText = legendDialog[currentPrintedTextIndex]
-	if currentCharacterIndex < writtenText.length():
-		label.append_text(writtenText[currentCharacterIndex])
-		currentCharacterIndex += 1
-		return
+	TextSystem.print_preset(currentText)
 
 func on_text_finished():
+	if not (eventsTimer and eventsTimer.is_inside_tree()): return
 	eventsTimer.start()
 	$Protagonists.show_hero_panel(currentPrintedTextIndex)
 	if currentPrintedTextIndex >= lastTextBeforeBigPanel:
-		currentPreset = TextSystem.Preset.LegendBigPanel
+		TextSystem.fallbackPreset = TextSystem.Preset.LegendBigPanel

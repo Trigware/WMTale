@@ -1,0 +1,13 @@
+TileMap
+TileMapLayer
+CollisionShape2D
+AnimatedSprite2D
+CharacterBody2D
+Sprite2D
+Camera2D
+ColorRect
+Node
+TextureRect
+Control
+AnimationPlayer
+LineEdit

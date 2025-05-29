@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bd036hgq6o8r0"]
 
-[ext_resource type="Texture2D" uid="uid://bkfs0q8pvwdhe" path="res://Textures/Logo.png" id="1_gukjj"]
-[ext_resource type="Script" uid="uid://2dp6sn8wto16" path="res://Scripts/PressAnything.gd" id="1_ru6fv"]
+[ext_resource type="Texture2D" uid="uid://bkfs0q8pvwdhe" path="res://Textures/Other/Logo.png" id="1_gukjj"]
+[ext_resource type="Script" uid="uid://2dp6sn8wto16" path="res://Scripts/Globals/PressAnything.gd" id="1_ru6fv"]
 [ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="2_fdbsd"]
 
 [node name="Logo" type="Control"]
@@ -17,7 +17,7 @@ script = ExtResource("1_ru6fv")
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
-color = Color(0, 0, 0, 1)
+color = Color(0.0980392, 0.176471, 0.117647, 1)
 
 [node name="Logo" type="TextureRect" parent="."]
 layout_mode = 0
@@ -37,23 +37,16 @@ scale = Vector2(4.8, 4.8)
 theme_override_fonts/font = ExtResource("2_fdbsd")
 text = "- ZMÁČKNI JAKÉKOLIV TLAČÍTKO -"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Overlay" type="ColorRect" parent="CanvasLayer"]
-offset_right = 1152.0
-offset_bottom = 648.0
-color = Color(0, 0, 0, 0)
-
 [node name="Version" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 2.0
-offset_top = -7.0
-offset_right = 858.0
-offset_bottom = 89.0
+offset_left = 17.0
+offset_top = 8.0
+offset_right = 873.0
+offset_bottom = 104.0
 scale = Vector2(0.457117, 0.457117)
 theme_override_fonts/normal_font = ExtResource("2_fdbsd")
 theme_override_font_sizes/normal_font_size = 96
 bbcode_enabled = true
-text = "vAlpha 0.1[font_size=48](Build Informatika)[/font_size]"
+text = "vAlpha 0.2.1"
 fit_content = true
 scroll_active = false
