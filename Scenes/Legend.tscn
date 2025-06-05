@@ -121,7 +121,6 @@ texture = ExtResource("15_ctnay")
 
 [node name="Skip Prompt" type="Label" parent="."]
 layout_mode = 0
-offset_left = 763.0
 offset_top = 2.0
 offset_right = 1155.0
 offset_bottom = 46.0
@@ -129,6 +128,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("11_hd8vs")
 theme_override_font_sizes/font_size = 32
 text = "(přeskoč cutscénu s ENTER)"
+horizontal_alignment = 2
 script = ExtResource("16_qcarg")
 
 [node name="SkipTimer" type="Timer" parent="Skip Prompt"]

@@ -4,39 +4,47 @@ extends Control
 @onready var skipNode = $"Skip Prompt"
 
 var legendDialog := [
-	"Tehdá se vyprávěl příběh, který si lidé dál šeptali.",
-	"Byl to příběh národa.\nByl to příběh jednoty.",
-	"Byl to příběh moudrosti.\nByl to příběh mystiky.",
-	'Tento příběh nesl název "Wise Mystical Tale".',
+	Localization.get_text("legend_panel1_whisper"),
+	Localization.get_text("legend_panel1_nation_unity"),
+	Localization.get_text("legend_panel1_wise_mystical"),
+	Localization.get_text("legend_panel1_wmtale"),
 	"next panel",
-	"Po tisíciletí svět žil pod Stromovcemi v míru.",
-	"Pod Stromem by si všichni byli rovni.",
+
+	Localization.get_text("legend_panel2_peace"),
+	Localization.get_text("legend_panel2_equality"),
 	"next panel",
-	"Ale kdyby se lid proti nim spikl...",
+	
+	Localization.get_text("legend_panel3_revolt"),
 	"next panel",
-	"Wilbur Poop by zakalil oblaka,",
-	"Yapp Dollar by zničil trh",
-	"a Smurf Cat by devastoval krajinu.",
-	"Nyní s hnijícími kořeny...",
-	"by národ zažil jeho poslední dny.",
+	
+	Localization.get_text("legend_panel4_wilbur"),
+	Localization.get_text("legend_panel4_yapp"),
+	Localization.get_text("legend_panel4_smurfcat"),
+	Localization.get_text("legend_panel4_rotten"),
+	Localization.get_text("legend_panel4_lastdays"),
 	"next panel",
-	"Ale díky jejich víře...",
-	"se tři Stromovci objevili na straně boha.",
+	
+	Localization.get_text("legend_panel5_religion"),
+	Localization.get_text("legend_panel5_god"),
 	"next panel",
-	"JEDEN CHTĚL BÝT POLITIK",
-	"DRUHÝ ZAS POLICISTA",
-	"A TŘETÍ CHTĚL BÝT PROSTĚ BOHATEJ",
+	
+	Localization.get_text("legend_characters_rabbitek"),
+	Localization.get_text("legend_characters_xdaforge"),
+	Localization.get_text("legend_characters_gertofin"),
 	"next panel",
-	"Jen oni mohou zabránit Stromovskému pád",
-	"a udržet národ v rovnováze.",
-	"Jen poté může WMT znovu růst",
-	"a svět může být zachráněn od krutosti Yapp Dollara.",
+	
+	Localization.get_text("legend_panel6_treefall"),
+	Localization.get_text("legend_panel6_balance"),
+	Localization.get_text("legend_panel6_treegrow"),
+	Localization.get_text("legend_panel6_yapp"),
 	"next panel",
-	"Minulý týden Honzraj: starosta Modřína,",
-	"navrhl mírnější trest pro Smurf Caty.",
-	"Ti prohráli války, které začaly kvůli jejich víře.",
+	
+	Localization.get_text("legend_panel7_mayor"),
+	Localization.get_text("legend_panel7_punishment"),
+	Localization.get_text("legend_panel7_lost"),
 	"next panel",
-	"Poté co tak řekl, byl obviněn z velezrady a ztratil svůj titul.",
+	
+	Localization.get_text("legend_panel8_fired"),
 	"end legend"
 ]
 

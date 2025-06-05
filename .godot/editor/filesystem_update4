@@ -1,7 +1,11 @@
 res://Scenes/Overworld.tscn
+res://Scripts/Text System/TextSystem.gd
+res://Spriteframes/Player.tres
 res://Scenes/ChooseCharacter.tscn
 res://Scenes/TextSystem.tscn
-res://Scripts/Overworld/Player.gd
 res://Scenes/Audio.tscn
-res://Scripts/Globals/Audio.gd
-res://Scripts/Globals/SaveSystem.gd
+res://Scenes/Localization.tscn
+res://Scenes/SaveSystem.tscn
+res://Scenes/Logo.tscn
+res://Scenes/Legend.tscn
+res://Scenes/Overlay.tscn

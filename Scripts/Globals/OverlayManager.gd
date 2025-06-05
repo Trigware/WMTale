@@ -36,10 +36,17 @@ func change_scene(scene, hideDuration = 1, showDuration = 1, betweenSceneWait: f
 	await finished
 	if betweenSceneWait > 0:
 		await get_tree().create_timer(betweenSceneWait).timeout
-	get_tree().change_scene_to_file(scene)
 	TextSystem.clear_text()
 	if SaveData.allow_game_load:
-		SaveData.load_game()
+		load_post_legend_scene()
+	else:
+		get_tree().change_scene_to_file(scene)
 	show_scene(showDuration)
 	await finished
 	sceneChangingDisabled = false
+
+func load_post_legend_scene():
+	var nextScenePath = "res://Scenes/ChooseCharacter.tscn"
+	if SaveData.choosePlayerSceneFinished:
+		nextScenePath = "res://Scenes/Overworld.tscn"
+	get_tree().change_scene_to_file(nextScenePath)

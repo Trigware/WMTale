@@ -3,11 +3,13 @@ extends Control
 @onready var scrollingBackground = $Background
 @onready var lightTexture = $Light
 @onready var leafTexture = $Leaf
-@onready var textReminder = $"Text Reminder"
 @onready var musicNode = $Music
 @onready var nameInput = $"Name Input"
 @onready var characterAnimations = $"Character Animations"
 @onready var bibleTexture = $Bible
+
+@onready var textReminder = $"Text Reminder"
+@onready var moveReminder = $"Move Reminder"
 
 const finalYPosition = -1296
 const hoverDuration = 2
@@ -19,6 +21,7 @@ var isLeafStoppingToHover = false
 var canSelectCharacter = false
 var chosenCharacter := PlayableCharacter.xDaForge
 var finalLeafRescalePosition = Vector2(537, 460)
+var interactedWithLeafSoul = false
 
 const leafShrinkDuration = 2
 const leafCharacterSelectDuration = 0.35
@@ -33,6 +36,9 @@ enum PlayableCharacter
 }
 
 func _ready():
+	textReminder.text = Localization.get_text("choosecharacter_notice_pressenter")
+	moveReminder.text = Localization.get_text("choosecharacter_notice_moveleaf")
+	
 	SaveData.selectedCharacter = ""
 	TextSystem.fallbackPreset = TextSystem.Preset.ChooseCharacter
 	var empty_style = StyleBoxEmpty.new()
@@ -53,20 +59,19 @@ func summon_leaf():
 	var tween = create_tween()
 	tween.tween_property(leafTexture, "position:y", 250, 2.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-	TextSystem.print_preset("Zde je můj dar.")
+	TextSystem.print_localization("choosecharacter_prechoose_gift")
 	await TextSystem.text_finished
 	
 	check_if_not_responding()
 	leaf_hover()
 	musicNode.play()
 	await TextSystem.want_next_text
-	create_tween().tween_property(textReminder, "modulate:a", 0, 1)
+	create_tween().tween_property(textReminder, "modulate:a", 0, 0.5)
 	continuedToNextText = true
-	TextSystem.print_preset("Díky němu můžeš měnit tento svět.")
-	await TextSystem.want_next_text
-	TextSystem.print_preset("Protože bez těla nemáš šanci přežít{1}, nějaké si vyber.")
-	await TextSystem.want_next_text
-	TextSystem.clear_text()
+	await TextSystem.print_sequence_no_variables([
+		"choosecharacter_prechoose_changeworld",
+		"choosecharacter_prechoose_nochance"
+	])
 	show_characters()
 
 func leaf_hover():
@@ -85,7 +90,7 @@ func leaf_hover():
 	characterAnimations.summon_characters()
 
 func check_if_not_responding():
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(1.5).timeout
 	if not continuedToNextText:
 		create_tween().tween_property(textReminder, "modulate:a", 1, 1)
 
@@ -100,9 +105,9 @@ func handle_character_selection():
 	if not canSelectCharacter: return
 	var previousChosenCharacter = chosenCharacter
 	
-	if Input.is_action_just_pressed("leaf_left") and chosenCharacter != PlayableCharacter.Rabbitek:
+	if Input.is_action_just_pressed("move_left") and chosenCharacter != PlayableCharacter.Rabbitek:
 		chosenCharacter -= 1
-	if Input.is_action_just_pressed("leaf_right") and chosenCharacter != PlayableCharacter.Gertofin:
+	if Input.is_action_just_pressed("move_right") and chosenCharacter != PlayableCharacter.Gertofin:
 		chosenCharacter += 1
 	if Input.is_action_just_pressed("continue"):
 		select_character()
@@ -112,6 +117,7 @@ func handle_character_selection():
 
 func move_leaf_to_chosen_character():
 	if SaveData.selectedCharacter != "": return
+	interactedWithLeafSoul = true
 	var finalXPosition = 337 * chosenCharacter - 137
 	var leafMoveTween = create_tween()
 	leafMoveTween.tween_property(leafTexture, "position:x", finalXPosition, leafCharacterSelectDuration).\
@@ -122,12 +128,13 @@ func move_leaf_to_chosen_character():
 
 func select_character():
 	if SaveData.selectedCharacter != "": return
+	create_tween().tween_property(moveReminder, "modulate:a", 0, 1)
 	var tween = create_tween()
 	tween.tween_property(leafTexture, "position:y", 305, 2).set_trans(Tween.TRANS_SINE).\
 	set_ease(Tween.EASE_IN_OUT)
 	SaveData.selectedCharacter = playableCharacters[chosenCharacter - 1]
 	await tween.finished
-	TextSystem.print_preset("Napiš, jak ti budou říkat.")
+	TextSystem.print_localization("choosecharacter_choose_name")
 	create_tween().tween_property(nameInput, "modulate:a", 1, 1)
 	nameInput.grab_focus()
 
@@ -139,23 +146,21 @@ func on_name_submitted(text):
 	if checkedName in playableCharacters:
 		if SaveData.selectedCharacter.to_lower() == checkedName:
 			TextSystem.overwriteSkippable = false
-			TextSystem.print_preset("Zajímavá náhoda...")
-			await TextSystem.want_next_text
+			await TextSystem.print_wait_localization("choosecharacter_namereaction_canonname")
 		else:
-			TextSystem.print_preset("To by bylo matoucí!")
+			TextSystem.print_localization("choosecharacter_namereaction_confusing")
 			invalidName = true
 	elif checkedName == "angryhonzik" or checkedName == "trigware":
 		TextSystem.overwriteSkippable = false
-		TextSystem.print_preset("Ty píšeš kód, který tvoří tento svět?")
-		await TextSystem.want_next_text
+		await TextSystem.print_wait_localization("choosecharacter_namereaction_programmer")
 	elif checkedName == "wmt" || checkedName == "wise mystical tree":
-		TextSystem.print_preset("Mé jméno nosit nebudeš!")
+		TextSystem.print_localization("choosecharacter_namereaction_god")
 		invalidName = true
 	elif text.strip_edges() == "":
-		TextSystem.print_preset("Jméno musí obsahovat viditelné symboly.")
+		TextSystem.print_localization("choosecharacter_namereaction_novisiblesymbols")
 		invalidName = true
 	elif text.find("{") != -1 or text.find("}") != -1 or text.find("[") != -1 or text.find("]") != -1:
-		TextSystem.print_preset("Vyber si jméno bez hranatých a složených závorek.")
+		TextSystem.print_localization("choosecharacter_namereaction_brackets")
 		invalidName = true
 	
 	if invalidName:
@@ -172,35 +177,28 @@ func on_player_named():
 	create_tween().tween_property(characterAnimations, "modulate:a", 0, 1)
 	var tween = create_tween().tween_property(leafTexture, "position", finalLeafRescalePosition, 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-	TextSystem.print_preset("'" + SaveData.playerName + "'...")
-	await TextSystem.want_next_text
+	await TextSystem.print_wait_localization("choosecharacter_postchoose_sayname", [SaveData.playerName])
 	show_bible()
 
 func show_bible():
-	TextSystem.print_preset("Ještě nám zbývá jedna věc...")
-	await TextSystem.want_next_text
+	await TextSystem.print_wait_localization("choosecharacter_postchoose_onemorething")
 	music_tween(-80, 0.5)
 	Audio.play_sound("res://Audio/SFX/Bible Appears.mp3")
 	create_tween().tween_property(lightTexture, "modulate:a", 1, 1)
 	var tween = create_tween().tween_property(bibleTexture, "position:y", 150, 4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 	music_tween(0, 0.5)
-	TextSystem.print_preset("Tato posvátná kniha je nezbytná k mému daru.")
-	await TextSystem.want_next_text
 	finish_scene()
 
 func finish_scene():
-	TextSystem.print_preset("Jestli jej využiješ k dobru či zlu, je mi jedno.")
-	await TextSystem.want_next_text
-	TextSystem.print_preset("Chci jen, aby ses zbavil Smurf Catského teroru...")
-	await TextSystem.want_next_text
-	TextSystem.print_preset("a šíření jejich víry.")
-	await TextSystem.want_next_text
-	TextSystem.print_preset("...{1}vypadá to, že už máme všechno připravené.")
-	await TextSystem.want_next_text
-	TextSystem.print_preset("Hodně štěstí!")
-	await TextSystem.want_next_text
-	TextSystem.clear_text()
+	await TextSystem.print_sequence_no_variables([
+		"choosecharacter_postchoose_givebook",
+		"choosecharacter_finish_goodbad",
+		"choosecharacter_finish_terror",
+		"choosecharacter_finish_religion",
+		"choosecharacter_finish_prepared",
+		"choosecharacter_finish_goodluck"
+	])
 	SaveData.choosePlayerSceneFinished = true
 	SaveData.save_game()
 	music_tween(-80, 3)

@@ -6,6 +6,7 @@ var skipEnabled := false
 const fadeDuration = 0.75
 
 func _ready():
+	text = Localization.get_text("legend_skip_cutscene")
 	modulate.a = 0
 	$SkipTimer.start()
 	await $SkipTimer.timeout
@@ -16,7 +17,7 @@ func fade_label(final):
 	create_tween().tween_property(self, "modulate:a", final, fadeDuration)
 
 func _unhandled_input(event: InputEvent):
-	if skipEnabled && event.is_action("skip_legend"):
+	if skipEnabled && event.is_action("continue"):
 		end_cutscene()
 	
 func end_cutscene():

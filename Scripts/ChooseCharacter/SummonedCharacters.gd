@@ -10,10 +10,13 @@ func summon_characters():
 	var childCount = get_child_count()
 	for i in range(childCount):
 		var animatedSprite = childrenList[i]
-		animatedSprite.speed_scale = 2
+		animatedSprite.speed_scale = 0.1
 		animatedSprite.play()
 		if i+1 == childCount:
 			animatedSprite.animation_finished.connect(animations_finished)
 
 func animations_finished():
 	rootNode.canSelectCharacter = true
+	await get_tree().create_timer(1.5).timeout
+	if not rootNode.interactedWithLeafSoul:
+		create_tween().tween_property(rootNode.moveReminder, "modulate:a", 1, 1)

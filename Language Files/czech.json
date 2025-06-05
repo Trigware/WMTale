@@ -1,0 +1,69 @@
+{
+	"logo_press_anything": "- ZMÁČKNI JAKÉKOLIV TLAČÍTKO -",
+	"logo_version_number": "vAlpha 0.2.3",
+	
+	
+	"legend_skip_cutscene": "(přeskoč cutscénu s ENTER)",
+	
+	"legend_panel1_whisper": "Tehdá se vyprávěl příběh, který si lidé dál šeptali.",
+	"legend_panel1_nation_unity": "Byl to příběh národa.{1}\nByl to příběh jednoty.",
+	"legend_panel1_wise_mystical": "Byl to příběh moudrosti.{1}\nByl to příběh mystiky.",
+	"legend_panel1_wmtale": "Tento příběh nesl název \"Wise Mystical Tale\"",
+	
+	"legend_panel2_peace": "Po tisíciletí svět žil pod Stromovcemi v míru.",
+	"legend_panel2_equality": "Pod Stromem by si všichni byli rovni.",
+	
+	"legend_panel3_revolt": "Ale kdyby se lid proti nim spikl...",
+	
+	"legend_panel4_wilbur": "Wilbur Poop by zakalil oblaka,",
+	"legend_panel4_yapp": "Yapp Dollar by zničil trh",
+	"legend_panel4_smurfcat": "a Smurf Cat by devastoval krajinu.",
+	"legend_panel4_rotten": "Nyní s hnijícími kořeny...",
+	"legend_panel4_lastdays": "by národ zažil jeho poslední dny.",
+	
+	"legend_panel5_religion": "Ale díky jejich víře...",
+	"legend_panel5_god": "se tři Stromovci objevili na straně boha.",
+	
+	"legend_characters_rabbitek": "JEDEN CHTĚL BÝT POLITIK",
+	"legend_characters_xdaforge": "DRUHÝ ZAS POLICISTA",
+	"legend_characters_gertofin": "A TŘETÍ CHTĚL BÝT PROSTĚ BOHATEJ",
+	
+	"legend_panel6_treefall": "Jen oni mohou zabránit Stromovskému pádu",
+	"legend_panel6_balance": "a udržet národ v rovnováze.",
+	"legend_panel6_treegrow": "Jen poté může WMT znovu růst",
+	"legend_panel6_yapp": "a svět může být zachráněn od krutosti Yapp Dollara.",
+	
+	"legend_panel7_mayor": "Minulý týden Honzraj: starosta Modřína,",
+	"legend_panel7_punishment": "navrhl mírnější trest pro Smurf Caty.",
+	"legend_panel7_lost": "Ti prohráli války, které začaly kvůli jejich víře.",
+	
+	"legend_panel8_fired": "Poté co tak řekl, byl obviněn z velezrady a ztratil svůj titul.",
+	
+	"choosecharacter_notice_pressenter": "(pokud chceš číst dál, zmáčkni enter)",
+	"choosecharacter_notice_moveleaf": "(pohybuj se pomocí šipek na klávesnici, potvrď s enter)",
+	
+	"choosecharacter_prechoose_gift": "Zde je můj dar.",
+	"choosecharacter_prechoose_changeworld": "Díky němu můžeš měnit tento svět.",
+	"choosecharacter_prechoose_nochance": "Protože bez těla nemáš šanci přežít{1}, nějaké si vyber.",
+	
+	"choosecharacter_choose_name": "Napiš, jak ti budou říkat.",
+	
+	"choosecharacter_namereaction_canonname": "Zajímavá náhoda...",
+	"choosecharacter_namereaction_confusing": "To by bylo matoucí!",
+	"choosecharacter_namereaction_programmer": "Ty píšeš kód, který tvoří tento svět?",
+	"choosecharacter_namereaction_god": "Mé jméno nosit nebudeš!",
+	"choosecharacter_namereaction_novisiblesymbols": "Jméno musí obsahovat viditelné symboly.",
+	"choosecharacter_namereaction_brackets": "Vyber si jméno bez hranatých a složených závorek.",
+	
+	"choosecharacter_postchoose_sayname": "'{name}'...",
+	"choosecharacter_postchoose_onemorething": "Ještě nám zbývá jedna věc...",
+	"choosecharacter_postchoose_givebook": "Tato posvátná kniha je nezbytná k mému daru.",
+	
+	"choosecharacter_finish_goodbad": "Jestli jej využiješ k dobru či zlu, je mi jedno.",
+	"choosecharacter_finish_terror": "Chci jen, aby ses zbavil Smurf Catského teroru...",
+	"choosecharacter_finish_religion": "a šíření jejich víry.",
+	"choosecharacter_finish_prepared": "...{1}vypadá to, že už máme všechno připravené.",
+	"choosecharacter_finish_goodluck": "Hodně štěstí!",
+	
+	"spawnroom_mushroom": "Pozoruhodně hledíš na houbu vydávací modré světlo...{1} něco o ní cítíš, ale nevíš co..."
+}

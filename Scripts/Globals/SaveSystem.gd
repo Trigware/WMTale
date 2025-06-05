@@ -1,9 +1,10 @@
 extends Node
 
-#region SaveData
-var selectedCharacter = "xdaforge"
+#region GameData
+var selectedCharacter = "Rabbitek"
 var playerName = ""
 var choosePlayerSceneFinished = false
+var currentLanguage = ""
 #endregion
 
 var allow_game_load = false
@@ -13,6 +14,7 @@ var resetSaveData = false # always set to false, once data is reset
 func _ready():
 	if resetSaveData:
 		save_game()
+	load_game()
 
 func load_game():
 	allow_game_load = false
@@ -21,8 +23,8 @@ func load_game():
 	selectedCharacter = loadedDictionary["selectedCharacter"]
 	playerName = loadedDictionary["playerName"]
 	choosePlayerSceneFinished = loadedDictionary["choosePlayerSceneFinished"]
+	currentLanguage = loadedDictionary["currentLanguage"]
 	#endregion
-	execute_afterload()
 
 func load_dictionary() -> Dictionary:
 	if not FileAccess.file_exists(save_path):
@@ -41,18 +43,17 @@ func load_dictionary() -> Dictionary:
 	return {}
 
 func save_game():
+	#region SaveData
 	var saveData = {
 		"selectedCharacter": selectedCharacter,
 		"playerName": playerName,
-		"choosePlayerSceneFinished": choosePlayerSceneFinished
+		"choosePlayerSceneFinished": choosePlayerSceneFinished,
+		"currentLanguage": currentLanguage
 	}
+	#endregion
 	var file := FileAccess.open(save_path, FileAccess.WRITE)
 	if file:
 		var json := JSON.stringify(saveData, '\t')
 		file.store_string(json)
 		file.close()
 		if resetSaveData: print("Data Reset!")
-
-func execute_afterload():
-	if choosePlayerSceneFinished: get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")
-	else: get_tree().change_scene_to_file("res://Scenes/ChooseCharacter.tscn")

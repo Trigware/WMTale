@@ -1,8 +1,9 @@
-res://Scenes/Audio.tscn::3656e821d3b6fbd257670b2d5186296e::1747974848::res://.godot/exported/133200997/export-5821239ff6a26061f24d03be4d57aca1-Audio.scn
-res://Scenes/ChooseCharacter.tscn::99abf93e8c633979ed9f490e4132ed1b::1748085624::res://.godot/exported/133200997/export-fe124a0bf6989eb771ed5041d738ba92-ChooseCharacter.scn
-res://Scenes/Legend.tscn::000ebe8539e2d65adb0c211b5a265a51::1748085528::res://.godot/exported/133200997/export-325196204413291370cc746b0b28adbc-Legend.scn
-res://Scenes/Logo.tscn::aa7391fcd35041d5d9a581f3f4ff0d9c::1748093428::res://.godot/exported/133200997/export-bce0e0c075ed03667133990e88fdf103-Logo.scn
+res://Scenes/Audio.tscn::3656e821d3b6fbd257670b2d5186296e::1748663811::res://.godot/exported/133200997/export-5821239ff6a26061f24d03be4d57aca1-Audio.scn
+res://Scenes/ChooseCharacter.tscn::99abf93e8c633979ed9f490e4132ed1b::1748663811::res://.godot/exported/133200997/export-fe124a0bf6989eb771ed5041d738ba92-ChooseCharacter.scn
+res://Scenes/Legend.tscn::82b5056a1e4f46e9a2548986c1fec134::1748663811::res://.godot/exported/133200997/export-325196204413291370cc746b0b28adbc-Legend.scn
+res://Scenes/Logo.tscn::25ebfda28769c11b2cdba9fa9ebaaf75::1748663811::res://.godot/exported/133200997/export-bce0e0c075ed03667133990e88fdf103-Logo.scn
 res://Scenes/Overlay.tscn::6033952a34d590510ec55f609f127627::1747974849::res://.godot/exported/133200997/export-291685b2ed1bd5a89327f1db3696d82a-Overlay.scn
-res://Scenes/TextSystem.tscn::cb349fd78fd4cd21468193dc325efa7e::1747974849::res://.godot/exported/133200997/export-0e6b4d74788a8252572314f33f434005-TextSystem.scn
-res://Scenes/Overworld.tscn::4eb2dcf2813bbcf752bb1b91827050d9::1748093428::res://.godot/exported/133200997/export-61301a49d8280e605508318ebd53bf30-Overworld.scn
-res://Scenes/SaveSystem.tscn::6f7031c0c28f7de2c81b47da8ca9cc1a::1748093428::res://.godot/exported/133200997/export-7f52040d6ee85e3c950835ac9aa2d31a-SaveSystem.scn
+res://Scenes/TextSystem.tscn::a59ac16a88d2bb829658ce7429dc7329::1748663811::res://.godot/exported/133200997/export-0e6b4d74788a8252572314f33f434005-TextSystem.scn
+res://Scenes/Overworld.tscn::6be9334150e02a768c8437f09dc1a5f0::1748663811::res://.godot/exported/133200997/export-61301a49d8280e605508318ebd53bf30-Overworld.scn
+res://Scenes/SaveSystem.tscn::6f7031c0c28f7de2c81b47da8ca9cc1a::1748663811::res://.godot/exported/133200997/export-7f52040d6ee85e3c950835ac9aa2d31a-SaveSystem.scn
+res://Scenes/Localization.tscn::8ed5ea4530d648edcb9779137a873271::1748663811::res://.godot/exported/133200997/export-dfba0163e3f8fe556b627b3c72df8d38-Localization.scn

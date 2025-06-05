@@ -320,12 +320,23 @@ autoplay = true
 [node name="Text Reminder" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 616.0
-offset_right = 1150.0
+offset_right = 1152.0
 offset_bottom = 32.0
 theme_override_fonts/font = ExtResource("5_iwlee")
 theme_override_font_sizes/font_size = 32
 text = "(Pokud chceš číst dál, zmáčkni ENTER)"
+horizontal_alignment = 2
+
+[node name="Move Reminder" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 600.0
+offset_right = 1152.0
+offset_bottom = 632.0
+theme_override_fonts/font = ExtResource("5_iwlee")
+theme_override_font_sizes/font_size = 32
+text = "(pohybuj se pomocí šipek na klávesnici, potvrď s enter)"
+horizontal_alignment = 1
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ipr1o")
