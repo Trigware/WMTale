@@ -16,8 +16,8 @@ func _ready():
 func fade_label(final):
 	create_tween().tween_property(self, "modulate:a", final, fadeDuration)
 
-func _unhandled_input(event: InputEvent):
-	if skipEnabled && event.is_action("continue"):
+func _process(delta):
+	if skipEnabled && Input.is_action_pressed("continue"):
 		end_cutscene()
 	
 func end_cutscene():

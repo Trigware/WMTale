@@ -1,6 +1,11 @@
-[gd_resource type="SpriteFrames" load_steps=51 format=3 uid="uid://bqnq6bo7koaey"]
+[gd_resource type="SpriteFrames" load_steps=55 format=3 uid="uid://bqnq6bo7koaey"]
 
 [ext_resource type="Texture2D" uid="uid://c6inxs7amrhxu" path="res://Spritesheets/PlayerSpritesheet.png" id="1_3kwf2"]
+[ext_resource type="Texture2D" uid="uid://ckxh01rprf8rn" path="res://Spritesheets/PlayerLookDown.png" id="1_8ulue"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypme0"]
+atlas = ExtResource("1_8ulue")
+region = Rect2(0, 72, 32, 36)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_te3kf"]
 load_path = "res://.godot/imported/PlayerSpritesheet.png-b27552187a15f9db8bb38191fb1cad6e.ctex"
@@ -69,6 +74,10 @@ region = Rect2(238, 72, 17, 36)
 atlas = SubResource("CompressedTexture2D_te3kf")
 region = Rect2(255, 72, 17, 36)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jy0st"]
+atlas = ExtResource("1_8ulue")
+region = Rect2(0, 36, 32, 36)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_h6v4y"]
 atlas = SubResource("CompressedTexture2D_te3kf")
 region = Rect2(136, 36, 17, 36)
@@ -132,6 +141,10 @@ region = Rect2(238, 36, 17, 36)
 [sub_resource type="AtlasTexture" id="AtlasTexture_l8mt4"]
 atlas = SubResource("CompressedTexture2D_te3kf")
 region = Rect2(255, 36, 17, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq7uk"]
+atlas = ExtResource("1_8ulue")
+region = Rect2(0, 0, 32, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_te3kf"]
 atlas = SubResource("CompressedTexture2D_te3kf")
@@ -201,6 +214,14 @@ region = Rect2(255, 0, 17, 36)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ypme0")
+}],
+"loop": true,
+"name": &"gertofinLookDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_7qh7o")
 }, {
 "duration": 1.0,
@@ -212,9 +233,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f0va1")
 }],
-"loop": true,
+"loop": false,
 "name": &"gertofinWalkDown",
-"speed": 10.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -229,7 +250,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_iostd")
 }],
-"loop": true,
+"loop": false,
 "name": &"gertofinWalkLeft",
 "speed": 10.0
 }, {
@@ -246,7 +267,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wnas4")
 }],
-"loop": true,
+"loop": false,
 "name": &"gertofinWalkRight",
 "speed": 10.0
 }, {
@@ -263,9 +284,17 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3u5y8")
 }],
-"loop": true,
+"loop": false,
 "name": &"gertofinWalkUp",
-"speed": 10.0
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jy0st")
+}],
+"loop": true,
+"name": &"rabbitekLookDown",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -280,9 +309,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ex1te")
 }],
-"loop": true,
+"loop": false,
 "name": &"rabbitekWalkDown",
-"speed": 10.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -297,7 +326,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fb3d0")
 }],
-"loop": true,
+"loop": false,
 "name": &"rabbitekWalkLeft",
 "speed": 10.0
 }, {
@@ -314,7 +343,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_525eh")
 }],
-"loop": true,
+"loop": false,
 "name": &"rabbitekWalkRight",
 "speed": 10.0
 }, {
@@ -331,9 +360,17 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l8mt4")
 }],
-"loop": true,
+"loop": false,
 "name": &"rabbitekWalkUp",
-"speed": 10.0
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq7uk")
+}],
+"loop": true,
+"name": &"xdaforgeLookDown",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -348,9 +385,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5di4m")
 }],
-"loop": true,
+"loop": false,
 "name": &"xdaforgeWalkDown",
-"speed": 10.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -365,7 +402,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s3goe")
 }],
-"loop": true,
+"loop": false,
 "name": &"xdaforgeWalkLeft",
 "speed": 10.0
 }, {
@@ -382,7 +419,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p68c8")
 }],
-"loop": true,
+"loop": false,
 "name": &"xdaforgeWalkRight",
 "speed": 10.0
 }, {
@@ -399,7 +436,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fka8p")
 }],
-"loop": true,
+"loop": false,
 "name": &"xdaforgeWalkUp",
-"speed": 10.0
+"speed": 8.0
 }]

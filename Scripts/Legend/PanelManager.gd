@@ -53,10 +53,6 @@ func show_next_panel():
 	else:
 		transparency_tween(1, 1, false)
 	
-	if skipPrompt.skipEnabled:
-		skipPrompt.skipEnabled = false
-		skipPrompt.fade_label(0)
-	
 	var actualUsedTextureIndex = currentPanelTextureIndex
 	if currentPanelTextureIndex > 5: actualUsedTextureIndex -= 1
 	panel.texture = panelTextures[actualUsedTextureIndex]

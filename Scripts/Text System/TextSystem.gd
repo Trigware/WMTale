@@ -6,6 +6,7 @@ extends Control
 @onready var choicerNode = $CanvasLayer/Textbox/Choicer
 
 @onready var leafNode = $CanvasLayer/Textbox/Choicer/Leaf
+@onready var waitLeaf = $"CanvasLayer/Wait Leaf"
 @onready var choiceNodes := {
 	Vector2(-1, 0): $"CanvasLayer/Textbox/Choicer/Choice A",
 	Vector2(+1, 0): $"CanvasLayer/Textbox/Choicer/Choice B",
@@ -21,7 +22,10 @@ var printedText = ""
 var fontSize = 0
 
 var characterDelays := {}
+var characterColors := {}
+
 var delayed = false
+var currentColor := "#FFFFFF"
 var textCanBeSkipped = false
 var originalSpeed
 var currentTextAudio : AudioStream
@@ -38,7 +42,7 @@ var previousChoiceDirection := Vector2.ZERO
 var choiceNodeIndex := -1
 var lastChoiceText := ""
 var currentOverlappingSoundsValue := false
-var canInteract = false
+var canInteract = true
 
 signal text_finished
 signal want_next_text
@@ -57,11 +61,13 @@ var TextConfigurations = {
 	Preset.LegendSmallPanel: {
 		"position": Vector2(255, 350),
 		"line_length": 650,
+		"speed": 0.08,
 		"allow_text_skip": false
 	},
 	Preset.LegendBigPanel: {
 		"position": Vector2(255, 540),
 		"line_length": 650,
+		"speed": 0.06,
 		"allow_text_skip": false
 	},
 	Preset.ChooseCharacter: {
@@ -69,6 +75,7 @@ var TextConfigurations = {
 		"center_align": true,
 		"talk_audio": load("res://Audio/Talk/WMT.mp3"),
 		"pitch_range": 0.2,
+		"speed": 0.05,
 		"overlap_audio": true
 	},
 	Preset.RegularDialog: {
@@ -77,7 +84,6 @@ var TextConfigurations = {
 		"font_size": 44,
 		"textbox": true,
 		"position": Vector2(150, 405),
-		"speed": 1.0/30,
 		"line_length": 850
 	}
 }
@@ -85,8 +91,14 @@ var TextConfigurations = {
 func _ready():
 	typewritterTimer.timeout.connect(print_next_char)
 	want_next_text.connect(on_wanting_new_text)
+	text_finished.connect(on_finished_text)
+
+func on_finished_text():
+	if textboxNode.visible:
+		waitLeaf.show()
 
 func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, allowTextSkip, talkAudio, pitchRange, textbox, overlappingSounds):
+	Player.node.animationNode.stop()
 	lockAction = true
 	if overwriteSkippable:
 		allowTextSkip = false
@@ -94,6 +106,7 @@ func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, al
 	textFinished = false
 	fontSize = textSize
 	
+	currentColor = "#FFFFFF"
 	textNode.scale = Vector2(fontSize, fontSize) / 48
 	textNode.position = textPosition
 	textNode.text = ""
@@ -103,7 +116,7 @@ func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, al
 	textboxNode.visible = textbox
 	currentOverlappingSoundsValue = overlappingSounds
 	
-	var regularText = record_character_delays(text)
+	var regularText = record_control_text(text)
 	printedText = split_text_by_lines(regularText, lineLength)
 	textCanBeSkipped = allowTextSkip
 	if centerAlign:
@@ -124,7 +137,7 @@ func print_preset(text, preset: Preset = Preset.Fallback):
 	var config = TextConfigurations[preset]
 	print_text(
 		text,
-		config.get("speed", 0.08),
+		config.get("speed", 1.0/30),
 		config.get("font_size", 48),
 		config.get("position", Vector2(0, 0)),
 		config.get("line_length", 0),
@@ -139,6 +152,7 @@ func print_preset(text, preset: Preset = Preset.Fallback):
 func print_next_char():
 	if delayed: return
 	var delay = characterDelays.get(currentCharacterIndex, 0)
+	currentColor = characterColors.get(currentCharacterIndex, currentColor)
 	if delay > 0:
 		delayed = true
 		await get_tree().create_timer(delay).timeout
@@ -148,7 +162,7 @@ func print_next_char():
 	else:
 		Audio.play_awaited_stream(currentTextAudio, currentPitchRange)
 	if currentCharacterIndex < printedText.length():
-		textNode.text += printedText[currentCharacterIndex]
+		textNode.text += "[color=" + currentColor + "]" + printedText[currentCharacterIndex] + "[/color]"
 		currentCharacterIndex += 1
 		return
 	typewritterTimer.stop()
@@ -189,6 +203,7 @@ func clear_text():
 	if previousChoiceDirection in choiceNodes:
 		choiceNodes[previousChoiceDirection].modulate = Color.WHITE
 	leafNode.modulate.a = 1
+	waitLeaf.hide()
 	
 func get_text_width(text) -> float:
 	var font = textNode.get_theme_font("normal_font")
@@ -204,12 +219,12 @@ func fade_text(duration):
 	await tween.finished
 	clear_text()
 
-func record_character_delays(text) -> String:
+func record_control_text(text) -> String:
 	characterDelays.clear()
+	characterColors.clear()
 	var inBrackets = false
 	var bracketContent = ""
 	var currentPrintedCharacter = 0
-	var latestDelay = 0
 	var normalText = ""
 	
 	for letter in text:
@@ -220,21 +235,34 @@ func record_character_delays(text) -> String:
 			"}":
 				if inBrackets:
 					inBrackets = false
-					latestDelay += float(bracketContent)
-					characterDelays.set(currentPrintedCharacter, latestDelay)
+					if bracketContent.is_valid_float():
+						characterDelays.set(currentPrintedCharacter, float(bracketContent))
+					if bracketContent.length() > 0 and bracketContent[0] == "#":
+						var savedColor = "#FFFFFF"
+						if Color.html_is_valid(bracketContent):
+							savedColor = bracketContent
+						characterColors.set(currentPrintedCharacter, savedColor)
 			_:
 				bracketContent += letter
 				if not inBrackets:
 					currentPrintedCharacter += 1
-					latestDelay = 0
 					normalText += letter
 	
 	return normalText
 
 func skip_text():
 	if not textCanBeSkipped: return
-	textNode.text = printedText
+	textNode.text = add_color_to_text(printedText)
 	currentCharacterIndex = printedText.length()
+
+func add_color_to_text(text) -> String:
+	var resultText = ""
+	var addFuncCurrentColor = "#FFFFFF"
+	for i in range(text.length()):
+		var ch = text[i]
+		addFuncCurrentColor = characterColors.get(i, addFuncCurrentColor)
+		resultText += "[color=" + addFuncCurrentColor + "]" + ch + "[/color]"
+	return resultText
 
 func _unhandled_input(_event: InputEvent):
 	if (Input.is_action_just_pressed("continue") or Input.is_action_pressed("skip_text")) and textFinished:
@@ -262,6 +290,7 @@ func print_sequence_no_variables(sequence: Array[String]):
 		await want_next_text
 
 func give_choice(choiceAText, choiceBText, choiceCText = "", choiceDText = ""):
+	waitLeaf.hide()
 	previousChoiceDirection = Vector2.ZERO
 	lockAction = true
 	inChoicer = true
@@ -274,6 +303,10 @@ func give_choice(choiceAText, choiceBText, choiceCText = "", choiceDText = ""):
 	choiceNodes[Vector2(+1, 0)].text = choiceBText
 	choiceNodes[Vector2(0, -1)].text = choiceCText
 	choiceNodes[Vector2(0, +1)].text = choiceDText
+	await submitted_choice
+
+func give_choice_wait(choiceAText, choiceBText, choiceCText = "", choiceDText = ""):
+	give_choice(choiceAText, choiceBText, choiceCText, choiceDText)
 	await submitted_choice
 
 func print_wait(text, preset: Preset = Preset.Fallback):
@@ -328,3 +361,51 @@ func on_choice_decided():
 	lastChoiceText = choiceList[choiceNodeIndex]
 	clear_text()
 	emit_signal("submitted_choice")
+
+func end_npc_dialog(npcID: NPCData.ID, npc, deleteAfterTalk := false):
+	if deleteAfterTalk:
+		NPCData.set_data(npcID, NPCData.Field.Deleted, true)
+		npc.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	TextSystem.canInteract = true
+	NPCData.set_data(NPCData.ID.InteractionPrompt_SPAWNROOM, NPCData.Field.Deactivated, true)
+
+func optional_get_item(
+		item: Inventory.Item,
+		count := 1,
+		npcNode: Node = null,
+		npcID: NPCData.ID = NPCData.ID.Uninitialized,
+		color: Color = Color.YELLOW):
+
+	var itemJsonIdentifier = Inventory.get_item_name(item)
+	var colorControlText = "{#" + color.to_html() + "}"
+	var fullVariableString = colorControlText + itemJsonIdentifier + "{#/}"
+	await print_wait_localization("item_choice_pickup", [fullVariableString])
+	
+	await give_basic_choice()
+	if lastChoiceText == Localization.get_text("choicer_decline"):
+		var textKey = "item_decline_" + Inventory.get_item_enum(item)
+		if Localization.text_exists(textKey): await print_wait_localization(textKey)
+		return
+	
+	var itemTier = Inventory.get_item_tier(item)
+	var itemStringCount = ""
+	if count > 1: itemStringCount = " (" + str(count) + "x)"
+	await print_wait_localization("item_confirm_pickup_" + itemTier, [fullVariableString, itemStringCount])
+	Inventory.add_item(item, count)
+	Audio.play_sound("res://Audio/SFX/GotItem.mp3")
+	
+	if npcNode != null:
+		npcNode.queue_free()
+		NPCData.set_data(npcID, NPCData.Field.Deleted, true)
+	after_obtainted_item(item)
+
+func after_obtainted_item(item):
+	match item:
+		Inventory.Item.GLOWING_MUSHROOM:
+			NPCData.set_data(NPCData.ID.BlockTree_SPAWNROOM, NPCData.Field.Suffix, "NoLight_")
+			NPCData.set_data(NPCData.ID.BlockTree_SPAWNROOM, NPCData.Field.InteractionCount, 0)
+
+func give_basic_choice():
+	await give_choice_wait(Localization.get_text("choicer_agree"), Localization.get_text("choicer_decline"))

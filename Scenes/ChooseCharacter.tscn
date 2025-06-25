@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://b1h7vlrppa84n" path="res://Scripts/ChooseCharacter/ChooseCharacter.gd" id="1_ja7pu"]
 [ext_resource type="Texture2D" uid="uid://dbft6f7nqstnx" path="res://Textures/ChooseCharacter/Light.png" id="2_chj88"]
 [ext_resource type="AudioStream" uid="uid://cwmbyeadxhulb" path="res://Audio/SFX/Blowing Wind.mp3" id="2_ja7pu"]
-[ext_resource type="Texture2D" uid="uid://d0fymc1ye236d" path="res://Textures/ChooseCharacter/Leaf.png" id="3_tgy8p"]
 [ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="5_iwlee"]
 [ext_resource type="AudioStream" uid="uid://ditii7diqwiis" path="res://Audio/Music/A Choice.mp3" id="6_ipr1o"]
 [ext_resource type="Script" uid="uid://luh66e8a6me4" path="res://Scripts/ChooseCharacter/SummonedCharacters.gd" id="7_1kpfn"]
 [ext_resource type="Texture2D" uid="uid://dpq2xtds5fhtx" path="res://Spritesheets/SummonSpritesheet.png" id="7_8e14a"]
 [ext_resource type="Texture2D" uid="uid://iiglhujhd41x" path="res://Textures/ChooseCharacter/Bible.png" id="8_mk1q1"]
+[ext_resource type="Texture2D" uid="uid://cisan1lvsodoq" path="res://Textures/Other/Leaf.png" id="9_mk1q1"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_25nma"]
 load_path = "res://.godot/imported/BGChooseChar.png-f99ab5124aa722b6a92bcdeb836e10d9.ctex"
@@ -403,4 +403,4 @@ offset_left = 505.0
 offset_top = -200.0
 offset_right = 625.0
 offset_bottom = -80.0
-texture = ExtResource("3_tgy8p")
+texture = ExtResource("9_mk1q1")

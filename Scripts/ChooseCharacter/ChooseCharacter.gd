@@ -21,7 +21,6 @@ var isLeafStoppingToHover = false
 var canSelectCharacter = false
 var chosenCharacter := PlayableCharacter.xDaForge
 var finalLeafRescalePosition = Vector2(537, 460)
-var interactedWithLeafSoul = false
 
 const leafShrinkDuration = 2
 const leafCharacterSelectDuration = 0.35
@@ -117,7 +116,6 @@ func handle_character_selection():
 
 func move_leaf_to_chosen_character():
 	if SaveData.selectedCharacter != "": return
-	interactedWithLeafSoul = true
 	var finalXPosition = 337 * chosenCharacter - 137
 	var leafMoveTween = create_tween()
 	leafMoveTween.tween_property(leafTexture, "position:x", finalXPosition, leafCharacterSelectDuration).\
@@ -199,7 +197,7 @@ func finish_scene():
 		"choosecharacter_finish_prepared",
 		"choosecharacter_finish_goodluck"
 	])
-	SaveData.choosePlayerSceneFinished = true
+	CutsceneManager.add_finished_cutscene_flag(CutsceneManager.Cutscene.ChoosePlayer)
 	SaveData.save_game()
 	music_tween(-80, 3)
 	Overlay.change_scene("res://Scenes/Overworld.tscn", 3, 1)

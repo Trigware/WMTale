@@ -48,7 +48,6 @@ var legendDialog := [
 	"end legend"
 ]
 
-var currentCharacterIndex = 0
 var currentPrintedTextIndex = -1
 const lastTextBeforeBigPanel = 8
 
@@ -62,6 +61,9 @@ func _ready():
 func print_next_text():
 	currentPrintedTextIndex += 1
 	eventsTimer.stop()
+	if currentPrintedTextIndex == 3:
+		skipNode.skipEnabled = false
+		skipNode.fade_label(0)
 	var currentText = legendDialog[currentPrintedTextIndex]
 	if currentText == "end legend":
 		skipNode.end_cutscene()

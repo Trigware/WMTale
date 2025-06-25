@@ -15,10 +15,10 @@ func hide_overlay():
 func show_overlay():
 	fadeOverlay.color.a = 0
 
-func show_scene(duration = 1):
+func show_scene(duration = 1.0):
 	overlay_tween(0, duration)
 
-func hide_scene(duration = 1):
+func hide_scene(duration = 1.0):
 	overlay_tween(1, duration)
 
 func overlay_tween(final: int, duration = 1):
@@ -47,6 +47,8 @@ func change_scene(scene, hideDuration = 1, showDuration = 1, betweenSceneWait: f
 
 func load_post_legend_scene():
 	var nextScenePath = "res://Scenes/ChooseCharacter.tscn"
-	if SaveData.choosePlayerSceneFinished:
-		nextScenePath = "res://Scenes/Overworld.tscn"
+	if CutsceneManager.is_cutscene_finished(CutsceneManager.Cutscene.ChoosePlayer):
+		Overworld.enable()
+		nextScenePath = "res://Scenes/Audio.tscn" # empty scene
+	if Overworld.saveFileCorrupted: nextScenePath = "res://Rooms/ErrorHandler.tscn"
 	get_tree().change_scene_to_file(nextScenePath)
