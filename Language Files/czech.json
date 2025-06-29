@@ -12,6 +12,25 @@
 	"logo_press_anything": "- ZMÁČKNI ENTER NEBO Z -",
 	"logo_version_number": "vAlpha 0.3.4",
 	"quitting_game": "Opouštím hru",
+	
+	"character_max_stat": "MAX",
+	
+	"save_file_PLAY": "Vyber si svůj soubor, prosím.",
+	"save_file_COPY": "Vyber soubor, který chceš zkopírovat.",
+	"save_file_ERASE": "Vyber soubor, který chceš smazat.",
+	"save_file_UNABLETOCOPY": "Není místo pro nové soubory. Smaž jeden soubor.",
+	"save_file_not_found": "- PRÁZDNÝ (MŮŽEŠ VYTVOŘIT) -",
+	"save_file_choice_PLAY": "Spustit hru z tohoto souboru?",
+	"save_file_choice_ERASE": "Smazat tento soubor?",
+	"save_file_choice_COPY": "Zkopírovat tento soubor?",
+	"save_file_choice_ACTUALLY_ERASE": "Jseš si opravdu jistý?",
+	"save_file_create": "Chceš hrát na novém souboru?",
+	"save_file_choice": "      ANO               NE",
+	"save_file_copy": "KOPIE",
+	"save_file_erase": "SMAZAT",
+	"save_file_back": "ZPĚT",
+	
+	"room_name_Weird/SpawnRoom": "Divný les - SPAWN",
 
 	"legend_skip_cutscene": "(přeskoč cutscénu s klávesou ENTER)",
 

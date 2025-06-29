@@ -8,5 +8,6 @@ script = ExtResource("1_7g7yc")
 [node name="Music" type="AudioStreamPlayer" parent="."]
 
 [node name="Base Light" type="CanvasModulate" parent="."]
+visible = false
 position = Vector2(0, -1)
 color = Color(0.7, 0.7, 0.7, 1)

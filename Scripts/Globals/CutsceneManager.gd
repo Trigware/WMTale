@@ -6,7 +6,8 @@ enum Cutscene
 {
 	None,
 	ChoosePlayer,
-	SpawnRoom
+	SpawnRoom,
+	Legend
 }
 
 signal cutscene_completed

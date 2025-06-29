@@ -12,7 +12,7 @@ func _ready():
 	audioNode.stream = audioStream
 	audioNode.play()
 
-func _process(delta):
+func _process(_delta):
 	var distance = get_audio_area_distance()
 	var volume = clamp(1.0 - (distance / maxDistance), 0, 1)
 	var used_volume = linear_to_db(volume)

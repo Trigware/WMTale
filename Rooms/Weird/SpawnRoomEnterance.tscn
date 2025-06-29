@@ -1,7 +1,6 @@
-[gd_scene load_steps=26 format=4 uid="uid://b1pi5imlp8ijw"]
+[gd_scene load_steps=23 format=4 uid="uid://b1pi5imlp8ijw"]
 
 [ext_resource type="Script" uid="uid://dj3qdrjjlq6jw" path="res://Scripts/Overworld/BaseRoom.gd" id="1_tn4ca"]
-[ext_resource type="Script" uid="uid://bb08di2vapfee" path="res://Scripts/Globals/RoomEnteranceData.gd" id="2_4pd27"]
 [ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC.tscn" id="2_5i7oc"]
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_ssc6v"]
 [ext_resource type="TileSet" uid="uid://btchb3jks74uf" path="res://TileSets/WeirdRiver.tres" id="3_4j1pl"]
@@ -12,27 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://4jtg4hfhy0k0" path="res://Scenes/RoomTrigger.tscn" id="7_ejlig"]
 [ext_resource type="PackedScene" uid="uid://c01w1divptedy" path="res://Scenes/Audio Area.tscn" id="10_kausp"]
 [ext_resource type="Texture2D" uid="uid://dobdv3gugmyvu" path="res://Textures/Weird Forest/Broken Sign.png" id="11_kausp"]
-
-[sub_resource type="Resource" id="Resource_4pd27"]
-script = ExtResource("2_4pd27")
-position = Vector2(-256, 0)
-x_player_dependent = false
-y_player_dependent = true
-metadata/_custom_type_script = "uid://bb08di2vapfee"
-
-[sub_resource type="Resource" id="Resource_f0a04"]
-script = ExtResource("2_4pd27")
-position = Vector2(192, 320)
-x_player_dependent = true
-y_player_dependent = false
-metadata/_custom_type_script = "uid://bb08di2vapfee"
-
-[sub_resource type="Resource" id="Resource_wonja"]
-script = ExtResource("2_4pd27")
-position = Vector2(560, 96)
-x_player_dependent = false
-y_player_dependent = true
-metadata/_custom_type_script = "uid://bb08di2vapfee"
+[ext_resource type="AudioStream" uid="uid://b11o6u8lh7tj3" path="res://Audio/SFX/River.mp3" id="12_4pd27"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5i7oc"]
 size = Vector2(55, 82)
@@ -59,22 +38,14 @@ size = Vector2(57, 62)
 size = Vector2(109, 99)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f0a04"]
-size = Vector2(216, 394)
+size = Vector2(112, 450)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wonja"]
-size = Vector2(800, 208)
+size = Vector2(736, 96)
 
 [node name="SpawnRoom Enterance" type="Node2D"]
 script = ExtResource("1_tn4ca")
-cutscenePosition = null
-roomEnterances = Dictionary[int, ExtResource("2_4pd27")]({
-0: SubResource("Resource_4pd27"),
-2: SubResource("Resource_f0a04"),
-3: SubResource("Resource_wonja")
-})
 roomMusic = "Weird Forest"
-roomMusicPitchRange = null
-playNoMusic = null
 
 [node name="Background" type="ColorRect" parent="."]
 offset_left = -502.0
@@ -91,7 +62,7 @@ tile_set = ExtResource("2_ssc6v")
 [node name="River" type="TileMapLayer" parent="."]
 position = Vector2(-54, -54)
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAABAPz/AAAAAAAAAAABAPv/AAAAAAAAAAACAPv/AAABAAAAAAACAPz/AAABAAAAAAABAP3/AAAAAAAAAAACAP3/AAABAAAAAAABAP7/AAAAAAEAAAABAP//AAAAAAIAAAACAP7/AAABAAEAAAACAP//AAABAAIAAAADAP7/AAACAAEAAAADAP//AAACAAIAAAAEAP7/AAACAAEAAAAEAP//AAACAAIAAAAFAP7/AAACAAEAAAAFAP//AAACAAIAAAAGAP7/AAADAAEAAAAGAP//AAADAAIAAAA=")
+tile_map_data = PackedByteArray("AAABAPz/AAAAAAIAAAABAPv/AAAAAAIAAAACAPv/AAABAAIAAAACAPz/AAABAAIAAAABAP3/AAAAAAIAAAACAP3/AAABAAIAAAABAP7/AAAAAAMAAAABAP//AAAAAAQAAAACAP7/AAABAAMAAAACAP//AAABAAQAAAADAP7/AAACAAMAAAADAP//AAACAAQAAAAEAP7/AAACAAMAAAAEAP//AAACAAQAAAAFAP7/AAACAAMAAAAFAP//AAACAAQAAAAGAP7/AAACAAMAAAAGAP//AAACAAQAAAA=")
 tile_set = ExtResource("3_4j1pl")
 
 [node name="Environment" type="TileMapLayer" parent="."]
@@ -133,6 +104,8 @@ shape = SubResource("RectangleShape2D_ssc6v")
 position = Vector2(-278, 22)
 rotation = 3.14159
 roomDestination = 0
+new_position = Vector2(528, 0)
+y_player_dependent = true
 
 [node name="Trigger Shape" parent="Trigger Spawn" index="0"]
 position = Vector2(71, 7.82013e-05)
@@ -147,6 +120,8 @@ position = Vector2(180, 382)
 rotation = 1.5708
 scale = Vector2(0.5, 1)
 roomDestination = 2
+new_position = Vector2(-194, 32)
+x_player_dependent = true
 
 [node name="Trigger Shape" parent="Trigger Teleport" index="0"]
 position = Vector2(22.125, -0.000137329)
@@ -157,8 +132,10 @@ position = Vector2(-32.3756, 69.3232)
 scale = Vector2(1.63502, 2.4028)
 
 [node name="Trigger Bridge" parent="." instance=ExtResource("7_ejlig")]
-position = Vector2(675, 0)
+position = Vector2(600, 0)
 roomDestination = 3
+new_position = Vector2(0, -96)
+y_player_dependent = true
 
 [node name="Trigger Shape" parent="Trigger Bridge" index="0"]
 position = Vector2(0, 100)
@@ -197,13 +174,14 @@ position = Vector2(20.5, -11.5)
 shape = SubResource("RectangleShape2D_kausp")
 
 [node name="River Area" parent="." instance=ExtResource("10_kausp")]
+audioStream = ExtResource("12_4pd27")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="River Area"]
-position = Vector2(196, -493)
+position = Vector2(208, -465)
 shape = SubResource("RectangleShape2D_f0a04")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="River Area"]
-position = Vector2(488, -192)
+position = Vector2(520, -192)
 shape = SubResource("RectangleShape2D_wonja")
 
 [editable path="Pedestal"]

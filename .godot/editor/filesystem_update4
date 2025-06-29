@@ -1,16 +1,19 @@
-res://Rooms/Weird/RiverBridge.tscn
+res://Scenes/River.tscn
 res://Scripts/Text System/TextSystem.gd
 res://Spriteframes/Player.tres
 res://TileSets/WeirdGround.tres
 res://TileSets/WeirdRiver.tres
+res://TileSets/WeirdTree.tres
 res://TileSets/WeirdEnvironment.tres
 res://TileSets/WeirdBushes.tres
-res://TileSets/WeirdTree.tres
-res://Rooms/Weird/SpawnRoom.tscn
-res://Scenes/Overworld.tscn
-res://Rooms/Weird/TeleportRoom.tscn
-res://Scenes/Audio Area.tscn
+res://Rooms/Weird/RiverBridge.tscn
+res://Scenes/Player.tscn
 res://Rooms/Weird/SpawnRoomEnterance.tscn
-res://Scenes/RoomTrigger.tscn
-res://Scenes/Teleport Tree.tscn
-res://Scripts/Overworld/RoomTrigger.gd
+res://Scenes/File Select.tscn
+res://Scenes/Legend.tscn
+res://Scenes/Overlay.tscn
+res://Scenes/Audio.tscn
+res://Scenes/Overworld.tscn
+res://Scripts/Globals/FileSelect.gd
+res://Scripts/Globals/PressAnything.gd
+res://Scripts/Globals/SaveSystem.gd

@@ -39,7 +39,7 @@ func play_awaited_stream(stream, pitch_shift = 0.0, volume = 0.0):
 	await finished
 	waiting_for_stream = false
 
-func play_music(music_name, pitch_shift = 0.0, playNoMusic := false):
+func play_music(music_name, pitch_shift = 0.0, playNoMusic := false, volume := 0.0):
 	if music_name == currentMusic or (music_name == "" and not playNoMusic): return
 	var player = Overworld.music
 	player.stop()
@@ -53,7 +53,8 @@ func play_music(music_name, pitch_shift = 0.0, playNoMusic := false):
 	var randomPitch = generate_pitch_scale(pitch_shift)
 	player.stream = stream
 	player.pitch_scale = randomPitch
+	player.volume_db = volume
 	player.play()
 	await player.finished
 	currentMusic = ""
-	play_music(music_name, pitch_shift)
+	play_music(music_name, pitch_shift, false, volume)

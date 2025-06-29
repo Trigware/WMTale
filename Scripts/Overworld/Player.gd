@@ -23,8 +23,16 @@ func disable():
 	cameraNode.enabled = false
 	Player.hide()
 
-func _process(_delta):
-	if not Player.visible or TextSystem.lockAction: return
+func _process(delta):
+	var motionMode = handle_motion_actions()
+	var stamina_delta = 16 + Player.time_spend_not_walking ** 2 * 4
+	if motionMode == 1: stamina_delta = 8
+	elif motionMode > 1:
+		stamina_delta = -18 if LeafMode.enabled() else 0
+	LeafMode.change_stamina(stamina_delta * delta)
+
+func handle_motion_actions():
+	if not Player.visible or TextSystem.lockAction: return 0
 	direction = Vector2.ZERO
 	
 	speedMultiplier = 1
@@ -46,20 +54,28 @@ func _process(_delta):
 		direction.y += 1
 	
 	if Input.is_action_pressed("move_fast"):
-		speedMultiplier = 1.5
+		var staminaPercentage = Player.stamina / Player.maxStamina
+		if not LeafMode.enabled(): staminaPercentage = 1
+		var fast_movement = 0.5
+		if LeafMode.enabled(): fast_movement = 1
+		speedMultiplier += fast_movement * staminaPercentage
 	
+	var previousPosition = position
 	direction *= speedMultiplier
 	direction.normalized()
 	velocity = direction * speed
 	move_and_slide()
 	position = position.round()
 	update_animations()
+	if direction == Vector2.ZERO or previousPosition == position: return 0
+	return speedMultiplier
 
 func update_animations():
 	update_walk_animation_frame()
 	if velocity == Vector2.ZERO:
 		animationNode.stop()
 		return
+	Player.time_spend_not_walking = 0.0
 	on_footstep()
 	animationNode.speed_scale = speedMultiplier
 	Player.play_animation(get_walk_animation_name())

@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c01w1divptedy"]
+[gd_scene load_steps=2 format=3 uid="uid://c01w1divptedy"]
 
 [ext_resource type="Script" uid="uid://bnh1wwd6x20ri" path="res://Scripts/Overworld/AudioAreaManager.gd" id="1_ku1lo"]
-[ext_resource type="AudioStream" uid="uid://b11o6u8lh7tj3" path="res://Audio/SFX/River.mp3" id="2_cot1t"]
 
 [node name="Audio Area" type="Area2D"]
 script = ExtResource("1_ku1lo")
-audioStream = ExtResource("2_cot1t")
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 autoplay = true

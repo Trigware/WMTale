@@ -1,31 +1,55 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfj7f8jn24p1"]
+[gd_scene load_steps=9 format=3 uid="uid://dfj7f8jn24p1"]
 
 [ext_resource type="Script" uid="uid://35ebop2fx7cc" path="res://Scripts/Overworld/Player Root.gd" id="1_gntrk"]
 [ext_resource type="Script" uid="uid://bfo312wgsexbh" path="res://Scripts/Overworld/Player.gd" id="1_kyqiw"]
 [ext_resource type="SpriteFrames" uid="uid://bqnq6bo7koaey" path="res://Spriteframes/Player.tres" id="2_gntrk"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="4_dewec"]
+[ext_resource type="Texture2D" uid="uid://cisan1lvsodoq" path="res://Textures/Other/Leaf.png" id="5_5ixxa"]
+
+[sub_resource type="Shader" id="Shader_5ixxa"]
+code = "shader_type canvas_item;
+
+uniform float duration = 8.0;
+uniform float time = 0.0;
+
+void fragment() {
+	float animation_time = fract((time + 2.0) / duration);
+	float quadratic_time = animation_time * animation_time;
+	float progress = 1.0 - quadratic_time;
+	float y_pos = SCREEN_UV.y;
+	if (y_pos > progress)
+	{
+		COLOR.a = 0.0;
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nn08x"]
+shader = SubResource("Shader_5ixxa")
+shader_parameter/duration = 2.0
+shader_parameter/time = 5.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7wd7"]
 size = Vector2(10.3333, 3)
 
-[node name="Player Root" type="Node2D"]
+[node name="Player Root" type="Node2D" groups=["Player"]]
 visible = false
 script = ExtResource("1_gntrk")
 
 [node name="Player Body" type="CharacterBody2D" parent="." groups=["Player"]]
 visibility_layer = 524288
-scale = Vector2(8.5, 8.5)
+scale = Vector2(2.975, 2.975)
 script = ExtResource("1_kyqiw")
 
 [node name="Player Animations" type="AnimatedSprite2D" parent="Player Body"]
-modulate = Color(0.8, 0.8, 0.8, 1)
+light_mask = 2
 z_index = 100
-scale = Vector2(0.350877, 0.350877)
+material = SubResource("ShaderMaterial_nn08x")
 sprite_frames = ExtResource("2_gntrk")
-animation = &"rabbitekLookDown"
+animation = &"xdaforgeWalkRight"
 
 [node name="Player Collider" type="CollisionShape2D" parent="Player Body"]
-position = Vector2(0.175, 6)
-scale = Vector2(0.350877, 0.350877)
+position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_s7wd7")
 
 [node name="Camera" type="Camera2D" parent="Player Body"]
@@ -33,3 +57,18 @@ position = Vector2(0.175439, 5.96491)
 scale = Vector2(0.350877, 0.350877)
 offset = Vector2(0, 35)
 enabled = false
+
+[node name="Light" type="PointLight2D" parent="Player Body"]
+color = Color(0.5, 1, 0.558333, 1)
+energy = 0.0
+range_item_cull_mask = 5
+texture = ExtResource("4_dewec")
+texture_scale = 0.5
+
+[node name="Leaf" type="Sprite2D" parent="Player Body"]
+modulate = Color(1, 1, 1, 0)
+light_mask = 3
+z_index = 100
+position = Vector2(1.0084, 2.68908)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_5ixxa")

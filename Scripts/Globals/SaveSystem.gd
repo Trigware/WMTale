@@ -5,37 +5,37 @@ var selectedCharacter = "xdaforge"
 var playerName = ""
 var currentLanguage = ""
 var PlayerInventory := {}
+var PlayTime := 0.0
 #endregion
 
 var allow_game_load = false
-var resetPlayerData = false
-var save_path = "user://savefile1.json"
+var loaded_save_file = 1
 
-func _ready():
-	if resetPlayerData: reset_data()
-	load_game()
+func _process(delta):
+	PlayTime += delta
 
-func reset_data():
-	write_to_savedata({})
+func load_save_file(file):
+	load_game(file)
 
-func load_game():
+func load_game(file):
 	allow_game_load = false
-	var loadedDictionary = load_dictionary()
+	var loadedDictionary = load_dictionary(get_save_file_path(file))
 	var positionDictionary: Dictionary[String, float] = {"X": 0.0, "Y": 0.0}
 	#region LoadData
 	selectedCharacter = loadedDictionary.get("selectedCharacter", selectedCharacter)
 	playerName = loadedDictionary.get("playerName", playerName)
-	currentLanguage = loadedDictionary.get("currentLanguage", currentLanguage)
 	PlayerInventory = loadedDictionary.get("playerInventory", PlayerInventory)
 	Overworld.currentRoom = loadedDictionary.get("currentRoom", Overworld.currentRoom)
 	NPCData.data = loadedDictionary.get("NPCData", NPCData.data)
 	positionDictionary["X"] = loadedDictionary.get("playerPosition", positionDictionary)["X"]
 	positionDictionary["Y"] = loadedDictionary.get("playerPosition", positionDictionary)["Y"]
 	CutsceneManager.FinishedCutscenes = loadedDictionary.get("FinishedCutscenes", CutsceneManager.FinishedCutscenes)
+	PlayTime = floor(loadedDictionary.get("PlayTime", PlayTime))
 	#endregion
 	Overworld.initialPosition = Vector2(positionDictionary["X"], positionDictionary["Y"])
+	loaded_save_file = file
 
-func load_dictionary() -> Dictionary:
+func load_dictionary(save_path) -> Dictionary:
 	if not FileAccess.file_exists(save_path):
 		return {}
 
@@ -58,18 +58,18 @@ func save_game():
 	var saveData = {
 		"selectedCharacter": selectedCharacter,
 		"playerName": playerName,
-		"currentLanguage": currentLanguage,
 		"playerInventory": PlayerInventory,
 		"currentRoom": Overworld.currentRoom,
 		"NPCData": NPCData.data,
 		"playerPosition": playerPosition,
-		"FinishedCutscenes": CutsceneManager.FinishedCutscenes
+		"FinishedCutscenes": CutsceneManager.FinishedCutscenes,
+		"PlayTime": floor(PlayTime)
 	}
 	#endregion
 	write_to_savedata(saveData)
 
 func write_to_savedata(writtenData):
-	var file := FileAccess.open(save_path, FileAccess.WRITE)
+	var file := FileAccess.open(get_save_file_path(loaded_save_file), FileAccess.WRITE)
 	if file:
 		var json := JSON.stringify(writtenData, '\t')
 		file.store_string(json)
@@ -83,3 +83,13 @@ func parse_json(contents):
 		return {}
 	var result = JSON.parse_string(contents)
 	return result
+
+func get_save_file_path(file_num):
+	return "user://savefile" + str(file_num) + ".json"
+
+func access_other_file_data(file_num, data):
+	return load_dictionary(file_num).get(data, "")
+
+func save_file_exists(file_num):
+	var file_path = get_save_file_path(file_num)
+	return FileAccess.file_exists(file_path)

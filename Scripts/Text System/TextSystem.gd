@@ -269,7 +269,7 @@ func _unhandled_input(_event: InputEvent):
 		emit_signal("want_next_text")
 	if Input.is_action_just_pressed("continue") and inChoicer:
 		on_choice_decided()
-	if Input.is_action_just_pressed("reveal_text") or Input.is_action_pressed("skip_text"):
+	if Input.is_action_just_pressed("move_fast") or Input.is_action_pressed("skip_text"):
 		skip_text()
 	if inChoicer:
 		handle_choicer_inputs()

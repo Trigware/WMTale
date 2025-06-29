@@ -1,8 +1,11 @@
+res://Shaders/Shader Materials
+res://Shaders
+res://Scripts/Globals
+res://Scenes
+res://Textures/Weird Forest
 res://Scripts/Overworld
 res://Spritesheets
 res://TileSets
-res://Scenes
-res://Scripts/Globals
 res://Rooms
 res://
 res://Spriteframes
