@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://j4ql01hhxi04"]
 
-[ext_resource type="Texture2D" uid="uid://bkp38qminby3n" path="res://Spritesheets/WeirdForest.png" id="1_2ksws"]
+[ext_resource type="Texture2D" uid="uid://bkp38qminby3n" path="res://Spritesheets/weirdforest.png" id="1_2ksws"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_04p34"]
 resource_name = "Weird Environment"

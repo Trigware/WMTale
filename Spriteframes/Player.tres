@@ -126,20 +126,20 @@ region = Rect2(34, 36, 17, 36)
 atlas = ExtResource("1_3kwf2")
 region = Rect2(51, 36, 17, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_umvct"]
-atlas = SubResource("CompressedTexture2D_te3kf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ulue"]
+atlas = ExtResource("1_3kwf2")
 region = Rect2(204, 36, 17, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p2q4w"]
-atlas = SubResource("CompressedTexture2D_te3kf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_iit65"]
+atlas = ExtResource("1_3kwf2")
 region = Rect2(221, 36, 17, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_56v6n"]
-atlas = SubResource("CompressedTexture2D_te3kf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fn8dn"]
+atlas = ExtResource("1_3kwf2")
 region = Rect2(238, 36, 17, 36)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l8mt4"]
-atlas = SubResource("CompressedTexture2D_te3kf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfbr6"]
+atlas = ExtResource("1_3kwf2")
 region = Rect2(255, 36, 17, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uq7uk"]
@@ -349,16 +349,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_umvct")
+"texture": SubResource("AtlasTexture_8ulue")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p2q4w")
+"texture": SubResource("AtlasTexture_iit65")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_56v6n")
+"texture": SubResource("AtlasTexture_fn8dn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l8mt4")
+"texture": SubResource("AtlasTexture_bfbr6")
 }],
 "loop": false,
 "name": &"rabbitekWalkUp",

@@ -2,6 +2,7 @@ extends Control
 
 @onready var eventsTimer = $PanelTimer
 @onready var skipNode = $"Skip Prompt"
+var can_end_cutscene = false
 
 var legendDialog := [
 	Localization.get_text("legend_panel1_whisper"),
@@ -36,7 +37,7 @@ var legendDialog := [
 	Localization.get_text("legend_panel6_treefall"),
 	Localization.get_text("legend_panel6_balance"),
 	Localization.get_text("legend_panel6_treegrow"),
-	Localization.get_text("legend_panel6_yapp"),
+	Localization.get_text("legend_panel6_revolution"),
 	"next panel",
 	
 	Localization.get_text("legend_panel7_mayor"),
@@ -45,7 +46,7 @@ var legendDialog := [
 	"next panel",
 	
 	Localization.get_text("legend_panel8_fired"),
-	"end legend"
+	"end_cutscene"
 ]
 
 var currentPrintedTextIndex = -1
@@ -65,8 +66,9 @@ func print_next_text():
 		skipNode.skipEnabled = false
 		skipNode.fade_label(0)
 	var currentText = legendDialog[currentPrintedTextIndex]
-	if currentText == "end legend":
-		skipNode.end_cutscene()
+	if currentText == "end_cutscene":
+		if can_end_cutscene: skipNode.end_cutscene()
+		can_end_cutscene = true
 		return
 	if currentText == "next panel":
 		$Panels.transparency_tween(0, 0.5, true)

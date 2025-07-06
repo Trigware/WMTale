@@ -1,12 +1,13 @@
 extends Node
 
 var game_text : Dictionary = {}
-
-func _ready():
-	load_language("czech")
+const localization_key_path = "res://WMTale - Localization.tsv"
+var language_column_index = 0
+var language_list := []
 
 func get_text(text_key, variables : Array = []) -> String:
-	if not text_exists(text_key): return "REPORT ERROR " + text_key + " (" + SaveData.currentLanguage + ")"
+	if not text_exists(text_key) and game_text == {}: load_language(SaveData.currentLanguage)
+	if not text_exists(text_key): return text_key + " (" + SaveData.currentLanguage + ")"
 	return insert_variables(game_text[text_key], variables)
 
 func text_exists(text_key) -> bool:
@@ -14,10 +15,48 @@ func text_exists(text_key) -> bool:
 
 func load_language(newLanguage):
 	SaveData.currentLanguage = newLanguage
-	var jsonFilePath = "res://Language Files/" + SaveData.currentLanguage + ".json"
-	var file = FileAccess.open(jsonFilePath, FileAccess.READ)
-	if not file: return
-	game_text = JSON.parse_string(file.get_as_text())
+	var file = FileAccess.open(localization_key_path, FileAccess.READ)
+	if not file:
+		game_text = {}
+		return
+	var file_contents = file.get_as_text()
+	parse_tsv_file(file_contents)
+
+func parse_tsv_file(file_contents):
+	game_text = {}
+	language_list.clear()
+	var lines = file_contents.replace("\r", "").split("\n")
+	for i in range(lines.size()):
+		var line = lines[i]
+		var columns = line.split("\t")
+		if i == 0:
+			if parse_first_csv_line(columns) != 0: return
+			continue
+		var column_count = columns.size()
+		if language_column_index >= column_count or column_count == 0:
+			if not "AI" in language_list: push_error("Localization file read error at row " + str(i) + "!")
+			continue
+		var text_key = columns[0]
+		var text_contents = unespace_string(columns[language_column_index])
+		game_text[text_key] = text_contents
+
+func unespace_string(text):
+	text = text.replace("\\n", "\n")
+	text = text.replace("\\t", "\t")
+	text = text.replace("\\\"", "\"")
+	text = text.replace("\\\\", "\\")
+	return text
+
+func parse_first_csv_line(columns):
+	for i in range(columns.size()):
+		var column = columns[i]
+		if i == 0: continue
+		language_list.append(column)
+	if SaveData.currentLanguage in language_list:
+		language_column_index = language_list.find(SaveData.currentLanguage) + 1
+		return 0
+	load_language("english")
+	return 1
 
 func insert_variables(originalText : String, variables : Array) -> String:
 	var modifiedText = ""
@@ -41,9 +80,12 @@ func insert_variables(originalText : String, variables : Array) -> String:
 				if bracketContent in insertedVarDict:
 					variableContent = insertedVarDict[bracketContent]
 				else:
-					if insertedVarDict.size() >= variables.size(): push_error("Need a variable '" + bracketContent + "' that can be passed into the text! (index: " + str(insertedVarDict.size()) + ")")
-					variableContent = variables[insertedVarDict.size()]
-					insertedVarDict[bracketContent] = variableContent
+					if insertedVarDict.size() >= variables.size():
+						if SaveData.currentLanguage != "AI": push_error("Need a variable '" + bracketContent + "' that can be passed into the text! (index: " + str(insertedVarDict.size()) + ")")
+						variableContent = "{" + bracketContent + "}"
+					else:
+						variableContent = variables[insertedVarDict.size()]
+						insertedVarDict[bracketContent] = variableContent
 				modifiedText += str(variableContent)
 			_:
 				if inBracket: bracketContent += ch

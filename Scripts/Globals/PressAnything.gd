@@ -24,12 +24,7 @@ func _process(_delta):
 		allowStartGame = false
 		startingGame = true
 		create_tween().tween_property(movingNodes, "position:y", -350, hide_scene_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-		var next_scene = "res://Scenes/File Select.tscn"
-		print(does_any_save_file_exist())
-		if not does_any_save_file_exist():
-			SaveData.load_save_file(1)
-			next_scene = "res://Scenes/Legend.tscn"
-		Overlay.change_scene(next_scene, hide_scene_duration)
+		Overlay.change_scene(SaveData.get_next_load_scene(), hide_scene_duration)
 
 func tween_transparency(final):
 	var tween = create_tween().tween_property(pressAnythingLabel, "modulate:a", final, transparency_duration)\
@@ -41,21 +36,3 @@ func tween_transparency(final):
 	else: await get_tree().create_timer(1).timeout
 	if startingGame: return
 	tween_transparency(nextFinal)
-
-func does_any_save_file_exist():
-	var dir_path = "user://"
-	var dir = DirAccess.open(dir_path)
-	if dir == null:
-		push_error("Directory cannot be opened!")
-		return
-	dir.list_dir_begin()
-	var filename = dir.get_next()
-	while filename != "":
-		if not dir.current_is_dir():
-			var basename = filename.get_basename()
-			if basename.substr(0, 8) == "savefile":
-				var filenum = basename.substr(8)
-				if filenum.is_valid_int() and int(filenum) >= 1 and int(filenum) <= 3: return true
-		filename = dir.get_next()
-	dir.list_dir_end()
-	return false

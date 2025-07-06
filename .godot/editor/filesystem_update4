@@ -1,19 +1,16 @@
-res://Scenes/River.tscn
+res://Scenes/Street Lamp.tscn
 res://Scripts/Text System/TextSystem.gd
 res://Spriteframes/Player.tres
+res://Shaders/GDSL/PlayerSink.gdshader
+res://Shaders/Shader Materials/PlayerSink.tres
 res://TileSets/WeirdGround.tres
 res://TileSets/WeirdRiver.tres
 res://TileSets/WeirdTree.tres
 res://TileSets/WeirdEnvironment.tres
 res://TileSets/WeirdBushes.tres
-res://Rooms/Weird/RiverBridge.tscn
-res://Scenes/Player.tscn
-res://Rooms/Weird/SpawnRoomEnterance.tscn
-res://Scenes/File Select.tscn
-res://Scenes/Legend.tscn
-res://Scenes/Overlay.tscn
-res://Scenes/Audio.tscn
+res://Spriteframes/Tree.tres
+res://Scenes/Dangerous Mushroom.tscn
+res://Rooms/Weird/LilypadRoom.tscn
+res://Rooms/Weird/SpawnRoom.tscn
 res://Scenes/Overworld.tscn
-res://Scripts/Globals/FileSelect.gd
-res://Scripts/Globals/PressAnything.gd
-res://Scripts/Globals/SaveSystem.gd
+res://Scenes/Player.tscn

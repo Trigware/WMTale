@@ -11,7 +11,11 @@ enum ID
 	Pedestal_SPAWN_ENTERANCE,
 	Leaves_SPAWN_ENTERANCE,
 	TeleportTree_SPAWN_TELEPORT,
-	BrokenSign_SPAWN_ENTERANCE
+	BrokenSign_SPAWN_ENTERANCE,
+	FallenTree_LILYPADROOM,
+	SmallBranch_LILYPADROOM,
+	LilypadFlower_LILYPADROOM,
+	StreetLamp_WEIRDFOREST
 }
 
 enum Field
@@ -56,3 +60,6 @@ func get_default_field_value(field: Field):
 		Field.Deleted: return false
 		Field.Suffix: return ""
 		Field.Deactivated: return false
+
+func get_enum_from_str(wanted_enum_name: String) -> ID:
+	return ID[wanted_enum_name]

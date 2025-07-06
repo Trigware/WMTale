@@ -1,12 +1,12 @@
-res://Shaders/Shader Materials
-res://Shaders
-res://Scripts/Globals
 res://Scenes
+res://Spritesheets
+res://Scripts/Globals
+res://Spriteframes
+res://Shaders/GDSL
+res://Shaders/Shader Materials
 res://Textures/Weird Forest
 res://Scripts/Overworld
-res://Spritesheets
 res://TileSets
 res://Rooms
 res://
-res://Spriteframes
 C:/Users/Honzík/Downloads/WMTale

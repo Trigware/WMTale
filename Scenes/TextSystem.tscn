@@ -18,6 +18,7 @@ script = ExtResource("1_tetb0")
 [node name="TypewritterTimer" type="Timer" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="Textbox" type="TextureRect" parent="CanvasLayer"]
 visible = false

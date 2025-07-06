@@ -67,7 +67,7 @@ var TextConfigurations = {
 	Preset.LegendBigPanel: {
 		"position": Vector2(255, 540),
 		"line_length": 650,
-		"speed": 0.06,
+		"speed": 0.08,
 		"allow_text_skip": false
 	},
 	Preset.ChooseCharacter: {
@@ -368,7 +368,8 @@ func end_npc_dialog(npcID: NPCData.ID, npc, deleteAfterTalk := false):
 		npc.queue_free()
 	await get_tree().process_frame
 	await get_tree().process_frame
-	TextSystem.canInteract = true
+	await get_tree().process_frame
+	canInteract = true
 	NPCData.set_data(NPCData.ID.InteractionPrompt_SPAWNROOM, NPCData.Field.Deactivated, true)
 
 func optional_get_item(

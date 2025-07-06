@@ -35,6 +35,7 @@ enum PlayableCharacter
 }
 
 func _ready():
+	nameInput.placeholder_text = Localization.get_text("choosecharacter_name_treeist")
 	textReminder.text = Localization.get_text("choosecharacter_notice_pressenter")
 	moveReminder.text = Localization.get_text("choosecharacter_notice_moveleaf")
 	
@@ -59,6 +60,8 @@ func summon_leaf():
 	tween.tween_property(leafTexture, "position:y", 250, 2.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 	TextSystem.print_localization("choosecharacter_prechoose_gift")
+	SaveData.seen_leaf = true
+	SaveData.save_global_file()
 	await TextSystem.text_finished
 	
 	check_if_not_responding()

@@ -3,7 +3,6 @@ extends Control
 @onready var SaveFiles = $"Save Files"
 @onready var HeaderLabel = $"Save Files/Header Label"
 @onready var leaf = $"Save Files/Leaf"
-@onready var music = $Music
 @onready var copyLabel = $"Save Files/Copy Label"
 @onready var eraseLabel = $"Save Files/Erase Label"
 @onready var languageLabel = $"Save Files/Language Label"
@@ -28,7 +27,7 @@ const leaf_y_offset = 50
 const leaf_move_speed = 0.185
 
 func _ready():
-	music.finished.connect(play_music_again)
+	Audio.play_music("A File (Weird Forest)")
 	interact_with_file_option(true)
 	var next_final = 1
 	load_player_data()
@@ -37,9 +36,6 @@ func _ready():
 		tween.tween_property(SaveFiles, "modulate:a", next_final, 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		await tween.finished
 		next_final = 0.5 if next_final == 1 else 1.0
-
-func play_music_again():
-	music.play()
 
 func load_player_data():
 	for i in range(1, 4):
@@ -156,7 +152,7 @@ func selected_file():
 		return
 	
 	if current_file_mode == FileModes.COPY and not is_space_for_file_copy():
-		HeaderLabel.text = Localization.get_text("save_file_UNABLETOCOPY")
+		HeaderLabel.text = Localization.get_text("save_file_UNABLETOCOPY_header")
 		return
 	
 	var save_file_exists = SaveData.save_file_exists(current_selected_file)
@@ -187,22 +183,28 @@ func interact_with_file_option(in_ready := false):
 		if current_file_mode != FileModes.PLAY:
 			file_option = FileModes.PLAY
 			interact_with_file_option()
+		else: transition_to_language_select()
 		return
 	if option_name == "COPY" and not is_space_for_file_copy():
-		HeaderLabel.text = Localization.get_text("save_file_UNABLETOCOPY")
+		HeaderLabel.text = Localization.get_text("save_file_UNABLETOCOPY_header")
 		return
 	current_selected_file = 1
 	current_file_mode = file_option
 	if not in_ready: move_unselected_file(leaf_move_speed)
-	HeaderLabel.text = Localization.get_text("save_file_" + option_name)
+	HeaderLabel.text = Localization.get_text("save_file_" + option_name + "_header")
 	if file_option != FileModes.PLAY:
 		copyLabel.text = ""
 		eraseLabel.text = ""
-		languageLabel.text = Localization.get_text("save_file_back")
+		languageLabel.text = Localization.get_text("save_file_back_label")
 		return
-	copyLabel.text = Localization.get_text("save_file_copy")
-	eraseLabel.text = Localization.get_text("save_file_erase")
+	copyLabel.text = Localization.get_text("save_file_copy_label")
+	eraseLabel.text = Localization.get_text("save_file_erase_label")
 	languageLabel.text = "LANGUAGE"
+
+func transition_to_language_select():
+	if Overlay.sceneChangingDisabled: return
+	disable_actions = true
+	Overlay.change_scene("res://Scenes/Choose Language.tscn", 1, 1)
 
 func get_file_mode_name(mode: FileModes):
 	return FileModes.find_key(mode)
@@ -220,6 +222,7 @@ func boolean_choice_move(duration):
 	disable_actions = false
 
 func confirm_on_selected_file():
+	if Overlay.sceneChangingDisabled: return
 	var file_node = get_file_node(current_selected_file)
 	match current_file_mode:
 		FileModes.ERASE:
@@ -237,16 +240,14 @@ func confirm_on_selected_file():
 			if booleanChoice == 0:
 				copy_file()
 				return
-		
 	if booleanChoice == 1:
 		cancel_file_selection()
 		return
 	disable_actions = true
 	Audio.play_sound("res://Audio/SFX/Bible Appears.mp3")
 	Overlay.change_scene("res://Scenes/Legend.tscn", 2, 1, 2)
-	SaveData.load_save_file(current_selected_file)
-	await create_tween().tween_property(music, "volume_db", -24, 1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT).finished
-	music.queue_free()
+	SaveData.load_game(current_selected_file)
+	Audio.fade_music(1)
 
 func cancel_file_selection():
 	Audio.play_sound("res://Audio/SFX/GetUp.mp3", 0.2)

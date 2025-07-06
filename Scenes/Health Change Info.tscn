@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bidy22336eykw"]
+
+[ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="1_cwyic"]
+[ext_resource type="Script" uid="uid://bfp081fjpdk8x" path="res://Scripts/Overworld/HealthChangeParticle.gd" id="2_ontn0"]
+
+[node name="Health Change Info" type="Label"]
+z_index = 1
+offset_left = -66.0
+offset_right = 66.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0.521569, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.64, 0.16, 0, 0.392157)
+theme_override_colors/font_outline_color = Color(0.219608, 0.0352941, 0.0352941, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_cwyic")
+theme_override_font_sizes/font_size = 48
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_ontn0")

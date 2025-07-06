@@ -6,6 +6,7 @@ extends Area2D
 @onready var audioNode = $Audio
 
 var collisionShapes : Array[CollisionShape2D] = []
+var closest_shape = null
 
 func _ready():
 	get_collision_shapes()

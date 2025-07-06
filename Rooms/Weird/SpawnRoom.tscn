@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="4_nusi1"]
 [ext_resource type="TileSet" uid="uid://c7onj6ie7n7k0" path="res://TileSets/WeirdTree.tres" id="5_brkrn"]
 [ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC.tscn" id="5_mk6pb"]
-[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/Tree.tscn" id="7_a8abv"]
 [ext_resource type="PackedScene" uid="uid://4jtg4hfhy0k0" path="res://Scenes/RoomTrigger.tscn" id="8_ard0u"]
+[ext_resource type="PackedScene" uid="uid://5oa134207dka" path="res://Scenes/Weird Tree.tscn" id="9_brkrn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_brkrn"]
 size = Vector2(158, 135)
@@ -52,7 +52,6 @@ tile_set = ExtResource("5_brkrn")
 [node name="Spawn Object" parent="." instance=ExtResource("5_mk6pb")]
 position = Vector2(1, 22)
 npcID = 5
-placeholderTextInteractionCount = 0
 removeStaticBody = true
 
 [node name="Trigger Zone" parent="Spawn Object" index="3"]
@@ -74,24 +73,6 @@ texture_scale = 5.0
 position = Vector2(12, -1.5)
 shape = SubResource("RectangleShape2D_brkrn")
 
-[node name="Purple Tree" parent="." instance=ExtResource("7_a8abv")]
-light_mask = 0
-position = Vector2(380, 0)
-scale = Vector2(2, 2)
-npcID = 2
-
-[node name="Block Tree" parent="." instance=ExtResource("7_a8abv")]
-modulate = Color(0.359955, 0.749512, 0.999999, 1)
-light_mask = 0
-position = Vector2(-70, -300)
-rotation = 3.14159
-scale = Vector2(2, -2)
-npcID = 3
-itemColor = Color(0, 0, 0, 1)
-
-[node name="Trigger Zone" parent="Block Tree" index="1"]
-position = Vector2(-21, 63)
-
 [node name="Enterance Trigger" parent="." instance=ExtResource("8_ard0u")]
 position = Vector2(140, 5)
 roomDestination = 1
@@ -107,7 +88,7 @@ position = Vector2(287.5, -31)
 scale = Vector2(1.2207, 2.80469)
 
 [node name="Interact Reminder" parent="." instance=ExtResource("5_mk6pb")]
-position = Vector2(320, 25)
+position = Vector2(384, 25)
 npcID = 4
 removeStaticBody = true
 autoTrigger = true
@@ -123,8 +104,19 @@ energy = 1.6
 blend_mode = 2
 texture = ExtResource("4_nusi1")
 
+[node name="Block Tree" parent="." instance=ExtResource("9_brkrn")]
+position = Vector2(-64, -310)
+scale = Vector2(-1, 1)
+npcID = 3
+
+[node name="Purple Tree" parent="." instance=ExtResource("9_brkrn")]
+modulate = Color(0, 0.866667, 1, 1)
+position = Vector2(464, 0)
+scale = Vector2(1, 1)
+npcID = 2
+disable_placeholder_interactions = true
+
 [editable path="Spawn Object"]
 [editable path="Mushroom"]
-[editable path="Block Tree"]
 [editable path="Enterance Trigger"]
 [editable path="Interact Reminder"]

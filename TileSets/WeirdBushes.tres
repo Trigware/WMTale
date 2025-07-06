@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cha16hdgd7d58"]
 
-[ext_resource type="Texture2D" uid="uid://clgdssk5g6y17" path="res://Spritesheets/WeirdBush.png" id="1_isy7x"]
+[ext_resource type="Texture2D" uid="uid://clgdssk5g6y17" path="res://Spritesheets/weirdbush.png" id="1_isy7x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_07ehf"]
 resource_name = "Weird Bush"

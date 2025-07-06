@@ -58,3 +58,8 @@ func play_music(music_name, pitch_shift = 0.0, playNoMusic := false, volume := 0
 	await player.finished
 	currentMusic = ""
 	play_music(music_name, pitch_shift, false, volume)
+
+func fade_music(duration):
+	var fade_tween = create_tween()
+	await fade_tween.tween_property(Overworld.music, "volume_db", -24, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT).finished
+	Overworld.music.stop()

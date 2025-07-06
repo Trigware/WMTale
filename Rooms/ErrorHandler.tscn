@@ -13,6 +13,7 @@ grow_vertical = 2
 script = ExtResource("1_pg2su")
 
 [node name="Error Title" type="RichTextLabel" parent="."]
+modulate = Color(1, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -31,7 +32,7 @@ bbcode_enabled = true
 horizontal_alignment = 1
 
 [node name="Error Description" type="RichTextLabel" parent="."]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(1, 0, 0, 0)
 layout_mode = 0
 offset_top = 577.0
 offset_right = 1152.0

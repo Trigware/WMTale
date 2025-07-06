@@ -28,11 +28,6 @@ func _ready():
 func transparency_tween(final, duration, transition):
 	var tween = create_tween()
 	tween.tween_property(panel, "modulate:a", final, duration)
-	if musicNode.cutsceneOver:
-		await tween.finished
-		await get_tree().process_frame
-		get_tree().change_scene_to_file("res://Scenes/ChooseCharacter.tscn")
-		return
 	if !transition:
 		return
 	await tween.finished

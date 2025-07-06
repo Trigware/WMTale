@@ -1,9 +1,9 @@
 [gd_scene load_steps=16 format=3 uid="uid://dqccob3n8f7rq"]
 
 [ext_resource type="Texture2D" uid="uid://pwvglvedvxrr" path="res://Spritesheets/Teleport Tree.png" id="1_81h1b"]
-[ext_resource type="Script" uid="uid://dyok8olxg2uk1" path="res://Scripts/TeleportTree.gd" id="1_wwjg1"]
+[ext_resource type="Script" uid="uid://dyok8olxg2uk1" path="res://Scripts/Overworld/TeleportTree.gd" id="1_wwjg1"]
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="2_3k1sg"]
-[ext_resource type="Script" uid="uid://v57kgnejodot" path="res://Scripts/Overworld/TreeManager.gd" id="2_x7f47"]
+[ext_resource type="Script" uid="uid://v57kgnejodot" path="res://Scripts/Overworld/LayeredNPC.gd" id="2_x7f47"]
 [ext_resource type="AudioStream" uid="uid://cwmbyeadxhulb" path="res://Audio/SFX/Blowing Wind.mp3" id="3_y7q8a"]
 [ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC.tscn" id="6_uwlab"]
 

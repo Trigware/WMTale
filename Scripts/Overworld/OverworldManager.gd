@@ -3,12 +3,17 @@ extends Node2D
 const scaleConst := 1.7
 
 var activeRoom = null
-var currentRoom := Room.Weird_SpawnRoom
+var currentRoom := Room.Weird_LilypadRoom
 var latestExitRoom := Room.ErrorHandlerer
 var initialPosition := Vector2.ZERO
 var saveFileCorrupted = false
+var time_since_room_loaded = 0.0
+
 @onready var music = $Music
 @onready var baseLight = $"Base Light"
+
+func _process(delta):
+	time_since_room_loaded += delta
 
 func enable():
 	scale = Vector2(scaleConst, scaleConst)
@@ -19,6 +24,7 @@ func enable():
 func load_room(room: Room, newPlayerPosition := Vector2.ZERO):
 	if activeRoom != null:
 		activeRoom.queue_free()
+		await activeRoom.tree_exited
 	currentRoom = room
 	var strRoom = get_room_enum(room)
 	var roomPath = "res://Rooms/" + strRoom + ".tscn"
@@ -42,10 +48,20 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition):
 		
 	latestExitRoom = room
 	Player.set_pos(newPlayerPosition)
-	await get_tree().process_frame
+	Player.reset_camera_pos()
+	await check_if_no_rooms_loaded()
 	add_child(activeRoom)
+	time_since_room_loaded = 0.0
 	var roomMusic = activeRoom.roomMusic
 	Audio.play_music(roomMusic, activeRoom.roomMusicPitchRange, activeRoom.playNoMusic)
+
+func check_if_no_rooms_loaded():
+	for child in get_children():
+		var script = child.get_script()
+		var is_room = script != null and script.resource_path.ends_with("BaseRoom.gd")
+		if is_room:
+			child.queue_free()
+			await child.tree_exited
 
 enum Room
 {
@@ -53,8 +69,7 @@ enum Room
 	Weird_SpawnRoom,
 	Weird_SpawnRoomEnterance,
 	Weird_TeleportRoom,
-	Weird_RiverBridge,
-	Weird_SquirrelMinigame
+	Weird_LilypadRoom,
 }
 
 func get_room_enum(room: Room) -> String:

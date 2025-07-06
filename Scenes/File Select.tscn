@@ -1,13 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://rv76lp5lfepw"]
+[gd_scene load_steps=6 format=3 uid="uid://rv76lp5lfepw"]
 
 [ext_resource type="Texture2D" uid="uid://dqed4nfgn4io6" path="res://Textures/Other/TextBox.png" id="1_ighwe"]
 [ext_resource type="Script" uid="uid://c5o3ktqqocccj" path="res://Scripts/Globals/FileSelect.gd" id="1_lkqx5"]
-[ext_resource type="Texture2D" uid="uid://242obx71nl6m" path="res://Textures/Weird Forest/SquirrelMinigameGround.png" id="2_ybivj"]
-[ext_resource type="Texture2D" uid="uid://dg1q7maa26e0y" path="res://Textures/Weird Forest/SquirrelMinigameEnvironment.png" id="3_pur8q"]
+[ext_resource type="Texture2D" uid="uid://2fe0rc6ils2" path="res://Textures/Weird Forest/File Select Weird Forest.png" id="2_mlo8y"]
 [ext_resource type="FontFile" uid="uid://dtieujefikmhs" path="res://Fonts/Undertale Font.ttf" id="3_tpoxi"]
-[ext_resource type="Texture2D" uid="uid://cgvp57rgmo4jp" path="res://Textures/Weird Forest/SquirrelMinigameTree.png" id="4_d7pdk"]
 [ext_resource type="Texture2D" uid="uid://cisan1lvsodoq" path="res://Textures/Other/Leaf.png" id="4_yu3hq"]
-[ext_resource type="AudioStream" uid="uid://crx5d5bvbgrj0" path="res://Audio/Music/A File (Weird Forest).mp3" id="8_d7pdk"]
 
 [node name="FileSelect" type="Control"]
 modulate = Color(0.7, 0.7, 0.7, 1)
@@ -19,23 +16,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lkqx5")
 
-[node name="Ground" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1154.0
-offset_bottom = 649.0
-texture = ExtResource("2_ybivj")
-
-[node name="Environment" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
-texture = ExtResource("3_pur8q")
-
-[node name="Tree" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-texture = ExtResource("4_d7pdk")
+texture = ExtResource("2_mlo8y")
 
 [node name="Save Files" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0.784314)
@@ -218,8 +203,3 @@ theme_override_fonts/font = ExtResource("3_tpoxi")
 theme_override_font_sizes/font_size = 96
 text = "ERASE"
 vertical_alignment = 2
-
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_d7pdk")
-volume_db = -5.0
-autoplay = true

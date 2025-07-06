@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="2_fo5tq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xs5w8"]
-size = Vector2(14, 16)
+size = Vector2(34, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7fgga"]
-size = Vector2(131, 65)
+size = Vector2(82, 65)
 
 [node name="NPC Root" type="Area2D"]
 script = ExtResource("1_tdvfm")

@@ -2,14 +2,21 @@ extends CharacterBody2D
 
 var direction := Vector2.ZERO
 var animationDir := Vector2.DOWN
-const speed = 200
+const speed = 250
 var stringAnimation = "Right"
+var is_left_last_horizontal_dir = false
 var speedMultiplier = 1
 var disableFootsteps = true
 
 @onready var animationNode = $"Player Animations"
 @onready var cameraNode = $"Camera"
 @onready var colliderNode = $"Player Collider"
+
+enum MovementMode {
+	STILL,
+	WALK,
+	RUN
+}
 
 func enable():
 	disableFootsteps = false
@@ -24,24 +31,27 @@ func disable():
 	Player.hide()
 
 func _process(delta):
-	var motionMode = handle_motion_actions()
-	var stamina_delta = 16 + Player.time_spend_not_walking ** 2 * 4
-	if motionMode == 1: stamina_delta = 8
-	elif motionMode > 1:
-		stamina_delta = -18 if LeafMode.enabled() else 0
+	if not Player.visible: return
+	var stamina_delta = 4 + (Player.maxStamina - Player.stamina) * Player.time_spend_not_walking / 2
+	match handle_motion_actions():
+		MovementMode.WALK: stamina_delta = 8
+		MovementMode.RUN: stamina_delta = -20 if LeafMode.enabled() else 0
 	LeafMode.change_stamina(stamina_delta * delta)
 
 func handle_motion_actions():
-	if not Player.visible or TextSystem.lockAction: return 0
+	if not Player.visible or TextSystem.lockAction: return MovementMode.STILL
 	direction = Vector2.ZERO
 	
+	var movementMode = MovementMode.WALK
 	speedMultiplier = 1
 	if Input.is_action_pressed("move_left"):
 		stringAnimation = "Left"
+		is_left_last_horizontal_dir = true
 		animationDir = Vector2.LEFT
 		direction.x -= 1
 	if Input.is_action_pressed("move_right"):
 		stringAnimation = "Right"
+		is_left_last_horizontal_dir = false
 		animationDir = Vector2.RIGHT
 		direction.x += 1
 	if Input.is_action_pressed("move_up"):
@@ -55,20 +65,24 @@ func handle_motion_actions():
 	
 	if Input.is_action_pressed("move_fast"):
 		var staminaPercentage = Player.stamina / Player.maxStamina
-		if not LeafMode.enabled(): staminaPercentage = 1
-		var fast_movement = 0.5
-		if LeafMode.enabled(): fast_movement = 1
+		var fast_movement = 0.7
+		if not LeafMode.enabled(): staminaPercentage = 0.6
 		speedMultiplier += fast_movement * staminaPercentage
+		movementMode = MovementMode.RUN
 	
 	var previousPosition = position
+	take_step(direction)
+	if direction == Vector2.ZERO or previousPosition == position: return MovementMode.STILL
+	return movementMode
+
+func take_step(dir):
+	direction = dir
 	direction *= speedMultiplier
 	direction.normalized()
 	velocity = direction * speed
 	move_and_slide()
 	position = position.round()
 	update_animations()
-	if direction == Vector2.ZERO or previousPosition == position: return 0
-	return speedMultiplier
 
 func update_animations():
 	update_walk_animation_frame()
@@ -88,7 +102,14 @@ func update_walk_animation_frame():
 
 func on_footstep():
 	if disableFootsteps: return
-	Audio.play_sound("res://Audio/SFX/Footsteps.mp3", 0.3, -5)
+	play_footstep()
 	disableFootsteps = true
 	await get_tree().create_timer(randf_range(0.23, 0.26) / speedMultiplier).timeout
 	disableFootsteps = false
+
+func play_footstep():
+	var base_footstep = "res://Audio/SFX/Footsteps"
+	var footstep_sound = base_footstep
+	if Player.in_water: footstep_sound = base_footstep + "Water"
+	if Player.in_leaves: footstep_sound = base_footstep + "Leaves"
+	Audio.play_sound(footstep_sound + ".mp3", 0.3, -5)
