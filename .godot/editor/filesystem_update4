@@ -14,3 +14,10 @@ res://Rooms/Weird/LilypadRoom.tscn
 res://Rooms/Weird/SpawnRoom.tscn
 res://Scenes/Overworld.tscn
 res://Scenes/Player.tscn
+res://Scripts/Overworld/Walkable Lilypad.gd
+res://Scenes/Status Effects.tscn
+res://Scenes/Status Effect.tscn
+res://Scenes/Status Effect Manager.tscn
+res://Scripts/Globals/StatusEffectManager.gd
+res://Scripts/Overworld/DangerousMushroom.gd
+res://Scripts/Overworld/EffectNode.gd

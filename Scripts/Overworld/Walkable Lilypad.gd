@@ -1,7 +1,7 @@
 extends Area2D
 
 const fade_speed = 5
-const respawn_duration = 4
+const respawn_duration = 3
 const shake = 1.5
 const shake_tween_duration = 0.1
 

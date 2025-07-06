@@ -27,3 +27,4 @@ func _on_body_entered(body: Node2D) -> void:
 func mushroom_damage_behaviour():
 	match mushroom_type:
 		MushroomType.RED: LeafMode.damage_using_id(LeafMode.DamageID.RedMushroom)
+		MushroomType.GREEN: Effects.activate(Effects.ID.Poison)

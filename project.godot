@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="WMTale"
-run/main_scene="uid://bgwga5lvrmnqq"
+run/main_scene="uid://bd036hgq6o8r0"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="uid://b5nn32wkdodwr"
@@ -30,6 +30,7 @@ Overworld="*res://Scenes/Overworld.tscn"
 NPCData="*res://Scenes/NPCData.tscn"
 CutsceneManager="*res://Scenes/CutsceneManager.tscn"
 LeafMode="*res://Scenes/Leaf Mode.tscn"
+Effects="*res://Scenes/Status Effect Manager.tscn"
 
 [display]
 
