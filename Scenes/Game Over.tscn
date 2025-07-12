@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct1j1mlh01gam"]
+
+[ext_resource type="Script" uid="uid://blrsaq88fhru3" path="res://Scripts/Globals/GameOver.gd" id="1_q22i0"]
+[ext_resource type="SpriteFrames" uid="uid://dtxtm5aypllnv" path="res://Spriteframes/LeafDisintegration.tres" id="2_3e4dc"]
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_q22i0")
+
+[node name="Leaf" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 2)
+sprite_frames = ExtResource("2_3e4dc")
+animation = &"new_animation"

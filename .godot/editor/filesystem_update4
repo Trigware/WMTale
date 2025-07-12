@@ -1,0 +1,36 @@
+res://Rooms/Weird/LilypadRoom.tscn
+res://Scripts/Text System/TextSystem.gd
+res://Spriteframes/Player.tres
+res://Shaders/GDSL/PlayerSink.gdshader
+res://Shaders/Shader Materials/PlayerSink.tres
+res://TileSets/WeirdGround.tres
+res://TileSets/WeirdRiver.tres
+res://TileSets/WeirdTree.tres
+res://TileSets/WeirdEnvironment.tres
+res://Spriteframes/Campfire.tres
+res://TileSets/WeirdBushes.tres
+res://Spriteframes/ExplosionEffect.tres
+res://Scripts/Globals/LeafModeManager.gd
+res://Scenes/Dangerous Mushroom.tscn
+res://Scenes/Overworld.tscn
+res://Scenes/CutsceneManager.tscn
+res://Scenes/Cutscene Trigger.tscn
+res://Scenes/Campfire.tscn
+res://Scenes/OverworldBridge.tscn
+res://Scenes/Player.tscn
+res://Scenes/QuittingNotice.tscn
+res://Scenes/Street Lamp.tscn
+res://Rooms/Weird/SpawnRoomEnterance.tscn
+res://Scenes/Leaf Mode.tscn
+res://Scenes/File Select.tscn
+res://Scenes/Explosion.tscn
+res://Scripts/Globals/OverlayManager.gd
+res://Scripts/Overworld/OverworldManager.gd
+res://Scripts/Overworld/Player.gd
+res://Scripts/Globals/Audio.gd
+res://Scripts/Overworld/AudioAreaManager.gd
+res://Scenes/ExplosionEffect.gd
+res://Scripts/Overworld/DangerousMushroom.gd
+res://Scenes/Game Over.tscn
+res://Scripts/Globals/GameOver.gd
+res://Spriteframes/LeafDisintegration.tres

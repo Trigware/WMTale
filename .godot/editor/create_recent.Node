@@ -1,0 +1,15 @@
+Camera2D
+AnimatedSprite2D
+CanvasLayer
+TextureRect
+Sprite2D
+Marker2D
+ColorRect
+TileMapLayer
+CollisionShape2D
+Node2D
+PointLight2D
+Popup
+Area2D
+CollisionPolygon2D
+CPUParticles2D
