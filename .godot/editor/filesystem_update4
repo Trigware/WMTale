@@ -1,4 +1,4 @@
-res://Scenes/Street Lamp.tscn
+res://Rooms/Weird/LilypadRoom.tscn
 res://Scripts/Text System/TextSystem.gd
 res://Spriteframes/Player.tres
 res://Shaders/GDSL/PlayerSink.gdshader
@@ -7,17 +7,26 @@ res://TileSets/WeirdGround.tres
 res://TileSets/WeirdRiver.tres
 res://TileSets/WeirdTree.tres
 res://TileSets/WeirdEnvironment.tres
+res://Spriteframes/Campfire.tres
 res://TileSets/WeirdBushes.tres
-res://Spriteframes/Tree.tres
+res://Spriteframes/ExplosionEffect.tres
+res://Spriteframes/LeafDisintegration.tres
+res://Label Settings/OutlinedText.tres
 res://Scenes/Dangerous Mushroom.tscn
-res://Rooms/Weird/LilypadRoom.tscn
-res://Rooms/Weird/SpawnRoom.tscn
 res://Scenes/Overworld.tscn
+res://Scenes/CutsceneManager.tscn
+res://Scenes/Cutscene Trigger.tscn
+res://Scenes/Campfire.tscn
+res://Scenes/OverworldBridge.tscn
+res://Scenes/QuittingNotice.tscn
+res://Scenes/Street Lamp.tscn
+res://Rooms/Weird/SpawnRoomEnterance.tscn
+res://Scenes/Leaf Mode.tscn
+res://Scenes/File Select.tscn
+res://Scenes/Explosion.tscn
+res://Scenes/Game Over.tscn
 res://Scenes/Player.tscn
-res://Scripts/Overworld/Walkable Lilypad.gd
-res://Scenes/Status Effects.tscn
-res://Scenes/Status Effect.tscn
-res://Scenes/Status Effect Manager.tscn
-res://Scripts/Globals/StatusEffectManager.gd
-res://Scripts/Overworld/DangerousMushroom.gd
-res://Scripts/Overworld/EffectNode.gd
+res://Scenes/Presets.tscn
+res://Scenes/TextSystem.tscn
+res://Scenes/Health Change Info.tscn
+res://Rooms/Weird/SaveIntroRoom.tscn

@@ -17,6 +17,7 @@ extends Control
 var fallbackPreset: Preset
 const standardScreenWidth = 1152
 const choicerInputDuration = 0.5
+const max_random_sequences = 20
 var currentCharacterIndex := 0
 var printedText = ""
 var fontSize = 0
@@ -43,10 +44,12 @@ var choiceNodeIndex := -1
 var lastChoiceText := ""
 var currentOverlappingSoundsValue := false
 var canInteract = true
+var init_color : Color
 
 signal text_finished
 signal want_next_text
 signal submitted_choice
+signal sequence_finished
 
 enum Preset
 {
@@ -54,50 +57,100 @@ enum Preset
 	LegendSmallPanel,
 	LegendBigPanel,
 	ChooseCharacter,
-	RegularDialog
+	RegularDialog,
+	OverworldTreeTalk,
+	GameOver,
+	FirstGameOver
+}
+
+enum Property
+{
+	Position,
+	LineLength,
+	Speed,
+	AllowTextSkip,
+	CenterAlign,
+	TalkAudio,
+	PitchRange,
+	OverlapAudio,
+	FontSize,
+	Textbox,
+	Outline,
+	InitialColor,
+	ClearOnNextText
 }
 
 var TextConfigurations = {
 	Preset.LegendSmallPanel: {
-		"position": Vector2(255, 350),
-		"line_length": 650,
-		"speed": 0.08,
-		"allow_text_skip": false
-	},
-	Preset.LegendBigPanel: {
-		"position": Vector2(255, 540),
-		"line_length": 650,
-		"speed": 0.08,
-		"allow_text_skip": false
+		Property.Position: Vector2(255, 350),
+		Property.LineLength: 650,
+		Property.Speed: 0.08,
+		Property.AllowTextSkip: false
 	},
 	Preset.ChooseCharacter: {
-		"position": Vector2(255, 590),
-		"center_align": true,
-		"talk_audio": load("res://Audio/Talk/WMT.mp3"),
-		"pitch_range": 0.2,
-		"speed": 0.05,
-		"overlap_audio": true
+		Property.Position: Vector2(255, 590),
+		Property.CenterAlign: true,
+		Property.TalkAudio: load("res://Audio/Talk/WMT.mp3"),
+		Property.PitchRange: 0.2,
+		Property.Speed: 0.05,
+		Property.OverlapAudio: true
 	},
 	Preset.RegularDialog: {
-		"talk_audio": load("res://Audio/Talk/Default.mp3"),
-		"pitch_range": 0.15,
-		"font_size": 44,
-		"textbox": true,
-		"position": Vector2(150, 405),
-		"line_length": 850
+		Property.TalkAudio: load("res://Audio/Talk/Default.mp3"),
+		Property.PitchRange: 0.15,
+		Property.FontSize: 44,
+		Property.Textbox: true,
+		Property.Position: Vector2(150, 405),
+		Property.LineLength: 885
 	}
 }
+
+func preset_variations():
+	add_variation(Preset.OverworldTreeTalk, Preset.ChooseCharacter, {
+		Property.Position: Vector2(255, 525)
+	})
+	add_variation(Preset.LegendBigPanel, Preset.LegendSmallPanel, {
+		Property.Position: Vector2(255, 540)
+	})
+	add_variation(Preset.GameOver, Preset.ChooseCharacter, {
+		Property.Position: Vector2(150, 350),
+		Property.Outline: true,
+		Property.InitialColor: Color.WEB_GRAY,
+		Property.FontSize: 54,
+		Property.LineLength: 850,
+		Property.ClearOnNextText: false
+	})
+	add_variation(Preset.FirstGameOver, Preset.GameOver, {
+		Property.LineLength: 0
+	})
 
 func _ready():
 	typewritterTimer.timeout.connect(print_next_char)
 	want_next_text.connect(on_wanting_new_text)
 	text_finished.connect(on_finished_text)
+	preset_variations()
+
+func add_variation(stored_as: Preset, from: Preset, deltas: Dictionary):
+	if stored_as in TextConfigurations:
+		push_error("Preset already in the configurations dictionary!")
+		return
+	if not from in TextConfigurations:
+		push_error("There is not a preset currently loaded to variate!")
+		return
+	var preset_dict = TextConfigurations[from].duplicate(true) # prevents it from storing a reference
+	for property in deltas.keys():
+		var value = deltas[property]
+		preset_dict[property] = value
+	TextConfigurations[stored_as] = preset_dict
 
 func on_finished_text():
 	if textboxNode.visible:
 		waitLeaf.show()
 
-func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, allowTextSkip, talkAudio, pitchRange, textbox, overlappingSounds):
+func color_to_hex(color: Color):
+	return color.to_html(false).to_upper()
+
+func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, allowTextSkip, talkAudio, pitchRange, textbox, overlappingSounds, outline, initial_color):
 	Player.node.animationNode.stop()
 	lockAction = true
 	if overwriteSkippable:
@@ -105,8 +158,12 @@ func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, al
 	delayed = false
 	textFinished = false
 	fontSize = textSize
+	textNode.modulate.a = 1
+	if outline: textNode = $"CanvasLayer/Outlined Text"
+	else: textNode = $CanvasLayer/Text
 	
-	currentColor = "#FFFFFF"
+	init_color = initial_color
+	currentColor = color_to_hex(initial_color)
 	textNode.scale = Vector2(fontSize, fontSize) / 48
 	textNode.position = textPosition
 	textNode.text = ""
@@ -137,16 +194,18 @@ func print_preset(text, preset: Preset = Preset.Fallback):
 	var config = TextConfigurations[preset]
 	print_text(
 		text,
-		config.get("speed", 1.0/30),
-		config.get("font_size", 48),
-		config.get("position", Vector2(0, 0)),
-		config.get("line_length", 0),
-		config.get("center_align", false),
-		config.get("allow_text_skip", true),
-		config.get("talk_audio", null),
-		config.get("pitch_range", 0),
-		config.get("textbox", false),
-		config.get("overlap_audio", false)
+		config.get(Property.Speed, 1.0/30),
+		config.get(Property.FontSize, 48),
+		config.get(Property.Position, Vector2(0, 0)),
+		config.get(Property.LineLength, 0),
+		config.get(Property.CenterAlign, false),
+		config.get(Property.AllowTextSkip, true),
+		config.get(Property.TalkAudio, null),
+		config.get(Property.PitchRange, 0),
+		config.get(Property.Textbox, false),
+		config.get(Property.OverlapAudio, false),
+		config.get(Property.Outline, false),
+		config.get(Property.InitialColor, "#FFFFFF")
 	)
 
 func print_next_char():
@@ -257,7 +316,7 @@ func skip_text():
 
 func add_color_to_text(text) -> String:
 	var resultText = ""
-	var addFuncCurrentColor = "#FFFFFF"
+	var addFuncCurrentColor = color_to_hex(init_color)
 	for i in range(text.length()):
 		var ch = text[i]
 		addFuncCurrentColor = characterColors.get(i, addFuncCurrentColor)
@@ -274,7 +333,7 @@ func _unhandled_input(_event: InputEvent):
 	if inChoicer:
 		handle_choicer_inputs()
 
-func print_localization(text_key, variables: Array = [], preset: Preset = Preset.Fallback):
+func print_localization(text_key, variables = [], preset: Preset = Preset.Fallback):
 	print_preset(Localization.get_text(text_key, variables), preset)
 
 func on_wanting_new_text():
@@ -313,7 +372,7 @@ func print_wait(text, preset: Preset = Preset.Fallback):
 	print_preset(text, preset)
 	await want_next_text
 
-func print_wait_localization(text, variables: Array = [], preset: Preset = Preset.Fallback):
+func print_wait_localization(text, variables = [], preset: Preset = Preset.Fallback):
 	print_localization(text, variables, preset)
 	await want_next_text
 
@@ -410,3 +469,36 @@ func after_obtainted_item(item):
 
 func give_basic_choice():
 	await give_choice_wait(Localization.get_text("choicer_agree"), Localization.get_text("choicer_decline"))
+
+func print_sequence(base_key, variables := {}, preset := Preset.Fallback, suffix := ""):
+	var text_index = 1
+	var used_key = add_suffix_to_key(base_key, suffix)
+	while true:
+		var current_text_key = used_key + str(text_index)
+		text_index += 1
+		var next_text_key = used_key + str(text_index)
+		var next_text_invalid = not Localization.text_exists(next_text_key)
+		print_localization(current_text_key, variables, preset)
+		await text_finished
+		if next_text_invalid: emit_signal("sequence_finished")
+		await want_next_text
+		if next_text_invalid: break
+
+func add_suffix_to_key(base_key, suffix := ""):
+	var used_key = base_key + "_"
+	if suffix != "": used_key += suffix + "_"
+	return used_key
+
+func print_random_sequence(base_key, suffix := "", variables := {}, preset := Preset.Fallback):
+	var used_key = add_suffix_to_key(base_key, suffix)
+	var attempt_count = 0
+	var sequence_key = ""
+	while true:
+		if attempt_count >= 10000: return false
+		var random_num = randi_range(1, max_random_sequences)
+		sequence_key = used_key + str(random_num)
+		var validation_key = sequence_key + "_1"
+		if Localization.text_exists(validation_key): break
+		attempt_count += 1
+	await print_sequence(sequence_key, variables, preset)
+	return true

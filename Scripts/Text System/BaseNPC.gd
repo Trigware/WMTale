@@ -32,14 +32,21 @@ func _ready():
 	textID = NPCData.get_id_name(npcID)
 	var isNPCDeleted = NPCData.get_data(npcID, NPCData.Field.Deleted)
 	if isNPCDeleted: queue_free()
-	if removeStaticBody and has_node("Static Body"):
-		$"Static Body".queue_free()
-	placeholderInteraction = textID + "_outofinteract"
-	placeholderExists = Localization.text_exists(placeholderInteraction)
+	
+	remove_static_body()
 	first_text = get_current_text(1, true)
 	first_text_exists = Localization.text_exists(first_text)
+	placeholderInteraction = textID + "_outofinteract"
+	placeholderExists = Localization.text_exists(placeholderInteraction)
 	if not placeholderExists and not first_text_exists:
 		push_error("No text key with NPC ID exists (" + textID + ")!")
+
+func remove_static_body():
+	if not removeStaticBody: return
+	var possible_static_bodies = ["Static Body", "Layered Manager/Static Body"]
+	for static_body_name in possible_static_bodies:
+		if has_node(static_body_name):
+			get_node(static_body_name).queue_free()
 
 func _process(_delta):
 	if (not Input.is_action_just_pressed("continue") and not autoTrigger) or not TextSystem.canInteract: return
@@ -55,8 +62,11 @@ func interact_with_npc():
 	interactionCount = NPCData.get_incremented_data(npcID, NPCData.Field.InteractionCount)
 	TextSystem.canInteract = false
 	
-	if not placeholderExists and not disable_placeholder_interactions: placeholderInteraction = "npc_outofinteract"
+	if not placeholderExists and not disable_placeholder_interactions:
+		placeholderInteraction = "npc_outofinteract"
 	
+	first_text = get_current_text(interactionCount, true)
+	first_text_exists = Localization.text_exists(first_text)
 	if not first_text_exists:
 		await TextSystem.print_wait_localization(placeholderInteraction)
 	else: await print_regular_npc_text()

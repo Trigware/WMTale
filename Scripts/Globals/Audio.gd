@@ -5,7 +5,8 @@ signal finished
 var waiting_for_stream = false
 var currentMusic := ""
 
-func play_sound(sound_path, pitch_shift = 0.0, volume = 0.0):
+func play_sound(sound_path, pitch_shift = 0.0, volume = 0.0, ignore_game_over = false):
+	if LeafMode.game_over and not ignore_game_over: return
 	var stream = load(sound_path)
 	play_stream(stream, pitch_shift, volume)
 	await finished
@@ -40,6 +41,7 @@ func play_awaited_stream(stream, pitch_shift = 0.0, volume = 0.0):
 	waiting_for_stream = false
 
 func play_music(music_name, pitch_shift = 0.0, playNoMusic := false, volume := 0.0):
+	if LeafMode.game_over: return
 	if music_name == currentMusic or (music_name == "" and not playNoMusic): return
 	var player = Overworld.music
 	player.stop()
@@ -62,4 +64,7 @@ func play_music(music_name, pitch_shift = 0.0, playNoMusic := false, volume := 0
 func fade_music(duration):
 	var fade_tween = create_tween()
 	await fade_tween.tween_property(Overworld.music, "volume_db", -24, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT).finished
+	Overworld.music.stop()
+
+func stop_overworld_music():
 	Overworld.music.stop()

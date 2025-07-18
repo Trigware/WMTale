@@ -15,7 +15,10 @@ enum ID
 	FallenTree_LILYPADROOM,
 	SmallBranch_LILYPADROOM,
 	LilypadFlower_LILYPADROOM,
-	StreetLamp_WEIRDFOREST
+	StreetLamp_WEIRDFOREST,
+	BlueCampfire_SPAWN_TELEPORT,
+	BigBranch_LILYPADROOM,
+	CemetaryGate_GATEROOM
 }
 
 enum Field

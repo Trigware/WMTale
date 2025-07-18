@@ -11,6 +11,7 @@ extends Node2D
 @onready var staminaLabel = $"CanvasLayer/Stamina/Stamina Label"
 @onready var staminaLeaf = $"CanvasLayer/Stamina/Stamina Leaf"
 @onready var stamina_root = $"CanvasLayer/Stamina"
+@onready var gui_root = $CanvasLayer
 @onready var timer = $"Not Hit Timer"
 
 const screen_shake_offset = 12
@@ -22,6 +23,15 @@ var cannot_start_hp_tween = false
 var invincibility = false
 var health_bar_tween
 var damage_bar_tween
+var light_multiplier : float = 1
+var last_health_change = 0
+var game_over = false
+
+signal game_over_triggered
+
+func _process(_delta):
+	var light_scale = clamp(float(Player.stamina)/Player.maxStamina + 0.5 * light_multiplier, 0.25, 1.5)
+	Player.light.texture_scale = light_scale
 
 func enabled():
 	return stamina_root.position.x > -300
@@ -34,10 +44,13 @@ func tween_ui(final):
 	create_tween().tween_property(stamina_root, "position:x", final, ui_tween_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func _ready():
-	playerHead.texture = load("res://Textures/UI Heads/" + SaveData.selectedCharacter + "Head.png")
 	timer.timeout.connect(hide_health_ui)
 	restore_all_health()
 	restore_all_stamina()
+
+func update_head_texture():
+	var head_path = "res://Textures/UI Heads/" + SaveData.selectedCharacter + "Head.png"
+	playerHead.texture = load(head_path)
 
 func update_health(updateTo):
 	var used_update_to = max(0, updateTo)
@@ -75,10 +88,21 @@ func update_stamina(update_to):
 	staminaLabel.text = staminaText
 	var leafAlpha = Player.stamina / Player.maxStamina
 	staminaLeaf.modulate.a = leafAlpha
-	Player.light.texture_scale = clamp(Player.stamina/Player.maxStamina + 0.5, 0.5, 1.5)
 
 func trigger_game_over():
-	pass
+	SaveData.death_counter += 1
+	SaveData.save_autosave_file()
+	Overlay.set_alpha(0.4)
+	game_over = true
+	Player.leafTween.kill()
+	Audio.stop_overworld_music()
+	Overlay.kill_tween()
+	emit_signal("game_over_triggered")
+	if not enabled():
+		Player.light.energy = 1
+	await get_tree().create_timer(0.75).timeout
+	await Overlay.hide_scene(0.25)
+	get_tree().change_scene_to_file("res://Scenes/Game Over.tscn")
 
 func restore_all_stamina():
 	update_stamina(Player.maxStamina)
@@ -86,39 +110,53 @@ func restore_all_stamina():
 func change_stamina(by):
 	update_stamina(Player.stamina + by)
 
-func damage_player(by):
-	if invincibility or not enabled(): return
+func modify_hp_with_label(by, sound = ""):
+	var positive_change = by > 0
+	by = roundi(by)
+	if not positive_change and invincibility: return
 	
 	var original_health = Player.playerHealth
 	damage_bar.max_value = Player.playerMaxHealth
 	damage_bar.value = original_health
 	
-	change_health(-by)
+	change_health(by)
 	var health_delta = Player.playerHealth - original_health
+	last_health_change = health_delta
 	if health_delta == 0: return
-	screen_shake_multiple(3)
+	if not positive_change:
+		screen_shake_multiple(3)
+	
 	health_ui_tween(5, ui_tween_duration/2)
 	damage_tween_func(by)
 	
-	spawn_health_change_info_particle(health_delta)
+	if sound == "":
+		sound = "res://Audio/SFX/GetUp.mp3"
+		if positive_change:
+			sound = "res://Audio/SFX/PlayerHeal.mp3"
+	Audio.play_sound(sound, 0.2, 10, true)
+	
+	var player_color = Color.RED
+	if positive_change: player_color = Color.GREEN
+	spawn_health_change_info_particle(health_delta, player_color)
 	timer.start()
 	invincibility = true
-	var previous_player_modulate = Player.node.modulate
+	var previous_player_modulate = Player.animNode.modulate
 	
-	await create_tween().tween_property(Player.node, "modulate", Color.RED, invincibility_duration/2).finished
-	await create_tween().tween_property(Player.node, "modulate", previous_player_modulate, invincibility_duration/2).finished
+	await create_tween().tween_property(Player.animNode, "modulate", player_color, invincibility_duration/2).finished
+	await create_tween().tween_property(Player.animNode, "modulate", previous_player_modulate, invincibility_duration/2).finished
 	invincibility = false
 
 func screen_shake_multiple(count):
 	for i in range(count):
 		await screen_shake(float(count-i)/count)
 
-func damage_using_id(id: DamageID):
+func modify_hp_with_id(id: HPChangeID):
 	var health_change = 0
 	match id:
-		DamageID.SinkUnderwater: health_change = 25
-		DamageID.RedMushroom: health_change = 15
-	damage_player(health_change)
+		HPChangeID.SinkUnderwater: health_change = -25
+		HPChangeID.RedMushroom: health_change = -12
+		HPChangeID.PinkMushroom: health_change = 15
+	modify_hp_with_label(health_change)
 
 func screen_shake(power = 1):
 	var original_camera_offset = Player.camera.offset
@@ -152,19 +190,20 @@ func damage_tween_func(damage_taken):
 	var tween_duration = max(damage_taken / Player.playerMaxHealth, 1.0) * 0.75
 	tween.tween_property(damage_bar, "value", Player.playerHealth, tween_duration).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 
-func spawn_health_change_info_particle(health_change):
+func spawn_health_change_info_particle(health_change, player_color):
 	var scene : PackedScene = load("res://Scenes/Health Change Info.tscn")
 	var instance = scene.instantiate()
+	instance.modulate = player_color
 	
 	Player.hp_particle_point.add_child(instance)
 	instance.set_hp_delta(health_change)
 	
 func post_river_fail(marker):
+	if game_over: return
 	Overlay.hide_scene(1)
 	await Overlay.finished
 	
 	Player.node.global_position = marker.global_position
-	
 	var walkable_lilypads_node = Overworld.activeRoom.get_node("Walkable Lilypads")
 	walkable_lilypads_node.queue_free()
 	var scene_name = "res://Scenes/" + Overworld.activeRoom.name + " Lilypads.tscn"
@@ -174,7 +213,7 @@ func post_river_fail(marker):
 	Overworld.activeRoom.add_child(scene)
 	
 	Player.go_outside_water(true)
-	Player.reset_camera_pos()
+	Player.reset_camera_smoothing()
 	Overlay.show_scene(1)
 	TextSystem.lockAction = false
 	LeafMode.restore_all_stamina()
@@ -185,7 +224,8 @@ func post_river_fail(marker):
 	await get_tree().create_timer(0.05).timeout
 	Player.is_sinking = false
 
-enum DamageID {
+enum HPChangeID {
 	SinkUnderwater,
-	RedMushroom
+	RedMushroom,
+	PinkMushroom
 }

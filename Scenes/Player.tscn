@@ -20,19 +20,19 @@ script = ExtResource("1_kyqiw")
 
 [node name="Player Animations" type="AnimatedSprite2D" parent="Player Body"]
 light_mask = 2
-z_index = 100
+z_index = 50
 material = ExtResource("3_nn08x")
 sprite_frames = ExtResource("2_gntrk")
-animation = &"gertofinWalkDown"
+animation = &"rabbitekWalkDown"
 
 [node name="Player Collider" type="CollisionShape2D" parent="Player Body"]
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_s7wd7")
 
 [node name="Camera" type="Camera2D" parent="Player Body"]
-position = Vector2(2.86451, 5.96491)
 scale = Vector2(0.350877, 0.350877)
 offset = Vector2(0, 35)
+ignore_rotation = false
 enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
@@ -55,8 +55,10 @@ scale = Vector2(0.336134, 0.336134)
 [node name="Leaf" type="Sprite2D" parent="Player Body"]
 modulate = Color(1, 1, 1, 0)
 light_mask = 3
-z_index = 100
+z_index = 70
 use_parent_material = true
-position = Vector2(1, 2.7)
+position = Vector2(1, 2)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_5ixxa")
+
+[node name="Body Point" type="Marker2D" parent="Player Body"]

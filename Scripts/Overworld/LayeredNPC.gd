@@ -5,7 +5,9 @@ extends Node2D
 
 func _ready():
 	if treeSprite is AnimatedSprite2D:
-		treeSprite.play("Tree")
+		var anim_name = "Tree"
+		if anim_name in treeSprite.sprite_frames.get_animation_names():
+			treeSprite.play("Tree")
 
 func _process(_delta):
 	var bodies = triggerArea.get_overlapping_bodies()

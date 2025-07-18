@@ -12,6 +12,10 @@ func _ready():
 	get_collision_shapes()
 	audioNode.stream = audioStream
 	audioNode.play()
+	LeafMode.game_over_triggered.connect(stop_audio)
+
+func stop_audio():
+	audioNode.stop()
 
 func _process(_delta):
 	var distance = get_audio_area_distance()

@@ -9,6 +9,9 @@ signal finished
 func _ready():
 	fadeOverlay.color.a = 0
 
+func set_alpha(a):
+	fadeOverlay.color.a = a
+
 func hide_overlay():
 	fadeOverlay.color.a = 1
 
@@ -16,19 +19,24 @@ func show_overlay():
 	fadeOverlay.color.a = 0
 
 func show_scene(duration = 1.0):
-	overlay_tween(0, duration)
+	overlay_tween(Color(fadeOverlay.color, 0), duration)
+	await finished
 
 func hide_scene(duration = 1.0):
-	overlay_tween(1, duration)
+	overlay_tween(Color(fadeOverlay.color, 1), duration)
+	await finished
 
-func overlay_tween(final: int, duration = 1):
-	if activeTween != null and is_instance_valid(activeTween):
-		activeTween.kill()
+func overlay_tween(color: Color, duration = 1):
+	kill_tween()
 	activeTween = create_tween()
-	activeTween.tween_property($CanvasLayer/Overlay, "color:a", final, duration)
+	activeTween.tween_property($CanvasLayer/Overlay, "color", color, duration)
 	await activeTween.finished
 	emit_signal("finished")
-	
+
+func kill_tween():
+	if activeTween != null and is_instance_valid(activeTween):
+		activeTween.kill()
+
 func change_scene(scene, hideDuration = 1, showDuration = 1, betweenSceneWait: float = 0):
 	if sceneChangingDisabled: return
 	sceneChangingDisabled = true

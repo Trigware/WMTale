@@ -30,7 +30,7 @@ func sink_underwater():
 
 func player_river_damage():
 	await get_tree().create_timer(1).timeout
-	LeafMode.damage_using_id(LeafMode.DamageID.SinkUnderwater)
+	LeafMode.modify_hp_with_id(LeafMode.HPChangeID.SinkUnderwater)
 
 func sink_tween(final, duration):
 	var sink_tween_v = create_tween()
@@ -45,6 +45,7 @@ func sink_tween(final, duration):
 
 func on_entering_shallow_water():
 	if Player.in_water or Player.on_lilypad: return
+	Effects.effect_end(Effects.ID.Burning)
 	Player.in_water = true
 	Player.set_uniform("sink_progression", shallow_water_sink)
 	Player.leafNode.position.y += shallow_water_sink * image_pixel_height

@@ -39,7 +39,8 @@ func _process(delta):
 	LeafMode.change_stamina(stamina_delta * delta)
 
 func handle_motion_actions():
-	if not Player.visible or TextSystem.lockAction: return MovementMode.STILL
+	if not Player.visible or TextSystem.lockAction or CutsceneManager.action_lock or LeafMode.game_over:
+		return MovementMode.STILL
 	direction = Vector2.ZERO
 	
 	var movementMode = MovementMode.WALK

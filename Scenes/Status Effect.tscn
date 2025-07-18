@@ -7,7 +7,14 @@
 [node name="Status Effect" type="CanvasLayer"]
 script = ExtResource("1_njfch")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Effect Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="TextureRect" parent="Effect Root"]
+layout_mode = 0
 offset_left = 1007.0
 offset_top = 25.0
 offset_right = 1047.0
@@ -15,7 +22,8 @@ offset_bottom = 65.0
 scale = Vector2(3, 3)
 texture = ExtResource("1_gdskq")
 
-[node name="Effect Icon" type="TextureRect" parent="."]
+[node name="Effect Icon" type="TextureRect" parent="Effect Root"]
+layout_mode = 0
 offset_left = 1007.0
 offset_top = 25.0
 offset_right = 1055.0
@@ -23,7 +31,8 @@ offset_bottom = 73.0
 scale = Vector2(2.5, 2.5)
 stretch_mode = 4
 
-[node name="Effect Time Left" type="Label" parent="."]
+[node name="Effect Time Left" type="Label" parent="Effect Root"]
+layout_mode = 0
 offset_left = 744.0
 offset_top = 89.0
 offset_right = 1071.0
@@ -34,7 +43,5 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("3_njfch")
 theme_override_font_sizes/font_size = 48
-text = "1"
+text = "??"
 horizontal_alignment = 2
-
-[node name="Effect Timer" type="Timer" parent="."]

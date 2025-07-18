@@ -3,7 +3,7 @@ extends Node2D
 const scaleConst := 1.7
 
 var activeRoom = null
-var currentRoom := Room.Weird_LilypadRoom
+var currentRoom := Room.Weird_SpawnRoom
 var latestExitRoom := Room.ErrorHandlerer
 var initialPosition := Vector2.ZERO
 var saveFileCorrupted = false
@@ -12,16 +12,26 @@ var time_since_room_loaded = 0.0
 @onready var music = $Music
 @onready var baseLight = $"Base Light"
 
+var base_light_color = Color("d9d9d9")
+
 func _process(delta):
 	time_since_room_loaded += delta
 
 func enable():
 	scale = Vector2(scaleConst, scaleConst)
 	Player.enable()
-	load_room(currentRoom)
+	load_room(currentRoom, initialPosition * scaleConst)
 	baseLight.show()
+	baseLight.color = base_light_color
+
+func disable():
+	Player.disable()
+	baseLight.hide()
+	if activeRoom != null:
+		activeRoom.queue_free()
 
 func load_room(room: Room, newPlayerPosition := Vector2.ZERO):
+	SaveData.save_autosave_file()
 	if activeRoom != null:
 		activeRoom.queue_free()
 		await activeRoom.tree_exited
@@ -48,7 +58,7 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition):
 		
 	latestExitRoom = room
 	Player.set_pos(newPlayerPosition)
-	Player.reset_camera_pos()
+	Player.reset_camera_smoothing()
 	await check_if_no_rooms_loaded()
 	add_child(activeRoom)
 	time_since_room_loaded = 0.0
@@ -70,6 +80,8 @@ enum Room
 	Weird_SpawnRoomEnterance,
 	Weird_TeleportRoom,
 	Weird_LilypadRoom,
+	Weird_CemetaryGate,
+	Weird_SaveIntroRoom
 }
 
 func get_room_enum(room: Room) -> String:

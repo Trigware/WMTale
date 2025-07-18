@@ -6,12 +6,12 @@
 
 [node name="Walkable Lilypad9" parent="." instance=ExtResource("1_mue1y")]
 z_index = 5
-position = Vector2(1090, 51)
+position = Vector2(1133, 61)
 rotation = 1.5708
 scale = Vector2(6, 6)
 
 [node name="Walkable Lilypad6" parent="." instance=ExtResource("1_mue1y")]
-position = Vector2(906, 115)
+position = Vector2(945, 105)
 rotation = 0.383972
 scale = Vector2(6.5, 6.5)
 

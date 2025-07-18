@@ -27,7 +27,7 @@ const leaf_y_offset = 50
 const leaf_move_speed = 0.185
 
 func _ready():
-	Audio.play_music("A File (Weird Forest)")
+	Audio.play_music("A Weird File")
 	interact_with_file_option(true)
 	var next_final = 1
 	load_player_data()
@@ -43,6 +43,8 @@ func load_player_data():
 			var node_path = "Save Files/File " + str(i) + "/" + data
 			var label_node = get_node(node_path)
 			var accessed_data = SaveData.access_other_file_data(i, data)
+			if data == "PlayTime":
+				accessed_data = SaveData.access_other_autosave_data(i, data)
 			match data:
 				"PlayTime": accessed_data = convert_to_time_format(accessed_data)
 				"currentRoom": accessed_data = Localization.get_text("room_name_" + Overworld.get_room_enum(int(accessed_data)))
@@ -259,10 +261,10 @@ func cancel_file_selection():
 	load_player_data()
 
 func delete_file():
-	var file_path = SaveData.get_save_file_path(current_selected_file)
-	if not FileAccess.file_exists(file_path): return
-	var dir = DirAccess.open("user://")
-	dir.remove(file_path.get_file())
+	var regular_savefile = SaveData.get_save_file_path(current_selected_file)
+	var auto_savefile = SaveData.get_autosave_file_path(current_selected_file)
+	delete_file_on_disk(regular_savefile)
+	delete_file_on_disk(auto_savefile)
 	cancel_file_selection()
 	Audio.play_sound("res://Audio/SFX/Summon Characters.mp3", 0.2)
 
@@ -275,10 +277,24 @@ func is_space_for_file_copy():
 			return true
 	return false
 
+func delete_file_on_disk(file_path):
+	if not FileAccess.file_exists(file_path): return
+	var dir = DirAccess.open("user://")
+	dir.remove(file_path.get_file())
+
 func copy_file():
-	var copy_origin_path = SaveData.get_save_file_path(current_selected_file)
-	var paste_destination_path = SaveData.get_save_file_path(file_paste_destination)
+	var regular_save_copy = SaveData.get_save_file_path(current_selected_file)
+	var regular_save_paste = SaveData.get_save_file_path(file_paste_destination)
+	copy_file_on_disk(regular_save_copy, regular_save_paste)
 	
+	var autosave_copy = SaveData.get_autosave_file_path(current_selected_file)
+	var autosave_paste = SaveData.get_autosave_file_path(file_paste_destination)
+	copy_file_on_disk(autosave_copy, autosave_paste)
+	
+	cancel_file_selection()
+	Audio.play_sound("res://Audio/SFX/OverworldLeafMode.mp3", 0.2)
+
+func copy_file_on_disk(copy_origin_path, paste_destination_path):
 	var origin_file = FileAccess.open(copy_origin_path, FileAccess.READ)
 	if origin_file == null: return
 	var file_contents = origin_file.get_as_text()
@@ -288,6 +304,3 @@ func copy_file():
 	if destination_file == null: return
 	destination_file.store_string(file_contents)
 	destination_file.close()
-	
-	cancel_file_selection()
-	Audio.play_sound("res://Audio/SFX/OverworldLeafMode.mp3", 0.2)

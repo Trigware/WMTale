@@ -119,6 +119,23 @@ theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 scroll_active = false
 
+[node name="Outlined Text" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 150.0
+offset_top = 410.0
+offset_right = 1302.0
+offset_bottom = 1058.0
+theme_override_colors/default_color = Color(0.43, 0.43, 0.43, 1)
+theme_override_colors/font_outline_color = Color(0.219608, 0.219608, 0.219608, 1)
+theme_override_colors/font_shadow_color = Color(0.639216, 0.639216, 0.639216, 0.392157)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/normal_font = ExtResource("2_7t2e0")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+scroll_active = false
+
 [node name="Wait Leaf" type="TextureRect" parent="CanvasLayer"]
 visible = false
 offset_left = 949.5

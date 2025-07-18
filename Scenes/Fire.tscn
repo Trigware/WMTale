@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://c14x3rqt38ua5"]
+
+[ext_resource type="SpriteFrames" uid="uid://dryr1hp5b66n3" path="res://Spriteframes/Campfire.tres" id="1_t8fvv"]
+[ext_resource type="Script" uid="uid://cacm2ltni8uid" path="res://Scripts/Overworld/Fire.gd" id="2_5fx2i"]
+[ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="2_j8afo"]
+[ext_resource type="PackedScene" uid="uid://c01w1divptedy" path="res://Scenes/Audio Area.tscn" id="4_4xcc5"]
+[ext_resource type="AudioStream" uid="uid://bpp7qnbmhttta" path="res://Audio/SFX/Campfire.mp3" id="5_3fykk"]
+[ext_resource type="Script" uid="uid://v57kgnejodot" path="res://Scripts/Overworld/LayeredNPC.gd" id="6_3fykk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fe00p"]
+size = Vector2(62.6667, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7i616"]
+size = Vector2(95, 114.083)
+
+[node name="Fire" type="AnimatedSprite2D"]
+light_mask = 8
+sprite_frames = ExtResource("1_t8fvv")
+script = ExtResource("2_5fx2i")
+
+[node name="Light" type="PointLight2D" parent="."]
+position = Vector2(2.66667, 5.33333)
+color = Color(0, 0.450667, 0.52, 1)
+range_item_cull_mask = 9
+texture = ExtResource("2_j8afo")
+texture_scale = 1.25
+
+[node name="Fire Area" parent="." instance=ExtResource("4_4xcc5")]
+position = Vector2(0, 0.666667)
+audioStream = ExtResource("5_3fykk")
+
+[node name="Collision Shape" type="CollisionShape2D" parent="Fire Area"]
+position = Vector2(0.666667, -6)
+shape = SubResource("RectangleShape2D_fe00p")
+
+[node name="Layered Manager" type="Node2D" parent="." node_paths=PackedStringArray("treeSprite")]
+script = ExtResource("6_3fykk")
+treeSprite = NodePath("..")
+
+[node name="Trigger Area" type="Area2D" parent="Layered Manager"]
+
+[node name="Collider" type="CollisionShape2D" parent="Layered Manager/Trigger Area"]
+position = Vector2(-0.333332, -45.0417)
+shape = SubResource("RectangleShape2D_7i616")
+debug_color = Color(0.7, 0.233333, 0, 0.419608)
+
+[connection signal="body_entered" from="Fire Area" to="." method="_on_fire_entered"]

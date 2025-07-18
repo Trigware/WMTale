@@ -5,10 +5,16 @@ const localization_key_path = "res://WMTale - Localization.tsv"
 var language_column_index = 0
 var language_list := []
 
-func get_text(text_key, variables : Array = []) -> String:
+func get_text(text_key, variables = []) -> String:
 	if not text_exists(text_key) and game_text == {}: load_language(SaveData.currentLanguage)
 	if not text_exists(text_key): return text_key + " (" + SaveData.currentLanguage + ")"
-	return insert_variables(game_text[text_key], variables)
+	var localized_text = insert_variables(game_text[text_key], variables)
+	if localized_text == "":
+		localized_text = "w/o " + SaveData.currentLanguage + " " + text_key
+	return localized_text
+
+func get_key_suffixed(base_key, suffix) -> String:
+	return base_key + "_" + str(suffix)
 
 func text_exists(text_key) -> bool:
 	return text_key in game_text
@@ -58,11 +64,13 @@ func parse_first_csv_line(columns):
 	load_language("english")
 	return 1
 
-func insert_variables(originalText : String, variables : Array) -> String:
+func insert_variables(originalText : String, variables) -> String:
 	var modifiedText = ""
 	var inBracket = false
 	var bracketContent = ""
 	var insertedVarDict: Dictionary = {}
+	if variables is Dictionary:
+		insertedVarDict = variables
 	for i in originalText.length():
 		var ch = originalText[i]
 		match ch:

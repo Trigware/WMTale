@@ -8,9 +8,8 @@ func _ready():
 	modulate.a = 0
 
 func set_hp_delta(delta):
-	var sound = "res://Audio/SFX/GetUp.mp3"
-	Audio.play_sound(sound, 0.2)
 	var printed_text = str(delta)
+	if delta > 0: printed_text = "+" + printed_text
 	text = printed_text
 	
 	var used_particle_x_offset = particle_x_offset

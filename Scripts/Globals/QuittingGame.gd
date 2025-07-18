@@ -9,8 +9,8 @@ const transparencyChangePerProcessCall = 0.035
 func _process(delta: float):
 	if Input.is_action_pressed("quit_game"):
 		quitStopwatch += delta
-		var roundedTime = round(quitStopwatch)
-		if quitStopwatch >= 3.4:
+		var roundedTime = min(round(quitStopwatch * 4), 3)
+		if quitStopwatch >= 1:
 			on_game_close()
 		
 		quitText.modulate.a = min(1, quitText.modulate.a + transparencyChangePerProcessCall)
@@ -24,6 +24,7 @@ func _process(delta: float):
 		quitText.modulate.a = max(0, quitText.modulate.a - transparencyChangePerProcessCall)
 	
 func on_game_close():
+	SaveData.save_autosave_file()
 	if OS.get_name() == "Web":
 		await get_tree().process_frame
 		blackScreen.modulate.a = 1

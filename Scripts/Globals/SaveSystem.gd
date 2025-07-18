@@ -9,11 +9,13 @@ var PlayTime := 0.0
 var language_chosen = false
 var watched_intro_cutscene = false
 var seen_leaf = false
+var death_counter := 0
 #endregion
 
 var allow_game_load = false
 var loaded_save_file = 1
 const global_path = "user://global.json"
+const autosave_path = "user://autosave"
 
 func _ready():
 	load_global_file()
@@ -38,6 +40,23 @@ func save_global_file():
 	}
 	write_to_savedata(global_path, saveData)
 
+func load_autosave_file():
+	var file_path = get_autosave_file_path(loaded_save_file)
+	var loadedDictionary = load_dictionary(file_path)
+	death_counter = loadedDictionary.get("death_counter", 0)
+	PlayTime = floor(loadedDictionary.get("PlayTime", 0))
+
+func save_autosave_file():
+	var file_path = get_autosave_file_path(loaded_save_file)
+	var saveData = {
+		"death_counter": death_counter,
+		"PlayTime": floor(PlayTime)
+	}
+	write_to_savedata(file_path, saveData)
+
+func get_autosave_file_path(file):
+	return autosave_path + str(file) + ".json"
+
 func load_game(file):
 	allow_game_load = false
 	var loadedDictionary = load_dictionary(get_save_file_path(file))
@@ -51,10 +70,11 @@ func load_game(file):
 	positionDictionary["X"] = loadedDictionary.get("playerPosition", positionDictionary)["X"]
 	positionDictionary["Y"] = loadedDictionary.get("playerPosition", positionDictionary)["Y"]
 	CutsceneManager.FinishedCutscenes = loadedDictionary.get("FinishedCutscenes", CutsceneManager.FinishedCutscenes)
-	PlayTime = floor(loadedDictionary.get("PlayTime", PlayTime))
 	#endregion
 	Overworld.initialPosition = Vector2(positionDictionary["X"], positionDictionary["Y"])
+	LeafMode.update_head_texture()
 	loaded_save_file = file
+	load_autosave_file()
 
 func load_dictionary(save_path) -> Dictionary:
 	if not FileAccess.file_exists(save_path):
@@ -83,11 +103,11 @@ func save_game():
 		"currentRoom": Overworld.currentRoom,
 		"NPCData": NPCData.data,
 		"playerPosition": playerPosition,
-		"FinishedCutscenes": CutsceneManager.FinishedCutscenes,
-		"PlayTime": floor(PlayTime)
+		"FinishedCutscenes": CutsceneManager.FinishedCutscenes
 	}
 	#endregion
 	write_to_savedata(get_save_file_path(loaded_save_file), saveData)
+	save_autosave_file()
 
 func write_to_savedata(path, writtenData):
 	var file := FileAccess.open(path, FileAccess.WRITE)
@@ -110,6 +130,9 @@ func get_save_file_path(file_num):
 
 func access_other_file_data(file_num, data):
 	return load_dictionary(get_save_file_path(file_num)).get(data, "")
+	
+func access_other_autosave_data(file_num, data):
+	return load_dictionary(get_autosave_file_path(file_num)).get(data, "")
 
 func save_file_exists(file_num):
 	var file_path = get_save_file_path(file_num)
