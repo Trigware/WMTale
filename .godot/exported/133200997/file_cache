@@ -1,0 +1,32 @@
+res://Scenes/Audio.tscn::3656e821d3b6fbd257670b2d5186296e::1749410058::res://.godot/exported/133200997/export-5821239ff6a26061f24d03be4d57aca1-Audio.scn
+res://Scenes/ChooseCharacter.tscn::0fb4ff4d73dc9cb505eecd495ac54ae7::1750685456::res://.godot/exported/133200997/export-fe124a0bf6989eb771ed5041d738ba92-ChooseCharacter.scn
+res://Scenes/Legend.tscn::82b5056a1e4f46e9a2548986c1fec134::1749410058::res://.godot/exported/133200997/export-325196204413291370cc746b0b28adbc-Legend.scn
+res://Scenes/Logo.tscn::c768f13aa3f878335e49adadb5a05cf2::1750273899::res://.godot/exported/133200997/export-bce0e0c075ed03667133990e88fdf103-Logo.scn
+res://Scenes/Overlay.tscn::6033952a34d590510ec55f609f127627::1749622097::res://.godot/exported/133200997/export-291685b2ed1bd5a89327f1db3696d82a-Overlay.scn
+res://Scenes/TextSystem.tscn::259f8719d76516bd060aef44a1cd56a0::1750609975::res://.godot/exported/133200997/export-0e6b4d74788a8252572314f33f434005-TextSystem.scn
+res://Scenes/Overworld.tscn::d99b37819e90667f9d91c1e7f192a837::1750828525::res://.godot/exported/133200997/export-61301a49d8280e605508318ebd53bf30-Overworld.scn
+res://Scenes/SaveSystem.tscn::6f7031c0c28f7de2c81b47da8ca9cc1a::1749732877::res://.godot/exported/133200997/export-7f52040d6ee85e3c950835ac9aa2d31a-SaveSystem.scn
+res://Scenes/Localization.tscn::8ed5ea4530d648edcb9779137a873271::1749410059::res://.godot/exported/133200997/export-dfba0163e3f8fe556b627b3c72df8d38-Localization.scn
+res://Scenes/Inventory.tscn::6f1a5ac474c7d5f726c128319cf30079::1749732877::res://.godot/exported/133200997/export-8526ff927035c62c927ee221d5c09efa-Inventory.scn
+res://Scenes/NPC.tscn::e36a22edcfa9d867ac28f46a492faaec::1750609974::res://.godot/exported/133200997/export-099fa6921a2525e1b7513516bc41a2ce-NPC.scn
+res://Scenes/Player.tscn::697c6cd916bd40d38f13112cd749c4ca::1750273845::res://.godot/exported/133200997/export-a7209d3b864edc0146622aad500fa2c1-Player.scn
+res://Scenes/QuittingNotice.tscn::e8ff78ce5bab09c11c60b268f1193d79::1749732877::res://.godot/exported/133200997/export-5d977e9ce74f54699a24bb438393b8c3-QuittingNotice.scn
+res://Scenes/Tree.tscn::59c8335cacb9482d3a1cd27ea61be753::1750609974::res://.godot/exported/133200997/export-ada3d1e9a33ca1370729320fd5fb9dd9-Tree.scn
+res://Spriteframes/Player.tres::5e0bb44c0cf79b4c16357b814a4e8f66::1750828524::res://.godot/exported/133200997/export-fb3093b09b8fa40c9a004b762ce6e060-Player.res
+res://Rooms/Weird/SpawnRoom.tscn::410c7a055f7abeec5976f0a597a6d6d4::1750828525::res://.godot/exported/133200997/export-139761d4093524d9535d11c5ff0d7ece-SpawnRoom.scn
+res://Rooms/ErrorHandler.tscn::d65ce85f56793923af5e4952ea4c917f::1750609975::res://.godot/exported/133200997/export-13320196be58c35d9374aa730b282f95-ErrorHandler.scn
+res://Scenes/NPCData.tscn::5d00b816bf42b1b92e9b31e9162e3007::1750609975::res://.godot/exported/133200997/export-7725b84100eebf797862822264cc53c9-NPCData.scn
+res://Scenes/OverworldBridge.tscn::fca879b1c2c8057026dfc9a90a9cf42f::1749732877::res://.godot/exported/133200997/export-92dc5b3dcccd44f62a672df028f1e1b3-OverworldBridge.scn
+res://Scenes/RoomTrigger.tscn::8635ad4857252e952a84b3cf6b7cfb3d::1750828541::res://.godot/exported/133200997/export-bf6c0b722fcdb24a80b8eccdabe4b5d0-RoomTrigger.scn
+res://Scenes/CutsceneManager.tscn::2f974c276d91327d18ff7253fe07df80::1750273845::res://.godot/exported/133200997/export-e1c3ef73c1b151074ba2e33e85b4f20c-CutsceneManager.scn
+res://TileSets/WeirdBushes.tres::3e278bc48160beee79c3a5c37d62cf59::1750828525::res://.godot/exported/133200997/export-3aeb66472691f2da77bc909127f8af3c-WeirdBushes.res
+res://TileSets/WeirdEnvironment.tres::c7bec8ff0a9817cf7ed359f737ad07fa::1750828525::res://.godot/exported/133200997/export-f76f040c2b919c887fa33833019a4cd2-WeirdEnvironment.res
+res://TileSets/WeirdGround.tres::483f9f1a4ce6eef2dd8f7cde59174565::1750828525::res://.godot/exported/133200997/export-903b3d1aeff8337f79eaea0703e32d69-WeirdGround.res
+res://Rooms/Weird/RiverBridge.tscn::c94f0ee80abc885ac7b7af55e4bae6ee::1750828524::res://.godot/exported/133200997/export-a29f2ae54bd61dc819476811f4f0b518-RiverBridge.scn
+res://Rooms/Weird/SpawnRoomEnterance.tscn::a4d6e9af0f2b5abb111f54c818cfca32::1750828525::res://.godot/exported/133200997/export-0205ad4ffdec495ba7f14927b4f6d405-SpawnRoomEnterance.scn
+res://Rooms/Weird/TeleportRoom.tscn::f4cb03370edb88b4842c109561434bd0::1750828525::res://.godot/exported/133200997/export-45a9d1558cd1407dc8e96a919b9febab-TeleportRoom.scn
+res://Scenes/Audio Area.tscn::acdfe3b770e2f8524d82326d152bf0dd::1750828525::res://.godot/exported/133200997/export-1dc1ba0931a58f58dc6f5b6c92cac48c-Audio Area.scn
+res://Scenes/Room.tscn::b20c491d9c1e654efcbce6e2f868ac06::1750275089::res://.godot/exported/133200997/export-7c31d2772cdc11eef0f80fa43a26c696-Room.scn
+res://Scenes/Teleport Tree.tscn::315819bed108a33a63146dbb950cbe49::1750767086::res://.godot/exported/133200997/export-bf1c5a0e0d23e0e3c11737457c0b87ec-Teleport Tree.scn
+res://TileSets/WeirdRiver.tres::55937f94ea1489795d2d2987111ebb54::1750828525::res://.godot/exported/133200997/export-6f51c9c81294f28ea2ffc41ebed50359-WeirdRiver.res
+res://TileSets/WeirdTree.tres::964f2afb315516a8ae9c7287ad49dd76::1750828525::res://.godot/exported/133200997/export-4ac31f0cea96cd62d6350e2e9bfcc16e-WeirdTree.res

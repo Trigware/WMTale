@@ -1,0 +1,14 @@
+CollisionShape2D
+AnimatedSprite2D
+CharacterBody2D
+XRBodyModifier3D
+Sprite2D
+Line2D
+Marker2D
+Node2D
+AnimationPlayer
+TileMapLayer
+Area2D
+Control
+Label
+TextureRect

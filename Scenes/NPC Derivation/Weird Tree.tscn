@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://5oa134207dka"]
+
+[ext_resource type="Script" uid="uid://gio061ico1sg" path="res://Scripts/Text System/BaseNPC.gd" id="1_j24oa"]
+[ext_resource type="Script" uid="uid://v57kgnejodot" path="res://Scripts/Overworld/LayeredNPC.gd" id="2_4dwgd"]
+[ext_resource type="SpriteFrames" uid="uid://bp0v5kr2ilye2" path="res://Spriteframes/Tree.tres" id="3_4dwgd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72j6q"]
+size = Vector2(84.3243, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fxwtr"]
+size = Vector2(128, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4dwgd"]
+size = Vector2(176, 60.568)
+
+[node name="Tree Root" type="Area2D"]
+scale = Vector2(1.85, 1.85)
+script = ExtResource("1_j24oa")
+ignoreDirections = true
+
+[node name="Tree Manager" type="Node2D" parent="." node_paths=PackedStringArray("treeSprite")]
+scale = Vector2(2, 2)
+script = ExtResource("2_4dwgd")
+treeSprite = NodePath("Tree Sprite")
+
+[node name="Static Body" type="StaticBody2D" parent="Tree Manager"]
+
+[node name="Collider" type="CollisionShape2D" parent="Tree Manager/Static Body"]
+light_mask = 3
+position = Vector2(-20.5405, 56)
+shape = SubResource("RectangleShape2D_72j6q")
+
+[node name="Trigger Area" type="Area2D" parent="Tree Manager"]
+
+[node name="Collider" type="CollisionShape2D" parent="Tree Manager/Trigger Area"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_fxwtr")
+debug_color = Color(0.7, 0.233333, 0, 0.419608)
+
+[node name="Tree Sprite" type="AnimatedSprite2D" parent="Tree Manager"]
+sprite_frames = ExtResource("3_4dwgd")
+animation = &"Tree"
+
+[node name="Trigger Zone" type="CollisionShape2D" parent="."]
+position = Vector2(-40, 127.568)
+shape = SubResource("RectangleShape2D_4dwgd")
+debug_color = Color(0.431667, 0.7, 0, 0.419608)

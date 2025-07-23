@@ -1,0 +1,39 @@
+res://Rooms/Weird/SaveIntroRoom.tscn
+res://Scripts/Text System/TextSystem.gd
+res://Shaders/GDSL/PlayerSink.gdshader
+res://Shaders/Shader Materials/PlayerSink.tres
+res://Spriteframes/Player.tres
+res://Spriteframes/BibleOverworld.tres
+res://Spriteframes/LeafDisintegration.tres
+res://Label Settings/OutlinedText.tres
+res://Spriteframes/ExplosionEffect.tres
+res://TileSets/WeirdGround.tres
+res://TileSets/WeirdRiver.tres
+res://TileSets/WeirdEnvironment.tres
+res://TileSets/WeirdTree.tres
+res://Spriteframes/Campfire.tres
+res://Scenes/Game Mechanics/Mushrooms/Fire.tscn
+res://Scenes/NPC Derivation/Candle.tscn
+res://Scenes/Game Mechanics/Leaf Mode.tscn
+res://Scenes/Core/TextSystem.tscn
+res://Scenes/NPC Derivation/Campfire.tscn
+res://Scenes/Areas/Audio Area.tscn
+res://Scenes/NPC Derivation/Beehive.tscn
+res://Scenes/NPC Derivation/NPC.tscn
+res://Rooms/Weird/CemetaryGate.tscn
+res://Rooms/Weird/MushroomTester.tscn
+res://Rooms/Weird/LilypadRoom.tscn
+res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn
+res://Rooms/Weird/CutsceneMovementTester.tscn
+res://Scenes/Triggers/Cutscene Trigger.tscn
+res://Scenes/Overworld/Inputless Movement.tscn
+res://Scenes/Overworld/Movement Agent.tscn
+res://Scenes/Overworld/Player.tscn
+res://Scripts/Overworld/MovementAgent.gd
+res://Scripts/Overworld/InputlessMovement.gd
+res://Scripts/Globals/UIDConstants.gd
+res://Scripts/Overworld/Player Root.gd
+res://Scripts/Globals/CutsceneManager.gd
+res://Scripts/Overworld/Player.gd
+res://Scripts/Overworld/InputlessMovementPath.gd
+res://Scripts/Overworld/CutsceneTrigger.gd
