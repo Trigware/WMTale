@@ -6,6 +6,7 @@ var stringAnimation = "Right"
 var is_left_last_horizontal_dir = false
 var speedMultiplier = 1
 var disableFootsteps = true
+var latest_speed : float
 
 @onready var animationNode = $"Sprite"
 @onready var sprite = animationNode # animationNode alias for Inputless Movement
@@ -40,7 +41,7 @@ func _process(delta):
 
 func handle_motion_actions():
 	basic_direction = Vector2.ZERO
-	if not Player.visible or TextSystem.lockAction or CutsceneManager.action_lock or LeafMode.game_over or SaveMenu.menu_openned:
+	if not Player.visible or TextSystem.lockAction or CutsceneManager.action_lock or LeafMode.game_over or SaveMenu.menu_openned or Player.inputless_movement:
 		return MovementMode.STILL
 	direction = Vector2.ZERO
 	
@@ -63,31 +64,29 @@ func handle_motion_actions():
 	
 	basic_direction = direction
 	if Input.is_action_pressed("move_fast"):
-		var staminaPercentage = Player.stamina / Player.maxStamina
-		var fast_movement = 0.7
-		if not LeafMode.enabled(): staminaPercentage = 0.6
-		speedMultiplier += fast_movement * staminaPercentage
+		speedMultiplier = Player.get_fast_movement_speed()
 		movementMode = MovementMode.RUN
 	
 	var previousPosition = position
-	take_step(direction)
+	latest_speed = speedMultiplier * Player.player_speed
+	take_step(direction, latest_speed)
 	if direction == Vector2.ZERO or previousPosition == position: return MovementMode.STILL
 	return movementMode
 
-func take_step(dir):
+func take_step(dir, speed):
 	direction = dir
-	direction *= speedMultiplier
-	direction.normalized()
-	velocity = direction * Player.player_speed
+	velocity = direction * speed
 	move_and_slide()
 	position = position.round()
 	update_animations()
+	return get_slide_collision_count() > 0
 
 func update_animations():
 	update_walk_animation_frame()
 	if velocity == Vector2.ZERO:
 		animationNode.stop()
 		return
+	add_to_footstep_targets()
 	Player.time_spend_not_walking = 0.0
 	on_footstep()
 	animationNode.speed_scale = speedMultiplier
@@ -111,3 +110,7 @@ func play_footstep():
 	if Player.in_water: footstep_type = UID.Footstep.Water
 	if Player.in_leaves: footstep_type = UID.Footstep.Leaves
 	Audio.play_sound(UID.SFX_FOOTSTEPS[footstep_type], 0.3, -5)
+
+func add_to_footstep_targets():
+	Player.footstep_targets.append(global_position)
+	MovingNPC.check_for_follower_movement()

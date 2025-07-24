@@ -1,8 +1,9 @@
 res://Colliders
+res://Scenes/Core
+res://Scripts/Globals
 res://Scripts/Overworld
 res://Scenes/Overworld
 res://Scenes
-res://Scripts/Globals
 res://Spritesheets
 res://Textures/Other
 res://Textures/ChooseCharacter

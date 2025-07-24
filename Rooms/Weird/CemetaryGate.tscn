@@ -134,6 +134,18 @@ debug_color = Color(0.7, 0.0116667, 0, 0.419608)
 [node name="Cemetary Gate" parent="." instance=ExtResource("10_bfhdi")]
 position = Vector2(464, -880)
 npcID = 16
+item = null
+itemCount = null
+itemColor = null
+removeStaticBody = null
+autoTrigger = null
+deleteAfterTalk = null
+ignoreDirections = null
+disable_placeholder_interactions = null
+deactivated_at_start = null
+save_menu = null
+override_id_from_parent = null
+interactionCountForeverOne = null
 
 [node name="Layered Manager" parent="Cemetary Gate" index="0" node_paths=PackedStringArray("treeSprite")]
 treeSprite = NodePath("../Sprite")

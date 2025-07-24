@@ -1,6 +1,8 @@
 CollisionShape2D
 AnimatedSprite2D
+Node
 CharacterBody2D
+CanvasLayer
 XRBodyModifier3D
 Sprite2D
 Line2D
@@ -10,5 +12,3 @@ AnimationPlayer
 TileMapLayer
 Area2D
 Control
-Label
-TextureRect

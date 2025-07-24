@@ -23,7 +23,6 @@ const SFX_EXPLOSION := preload("uid://biy5kk5vnsyw1")
 const SFX_MUSHROOM_PETRIFY := preload("uid://c3ot5d7e3um0h")
 const SFX_ANTIDOTE_MUSHROOM := preload("uid://do1t2ow1doy85")
 const SFX_CAMPFIRE := preload("uid://bpp7qnbmhttta")
-const SFX_CANDLE := preload("uid://ccjiaqu54vxio")
 
 enum Footstep {
 	Ground,
@@ -47,10 +46,11 @@ const SCN_LEGEND := preload("uid://byncuir8hto51")
 const SCN_FILE_SELECT := preload("uid://rv76lp5lfepw")
 const SCN_CHOOSE_CHARACTER := preload("uid://3f2iijurxqrx")
 const SCN_EMPTY := preload("uid://ddfqlsytkci3n")
-const SCN_ERROR_HANDLELER := preload("uid://ddfqlsytkci3n")
+const SCN_ERROR_HANDLELER := preload("uid://i83bvbps8fab")
 const SCN_GAME_OVER := preload("uid://ct1j1mlh01gam")
 const SCN_HEALTH_CHANGE_INFO := preload("uid://bidy22336eykw")
 const SCN_EXPLOSION := preload("uid://yaji2aem6v4")
+const SCN_MOVINGNPC := preload("uid://cpc5fcj5uokxi")
 
 const SCN_LILYPAD_MECHANIC : Dictionary[Overworld.Room, PackedScene] = {
 	Overworld.Room.Weird_LilypadRoom: preload("uid://do8xa234u6nyw")
@@ -102,3 +102,18 @@ func get_enum_member_with_string(text: String, enumerable: Dictionary, resource_
 	if not upper_case_str in enumerable: return null
 	var enum_member = enumerable[upper_case_str]
 	return resource_map[enum_member]
+
+@onready var SPF_MOVING_NPC : Dictionary[MovingNPC.AgentType, SpriteFrames] = {
+	MovingNPC.AgentType.FollowerAgent: preload("uid://bqnq6bo7koaey")
+}
+
+@onready var CLD_MOVING_NPC := {
+}
+
+func get_agent_collider_info(agent_type: MovingNPC.AgentType, collider: bool):
+	if not agent_type in CLD_MOVING_NPC:
+		push_error(MovingNPC.get_agent_type_name(agent_type) + " is not accessible in the CLD_MOVING_NPC dictionary!")
+		return
+	var value_array = CLD_MOVING_NPC[agent_type]
+	if collider: return value_array[0]
+	return value_array[1]

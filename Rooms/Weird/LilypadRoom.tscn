@@ -167,11 +167,34 @@ z_index = 5
 position = Vector2(501, -275)
 scale = Vector2(2, 2)
 npcID = 10
+item = null
+itemCount = null
+itemColor = null
+removeStaticBody = null
+autoTrigger = null
+deleteAfterTalk = null
+disable_placeholder_interactions = null
+deactivated_at_start = null
+save_menu = null
+override_id_from_parent = null
+interactionCountForeverOne = null
 
 [node name="Small Branch" parent="." instance=ExtResource("12_3i1th")]
 position = Vector2(272, -284)
 scale = Vector2(3, 3)
 npcID = 11
+item = null
+itemCount = null
+itemColor = null
+removeStaticBody = null
+autoTrigger = null
+deleteAfterTalk = null
+ignoreDirections = null
+disable_placeholder_interactions = null
+deactivated_at_start = null
+save_menu = null
+override_id_from_parent = null
+interactionCountForeverOne = null
 
 [node name="Sprite" parent="Small Branch" index="0"]
 texture = ExtResource("13_tfsiv")
@@ -254,6 +277,18 @@ position = Vector2(915, 915)
 rotation = 1.5708
 scale = Vector2(3.4, 3.4)
 npcID = 15
+item = null
+itemCount = null
+itemColor = null
+removeStaticBody = null
+autoTrigger = null
+deleteAfterTalk = null
+ignoreDirections = null
+disable_placeholder_interactions = null
+deactivated_at_start = null
+save_menu = null
+override_id_from_parent = null
+interactionCountForeverOne = null
 
 [node name="Sprite" parent="Big Branch" index="0"]
 texture = ExtResource("19_wabq0")

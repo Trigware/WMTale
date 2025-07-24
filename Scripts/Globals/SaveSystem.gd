@@ -71,6 +71,7 @@ func load_game(file):
 	positionDictionary["Y"] = loadedDictionary.get("playerPosition", positionDictionary)["Y"]
 	CutsceneManager.FinishedCutscenes = loadedDictionary.get("FinishedCutscenes", CutsceneManager.FinishedCutscenes)
 	Player.node.stringAnimation = loadedDictionary.get("playerDirection", Player.node.stringAnimation)
+	Overworld.party_members = loadedDictionary.get("PartyMembers", Overworld.party_members)
 	#endregion
 	Overworld.initialPosition = Vector2(positionDictionary["X"], positionDictionary["Y"]) / Overworld.scaleConst
 	LeafMode.update_head_texture()
@@ -105,7 +106,8 @@ func save_game():
 		"NPCData": NPCData.data,
 		"playerPosition": playerPosition,
 		"playerDirection": Player.node.stringAnimation,
-		"FinishedCutscenes": CutsceneManager.FinishedCutscenes
+		"FinishedCutscenes": CutsceneManager.FinishedCutscenes,
+		"PartyMembers": Overworld.party_members
 	}
 	#endregion
 	write_to_savedata(get_save_file_path(loaded_save_file), saveData)

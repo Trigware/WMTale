@@ -3,19 +3,37 @@
 [ext_resource type="PackedScene" uid="uid://6hq01nojje0y" path="res://Scenes/NPC Derivation/NPC.tscn" id="1_gpgkp"]
 [ext_resource type="Texture2D" uid="uid://cirwg587t17v0" path="res://Textures/Weird Forest/Candle.png" id="2_gbuwg"]
 [ext_resource type="PackedScene" uid="uid://c14x3rqt38ua5" path="res://Scenes/Game Mechanics/Mushrooms/Fire.tscn" id="3_gbuwg"]
-[ext_resource type="AudioStream" uid="uid://ccjiaqu54vxio" path="res://Audio/SFX/General Gameplay/Candle.mp3" id="4_b3g8t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7yon"]
+size = Vector2(82, 79.5)
 
 [node name="Candle" type="Node2D"]
 
 [node name="NPC Root" parent="." instance=ExtResource("1_gpgkp")]
 npcID = 17
+item = null
+itemCount = null
+itemColor = null
+removeStaticBody = null
+autoTrigger = null
+deleteAfterTalk = null
+ignoreDirections = null
+disable_placeholder_interactions = null
+deactivated_at_start = null
+save_menu = null
+override_id_from_parent = null
+interactionCountForeverOne = null
 
 [node name="Sprite" parent="NPC Root" index="0"]
 texture = ExtResource("2_gbuwg")
 
+[node name="Trigger Zone" parent="NPC Root" index="3"]
+scale = Vector2(1.1, 1.1)
+shape = SubResource("RectangleShape2D_t7yon")
+
 [node name="Fire" parent="." instance=ExtResource("3_gbuwg")]
 position = Vector2(2, -10)
 scale = Vector2(0.2, 0.2)
-audioStream = ExtResource("4_b3g8t")
+audioStream = null
 
 [editable path="NPC Root"]

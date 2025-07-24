@@ -28,7 +28,7 @@ func add_finished_cutscene_flag(cutscene: Cutscene):
 func is_cutscene_finished(cutscene: Cutscene):
 	return get_enum_name(cutscene) in FinishedCutscenes
 
-func let_cutscene_play_out(cutscene: Cutscene, defined_paths := {}):
+func let_cutscene_play_out(cutscene: Cutscene):
 	var cutscene_name = get_enum_name(cutscene)
 	if cutscene_name in FinishedCutscenes: return
 	latest_cutscene_name = get_enum_name(cutscene)

@@ -1,4 +1,4 @@
-res://Rooms/Weird/SaveIntroRoom.tscn
+res://Scenes/NPC Derivation/Candle.tscn
 res://Scripts/Text System/TextSystem.gd
 res://Shaders/GDSL/PlayerSink.gdshader
 res://Shaders/Shader Materials/PlayerSink.tres
@@ -12,8 +12,10 @@ res://TileSets/WeirdRiver.tres
 res://TileSets/WeirdEnvironment.tres
 res://TileSets/WeirdTree.tres
 res://Spriteframes/Campfire.tres
+res://Scripts/Globals/MovingNPCManager.gd
+res://Scripts/Overworld/OverworldManager.gd
+res://Rooms/Weird/SaveIntroRoom.tscn
 res://Scenes/Game Mechanics/Mushrooms/Fire.tscn
-res://Scenes/NPC Derivation/Candle.tscn
 res://Scenes/Game Mechanics/Leaf Mode.tscn
 res://Scenes/Core/TextSystem.tscn
 res://Scenes/NPC Derivation/Campfire.tscn
@@ -24,16 +26,14 @@ res://Rooms/Weird/CemetaryGate.tscn
 res://Rooms/Weird/MushroomTester.tscn
 res://Rooms/Weird/LilypadRoom.tscn
 res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn
-res://Rooms/Weird/CutsceneMovementTester.tscn
 res://Scenes/Triggers/Cutscene Trigger.tscn
-res://Scenes/Overworld/Inputless Movement.tscn
-res://Scenes/Overworld/Movement Agent.tscn
 res://Scenes/Overworld/Player.tscn
-res://Scripts/Overworld/MovementAgent.gd
-res://Scripts/Overworld/InputlessMovement.gd
+res://Scenes/Core/Moving NPC.tscn
+res://Scenes/Core/Moving NPC Manager.tscn
+res://Scripts/Globals/SaveSystem.gd
+res://Scripts/Overworld/Moving NPC.gd
 res://Scripts/Globals/UIDConstants.gd
-res://Scripts/Overworld/Player Root.gd
-res://Scripts/Globals/CutsceneManager.gd
+res://Colliders/Player.tres
+res://Scripts/Text System/BaseNPC.gd
 res://Scripts/Overworld/Player.gd
-res://Scripts/Overworld/InputlessMovementPath.gd
-res://Scripts/Overworld/CutsceneTrigger.gd
+res://Scripts/Overworld/Player Root.gd

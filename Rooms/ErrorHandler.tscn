@@ -12,9 +12,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pg2su")
 
-[node name="Error Title" type="RichTextLabel" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Error Title" type="RichTextLabel" parent="CanvasLayer"]
 modulate = Color(1, 0, 0, 1)
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -31,9 +32,8 @@ theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 horizontal_alignment = 1
 
-[node name="Error Description" type="RichTextLabel" parent="."]
+[node name="Error Description" type="RichTextLabel" parent="CanvasLayer"]
 modulate = Color(1, 0, 0, 0)
-layout_mode = 0
 offset_top = 577.0
 offset_right = 1152.0
 offset_bottom = 701.0

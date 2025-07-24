@@ -9,6 +9,8 @@ var initialPosition := Vector2.ZERO
 var saveFileCorrupted = false
 var time_since_room_loaded = 0.0
 
+var party_members := []
+
 @onready var music = $Music
 @onready var baseLight = $"Base Light"
 
@@ -41,7 +43,7 @@ func load_room(room: Room, newPlayerPosition := Vector2.ZERO, autoload := false)
 	if not ResourceLoader.exists(roomPath) or saveFileCorrupted:
 		Player.disable()
 		await get_tree().process_frame
-		get_tree().change_scene_to_packed(UID.SCN_ERROR_HANDLELER)
+		add_child(UID.SCN_ERROR_HANDLELER.instantiate())
 		return
 	setup_loaded_room(roomPath, strRoom, room, newPlayerPosition, autoload)
 
@@ -61,6 +63,7 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoloa
 	latestExitRoom = room
 	Player.set_pos(newPlayerPosition)
 	Player.reset_camera_smoothing()
+	MovingNPC.create_all_follower_agents()
 	if autoload: BibleOverworld.attempt_to_load_bible()
 	await check_if_no_rooms_loaded()
 	add_child(activeRoom)
@@ -88,8 +91,7 @@ enum Room
 	Weird_LilypadRoom,
 	Weird_CemetaryGate,
 	Weird_SaveIntroRoom,
-	Weird_MushroomTester,
-	Weird_CutsceneMovementTester
+	Weird_MushroomTester
 }
 
 func get_room_enum(room: Room) -> String:

@@ -69,8 +69,14 @@ func _process(_delta):
 			return
 
 func interact_with_npc():
-	if NPCData.get_data(npcID, NPCData.Field.Deactivated) or TextSystem.lockAction or SaveMenu.menu_openned: return
+	var deactivated = NPCData.get_data(npcID, NPCData.Field.Deactivated)
+	if deactivated: return
+	if TextSystem.lockAction or SaveMenu.menu_openned or Player.inputless_movement: return
 	if not is_player_looking_towards_npc(): return
+	
+	if autoTrigger:
+		NPCData.set_data(npcID, NPCData.Field.Deactivated, true)
+	
 	interactionCount = NPCData.get_incremented_data(npcID, NPCData.Field.InteractionCount)
 	if interactionCountForeverOne: interactionCount = 1
 	TextSystem.canInteract = false
@@ -108,7 +114,7 @@ func get_current_text(index, interact_override = false, interact_override_value 
 
 func is_player_looking_towards_npc() -> bool:
 	if autoTrigger or removeStaticBody or ignoreDirections: return true
-	var playerPos : Vector2 = Player.get_global_pos()
+	var playerPos : Vector2 = Player.get_body_pos()
 	var npcPos : Vector2 = triggerZone.global_position
 	var playerDir = Player.node.stringAnimation
 	
@@ -132,4 +138,8 @@ func after_base_dialog_complete():
 		return
 	if NPCData.is_identifier_save_point(npcID):
 		await TextSystem.print_wait_localization("SavePoint_end")
+		return
+	if npcID == NPCData.ID.BibleInteractPrompt_SAVEINTROROOM:
+		await MovingNPC.move_player_by(-100)
+		NPCData.set_data(npcID, NPCData.Field.Deactivated, false)
 		return

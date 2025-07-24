@@ -11,6 +11,19 @@ size = Vector2(82, 79.5)
 
 [node name="NPC Root" type="Area2D"]
 script = ExtResource("1_oetyl")
+npcID = null
+item = null
+itemCount = null
+itemColor = null
+removeStaticBody = null
+autoTrigger = null
+deleteAfterTalk = null
+ignoreDirections = null
+disable_placeholder_interactions = null
+deactivated_at_start = null
+save_menu = null
+override_id_from_parent = null
+interactionCountForeverOne = null
 
 [node name="Sprite" type="Sprite2D" parent="."]
 

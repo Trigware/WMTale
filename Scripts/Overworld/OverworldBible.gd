@@ -74,6 +74,8 @@ func reset():
 	activated = false
 
 func attempt_to_load_bible():
+	rotation_multiplier = 0
+	sprite.rotation = 0
 	var bible_stand = null
 	for child in Overworld.activeRoom.get_children():
 		if not child.has_meta("bible_stand"): continue
@@ -85,4 +87,3 @@ func attempt_to_load_bible():
 	sprite.scale = final_scale
 	sprite.frame = sprite.sprite_frames.get_frame_count("default")
 	sprite.modulate.a = 1
-	rotation_multiplier = 0

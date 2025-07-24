@@ -1,7 +1,7 @@
 extends Node
 
-@onready var errorTitle = $"Error Title"
-@onready var errorDescription = $"Error Description"
+@onready var errorTitle = $"CanvasLayer/Error Title"
+@onready var errorDescription = $"CanvasLayer/Error Description"
 
 func _ready():
 	Audio.play_music("Blue")

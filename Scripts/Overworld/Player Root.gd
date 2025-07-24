@@ -6,9 +6,10 @@ extends Node
 @onready var camera = $"Player Body/Camera"
 @onready var hp_particle_point = $"Player Body/Health Particle Point"
 @onready var animNode = $"Player Body/Sprite"
-@onready var bodyPoint = $"Player Body/Body Point"
 
 const player_speed := 250
+const fast_movement := 0.75
+const normal_move_fast_multiplier_default := 0.6
 
 var playerMaxHealth = 138
 var playerHealth = playerMaxHealth
@@ -23,12 +24,15 @@ var in_water = false
 var in_leaves = false
 var on_lilypad = false
 var is_sinking = false
+var inputless_movement = false
 var sinked_times = 0
 
 var lilypad_overlaps = 0
 var previous_camera_pos = Vector2.ZERO
 
 var initial_camera_offset : Vector2
+
+var footstep_targets : Array = []
 
 @onready var intended_leaf_pos = leafNode.position
 
@@ -75,7 +79,7 @@ func get_global_pos() -> Vector2:
 	return node.colliderNode.global_position
 
 func get_body_pos() -> Vector2:
-	return bodyPoint.global_position
+	return node.global_position
 
 func get_newest_dir():
 	return node.basic_direction
@@ -133,3 +137,8 @@ func return_camera(duration := 1.0):
 func move_camera_by(x, y, duration := 1.0):
 	var camera_global_pos = camera.global_position / Overworld.scaleConst
 	move_camera_to(camera_global_pos.x + x, camera_global_pos.y + y, duration)
+
+func get_fast_movement_speed():
+	var staminaPercentage = Player.stamina / Player.maxStamina
+	if not LeafMode.enabled(): staminaPercentage = normal_move_fast_multiplier_default
+	return 1 + fast_movement * staminaPercentage

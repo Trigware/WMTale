@@ -5,13 +5,13 @@
 [ext_resource type="Script" uid="uid://dw1kxr1vf0iaw" path="res://Scripts/Overworld/Beehive.gd" id="2_4pa6r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1j34x"]
-size = Vector2(66, 15)
+size = Vector2(85, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pa6r"]
-size = Vector2(92, 115.5)
+size = Vector2(99.5, 115.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wyurl"]
-size = Vector2(100, 61)
+size = Vector2(100, 95)
 
 [node name="Beehive" type="Sprite2D"]
 texture = ExtResource("1_1j34x")
@@ -19,6 +19,17 @@ hframes = 3
 script = ExtResource("2_4pa6r")
 
 [node name="Layered NPC" parent="." instance=ExtResource("1_av6ga")]
+npcID = null
+item = null
+itemCount = null
+itemColor = null
+removeStaticBody = null
+autoTrigger = null
+deleteAfterTalk = null
+ignoreDirections = true
+disable_placeholder_interactions = null
+deactivated_at_start = null
+save_menu = null
 override_id_from_parent = true
 interactionCountForeverOne = true
 
@@ -26,15 +37,15 @@ interactionCountForeverOne = true
 treeSprite = NodePath("../..")
 
 [node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
-position = Vector2(3, 40.5)
+position = Vector2(3.5, 40.5)
 shape = SubResource("RectangleShape2D_1j34x")
 
 [node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
-position = Vector2(5, -16.75)
+position = Vector2(4.75, -14)
 shape = SubResource("RectangleShape2D_4pa6r")
 
 [node name="Trigger Zone" parent="Layered NPC" index="1"]
-position = Vector2(5, 20.5)
+position = Vector2(5, 3.5)
 shape = SubResource("RectangleShape2D_wyurl")
 
 [editable path="Layered NPC"]
