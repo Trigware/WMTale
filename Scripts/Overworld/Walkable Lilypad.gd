@@ -32,7 +32,7 @@ func _on_body_entered(body: Node2D) -> void:
 	Player.on_lilypad = true
 	Player.go_outside_water(true)
 	sinking = true
-	Audio.play_sound("res://Audio/SFX/Lilypad Disappear.mp3", 0.4, scale_avg / 2)
+	Audio.play_sound(UID.SFX_LILYPAD_DISAPPEAR, 0.4, scale_avg / 2)
 	await move_cyclic()
 	await tween_lilypad(0)
 	sinking = false

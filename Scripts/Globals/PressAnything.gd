@@ -24,6 +24,7 @@ func _process(_delta):
 		allowStartGame = false
 		startingGame = true
 		create_tween().tween_property(movingNodes, "position:y", -350, hide_scene_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		Audio.play_sound(UID.SFX_START_GAME)
 		Overlay.change_scene(SaveData.get_next_load_scene(), hide_scene_duration)
 
 func tween_transparency(final):

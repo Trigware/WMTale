@@ -1,10 +1,16 @@
-C:/Users/Honzík/Downloads
-res://Label Settings
-res://Scenes
+res://Scripts/Overworld
 res://Scripts/Globals
 res://Spritesheets
 res://Spriteframes
-res://Scripts/Overworld
+res://Label Settings
+res://Spriteframes/Player
+res://Colliders
+res://Scenes/Core
+res://Scenes/Overworld
+res://Scenes
+res://Textures/Other
+res://Textures/ChooseCharacter
+C:/Users/Honzík/Downloads
 res://Shaders/Shader Materials
 res://Shaders/GDSL
 res://Textures/Weird Forest

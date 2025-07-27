@@ -24,13 +24,13 @@ func _ready():
 	selected_lang_index = get_lang_index()
 	set_selector_texture()
 	refresh_text()
-	Audio.play_music("A File (Weird Forest)")
+	Audio.play_music("A Weird File")
 	selector.position = get_expected_selector_position()
 
 func set_selector_texture():
-	var selector_texture = load("res://Textures/Other/PreLeafSelector.png")
+	var selector_texture = UID.IMG_NOLEAF_SELECTOR
 	if SaveData.seen_leaf:
-		selector_texture = load("res://Textures/Other/Leaf.png")
+		selector_texture = UID.IMG_LEAF
 	selector.texture = selector_texture
 
 func ctor_labels():
@@ -45,9 +45,9 @@ func ctor_labels():
 		var flag = flag_template.duplicate()
 		flag.position.x = flag_pos_x
 		flag.show()
-		var texture_path = "res://Textures/Flags/" + label_lang + ".png"
-		if not FileAccess.file_exists(texture_path): continue
-		flag.texture = load(texture_path)
+		var flag_texture = UID.get_flag_with_string(label_lang)
+		if flag_texture == null: continue
+		flag.texture = flag_texture
 		flag.position.y += lang_index * label_height
 		add_child(flag)
 
@@ -69,7 +69,7 @@ func _process(_delta):
 	
 	if previous_lang_index == selected_lang_index: return
 	
-	Audio.play_sound("res://Audio/SFX/Changed Choice.mp3", 0.2)
+	Audio.play_sound(UID.SFX_MENU_CHANGED_CHOICE, 0.2)
 	var final_position = get_expected_selector_position()
 	refresh_text()
 	var tween = create_tween()
@@ -94,7 +94,7 @@ func dtor_labels():
 func finish_choosing_language():
 	if Overlay.sceneChangingDisabled: return
 	lock_action = true
-	Audio.play_sound("res://Audio/SFX/GetUp.mp3", 0.2)
+	Audio.play_sound(UID.SFX_MENU_CANCEL, 0.2)
 	var change_scene_duration = 1
 	if not SaveData.does_any_save_file_exist():
 		Audio.fade_music(2)

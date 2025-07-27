@@ -1,0 +1,156 @@
+extends CharacterBody2D
+
+@export var agent_type := Enum.AgentType.Uninitialized
+var diagonal_path_direction : Vector2
+var remainder_path_direction : Vector2
+
+var diagonal_path_position : Vector2
+var current_target : Vector2
+var final_look_dir := Vector2.ZERO
+var speed := Player.player_speed
+
+var controlled_body = Player.node
+var stringAnimation : String
+
+var currently_moving = false
+@export var agent_variation := Enum.AgentVariation.NoVariation
+var follower_index := 0
+var base_follower_zindex = 50
+var layer_npc_areas = 0
+
+@onready var sprite = $Sprite
+@onready var collider = $Collider
+
+func _ready():
+	if agent_type == Enum.AgentType.Uninitialized:
+		push_error("Uninitialized agent type for a moving NPC!")
+		queue_free()
+		return
+	if agent_type != Enum.AgentType.CutsceneAgent:
+		global_position = Player.get_body_pos()
+		name = get_appropriate_name()
+	if agent_type != Enum.AgentType.PlayerAgent:
+		setup_moving_npc()
+		set_follower_index()
+
+func set_follower_index():
+	follower_index = Overworld.party_members.find(agent_variation) + 1
+
+func setup_moving_npc():
+	add_to_group("Moving NPC")
+	var is_cutscene_agent = agent_type == Enum.AgentType.CutsceneAgent
+	if not is_cutscene_agent and agent_variation == Enum.AgentVariation.NoVariation:
+		push_error("Excepted agent variation for a " + name + ", but found none!")
+		return
+	
+	sprite.material = UID.SHD_SINK_WATER.duplicate()
+	sprite.sprite_frames = UID.SPF_MOVING_NPCS[agent_variation]
+	var collider_info = UID.get_agent_collider_info(agent_variation)
+	if collider_info != {}:
+		collider.shape = collider_info["collider"]
+		collider.position = collider_info["position"]
+	controlled_body = self
+	
+	if not is_cutscene_agent:
+		set_animation(Player.node.stringAnimation)
+
+func set_animation(dir):
+	var animation_name = "walk_" + str(dir).to_lower()
+	sprite.animation = animation_name
+
+func get_appropriate_name():
+	var agent_type_name = MovingNPC.get_agent_type_name(agent_type)
+	if agent_variation == Enum.AgentVariation.NoVariation: return agent_type_name
+	return MovingNPC.get_agent_variation_as_str(agent_variation) + " (" + agent_type_name + ")"
+
+func move_by(x_offset, y_offset):
+	await move_to_target(controlled_body.global_position + Vector2(x_offset, y_offset) * Overworld.scaleConst)
+
+func move_to(x, y):
+	await move_to_target(Vector2(x, y) * Overworld.scaleConst)
+
+func move_to_target(target: Vector2):
+	if currently_moving: return
+	currently_moving = true
+	current_target = target
+	get_diagonal_path_info()
+	await move_to_point(diagonal_path_position, diagonal_path_direction)
+	await move_to_point(current_target, remainder_path_direction)
+	set_direction_animation()
+	currently_moving = false
+
+func move_to_point(point: Vector2, dir: Vector2):
+	if dir == Vector2.ZERO: return
+	var previous_distance_to_point = INF
+	controlled_body.stringAnimation = get_string_direction(dir)
+	while true:
+		var current_position = controlled_body.global_position
+		var distance_to_point = point.distance_to(current_position)
+		if distance_to_point < 1 or distance_to_point >= previous_distance_to_point: return
+		var hit_wall = controlled_body.take_step(dir, speed * Player.player_speed)
+		if hit_wall: return
+		previous_distance_to_point = distance_to_point
+		await get_tree().process_frame
+
+func set_direction_animation():
+	if final_look_dir == Vector2.ZERO: return
+	controlled_body.stringAnimation = get_string_direction(final_look_dir)
+	controlled_body.update_walk_animation_frame()
+
+func get_string_direction(dir: Vector2):
+	if dir == Vector2.ZERO: return ""
+	if dir.x != 0: return "Left" if dir.x < 0 else "Right"
+	return "Up" if dir.y < 0 else "Down"
+
+func string_to_vector_direction(str_dir: String) -> Vector2:
+	match str_dir:
+		"Left": return Vector2.LEFT
+		"Right": return Vector2.RIGHT
+		"Up": return Vector2.UP
+		"Down": return Vector2.DOWN
+	push_error("Attempted to parse invalid string direction " + str_dir + "!")
+	return Vector2.ZERO
+
+func get_diagonal_path_info():
+	var current_position = controlled_body.global_position
+	var delta = current_target - current_position
+	var local_diagonal_path = get_dialogal_path(delta)
+	diagonal_path_direction = get_movement_direction(local_diagonal_path).normalized()
+	diagonal_path_position = current_position + local_diagonal_path
+	var remainder_distance = current_target - diagonal_path_position
+	remainder_path_direction = get_movement_direction(remainder_distance)
+
+func get_dialogal_path(delta: Vector2):
+	var smallest_value = min(abs(delta.x), abs(delta.y))
+	return Vector2(sign(delta.x) * smallest_value, sign(delta.y) * smallest_value)
+
+func get_movement_direction(vec: Vector2):
+	return Vector2(sign(vec.x), sign(vec.y))
+	
+func take_step_towards_player(footstep):
+	var previous_position = global_position
+	var target = footstep["target"]
+	var sink_progress = footstep["sink_progression"]
+	set_uniform("sink_progression", sink_progress)
+	global_position = target
+	var delta = target - previous_position
+	var str_dir = get_string_direction(delta)
+	if str_dir != "": stringAnimation = str_dir
+	sprite.play()
+	set_animation(stringAnimation)
+
+func set_uniform(parameter: String, value):
+	var shader_mat = get_shader_material()
+	shader_mat.set_shader_parameter(parameter, value)
+
+func get_shader_material() -> ShaderMaterial:
+	return sprite.material
+
+func play_animation(anim_name):
+	sprite.play(anim_name)
+
+func play_current():
+	sprite.play(sprite.animation)
+
+func scale_both_axis(new_scale: float):
+	scale = Vector2(new_scale, new_scale)

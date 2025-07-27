@@ -1,7 +1,7 @@
 extends Area2D
 
 func _on_body_entered(body: Node2D):
-	if not body.is_in_group("Player") or Overworld.time_since_room_loaded == 0: return
+	if not body.is_in_group("Player"): return
 	Player.time_spend_not_walking = 0.0
 	Player.tween_value(0.8)
 	LeafMode.tween_light(1)
@@ -10,7 +10,7 @@ func _on_body_entered(body: Node2D):
 	Player.tween_leaf_alpha(1)
 	LeafMode.tween_ui(150)
 	await get_tree().create_timer(0.1).timeout
-	Audio.play_sound("res://Audio/SFX/OverworldLeafMode.mp3", 0.2)
+	Audio.play_sound(UID.SFX_LEAF_MODE_ENTER, 0.2)
 
 func _on_body_exited(body: Node2D) -> void:
 	if not body.is_in_group("Player"): return

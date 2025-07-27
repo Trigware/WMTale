@@ -7,5 +7,5 @@ func _ready():
 		push_error("Cutscene not initialized!")
 
 func _on_cutscene_triggered(body: Node2D) -> void:
-	if not body.is_in_group("Player") or CutsceneManager.is_cutscene_finished(cutscene): return
+	if not body.is_in_group("Player"): return
 	CutsceneManager.let_cutscene_play_out(cutscene)

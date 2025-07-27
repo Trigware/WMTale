@@ -4,15 +4,15 @@
 [ext_resource type="TileSet" uid="uid://j4ql01hhxi04" path="res://TileSets/WeirdGround.tres" id="2_d8qwr"]
 [ext_resource type="TileSet" uid="uid://b6j4xcs3tqgoq" path="res://TileSets/WeirdEnvironment.tres" id="3_201ci"]
 [ext_resource type="TileSet" uid="uid://c7onj6ie7n7k0" path="res://TileSets/WeirdTree.tres" id="4_xraor"]
-[ext_resource type="PackedScene" uid="uid://4jtg4hfhy0k0" path="res://Scenes/RoomTrigger.tscn" id="5_wj3no"]
-[ext_resource type="PackedScene" uid="uid://dmvg61n8chab8" path="res://Scenes/Dangerous Mushroom.tscn" id="6_np20e"]
-[ext_resource type="PackedScene" uid="uid://djw2th4ecscvn" path="res://Scenes/Leaf Mode Trigger.tscn" id="8_htefj"]
-[ext_resource type="PackedScene" uid="uid://cfnd25cgsmifd" path="res://Scenes/Street Lamp.tscn" id="9_81e3e"]
-[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/Layered NPC.tscn" id="10_bfhdi"]
+[ext_resource type="PackedScene" uid="uid://4jtg4hfhy0k0" path="res://Scenes/Triggers/RoomTrigger.tscn" id="5_wj3no"]
+[ext_resource type="PackedScene" uid="uid://dmvg61n8chab8" path="res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn" id="6_np20e"]
+[ext_resource type="PackedScene" uid="uid://djw2th4ecscvn" path="res://Scenes/Triggers/Leaf Mode Trigger.tscn" id="8_htefj"]
+[ext_resource type="PackedScene" uid="uid://cfnd25cgsmifd" path="res://Scenes/NPC Derivation/Street Lamp.tscn" id="9_81e3e"]
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="10_bfhdi"]
 [ext_resource type="Texture2D" uid="uid://dgy6f0l0lxw8p" path="res://Textures/Weird Forest/Cemetary Gate.png" id="11_cnc6m"]
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="12_201ci"]
-[ext_resource type="PackedScene" uid="uid://cmvsdcoe7bsn" path="res://Scenes/Cutscene Trigger.tscn" id="12_d8qwr"]
-[ext_resource type="PackedScene" uid="uid://4e83j1w3ridu" path="res://Scenes/Leaves Area.tscn" id="13_201ci"]
+[ext_resource type="PackedScene" uid="uid://cmvsdcoe7bsn" path="res://Scenes/Triggers/Cutscene Trigger.tscn" id="12_d8qwr"]
+[ext_resource type="PackedScene" uid="uid://4e83j1w3ridu" path="res://Scenes/Areas/Leaves Area.tscn" id="13_201ci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6hebs"]
 size = Vector2(61.6215, 227)
@@ -115,9 +115,9 @@ effect_radius = 90.0
 [node name="Collider" parent="Dangerous Mushroom2" index="2"]
 shape = SubResource("CircleShape2D_1yyfw")
 
-[node name="Leaf Mode Root" parent="." instance=ExtResource("8_htefj")]
+[node name="Leaf Mode Trigger" parent="." instance=ExtResource("8_htefj")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Leaf Mode Root"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leaf Mode Trigger"]
 position = Vector2(473, -254)
 shape = SubResource("RectangleShape2D_hfatx")
 debug_color = Color(0, 0.6, 0.317647, 0.419608)
@@ -134,6 +134,18 @@ debug_color = Color(0.7, 0.0116667, 0, 0.419608)
 [node name="Cemetary Gate" parent="." instance=ExtResource("10_bfhdi")]
 position = Vector2(464, -880)
 npcID = 16
+item = null
+itemCount = null
+itemColor = null
+removeStaticBody = null
+autoTrigger = null
+deleteAfterTalk = null
+ignoreDirections = null
+disable_placeholder_interactions = null
+deactivated_at_start = null
+save_menu = null
+override_id_from_parent = null
+interactionCountForeverOne = null
 
 [node name="Layered Manager" parent="Cemetary Gate" index="0" node_paths=PackedStringArray("treeSprite")]
 treeSprite = NodePath("../Sprite")
@@ -177,5 +189,7 @@ shape = SubResource("RectangleShape2D_wj3no")
 [editable path="Lilypad Trigger"]
 [editable path="Graveyard Trigger"]
 [editable path="Dangerous Mushroom"]
+[editable path="Dangerous Mushroom/Fire"]
 [editable path="Dangerous Mushroom2"]
+[editable path="Dangerous Mushroom2/Fire"]
 [editable path="Cemetary Gate"]

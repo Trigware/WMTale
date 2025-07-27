@@ -29,7 +29,8 @@ save_file_choice	      YES               NO	      ANO               NE
 save_file_copy_label	COPY	KOPIE
 save_file_erase_label	ERASE	SMAZAT
 save_file_back_label	BACK	ZPĚT
-room_name_Weird/SpawnRoom	Weird Forest - SPAWN	Divný les - SPAWN
+room_name_Weird/SpawnRoom	?????	?????
+room_name_Weird/SaveIntroRoom	Weird Forest - Beehives	Podivný les - Úly
 legend_skip_cutscene	(skip cutscene with ENTER)	(přeskoč cutscénu s klávesou ENTER)
 legend_panel1_whisper	A long time ago, people whispered a strange tale.	Tehdá se vyprávěl příběh, který si lidé dál šeptali.
 legend_panel1_nation_unity	A tale about a nation.{1}\nA tale about their unity.	Byl to příběh národa.{1}\nByl to příběh jednoty.
@@ -73,15 +74,16 @@ choosecharacter_postchoose_sayname	{name}...	{name}...
 choosecharacter_postchoose_onemorething	There's just one more thing...	Ještě nám zbývá jedna věc...
 choosecharacter_postchoose_givebook	This sacred book is neccessary for my gift.	Tato posvátná kniha je nezbytná k mému daru.
 choosecharacter_finish_goodbad	I don't care if it's used for good or evil...	Jestli jej využiješ k dobru či zlu, je mi jedno.
-choosecharacter_finish_terror	I only want you to banish the Smurf cat Blue terror...	Chci jen, aby ses zbavil Smurf catského Modrého teroru...
-choosecharacter_finish_religion	and the spread of their lies.	a šíření jejich víry.
-choosecharacter_finish_prepared	...looks like everything's ready.	...vypadá to, že už máme všechno připravené.
+choosecharacter_finish_terror	I only want you to banish the Blue terror...	Chci jen, aby ses zbavil Modrého teroru...
+choosecharacter_finish_destroy	...to destroy Smurf Cats once and for all.	...aby jsi zničil Smurf Caty jednou a navždy.
+choosecharacter_finish_lies	In order to stop the spread of their lies.	K tomu aby skončilo šíření jejich lží...
+choosecharacter_finish_prepared	{0.5}...looks like everything's ready.	{0.5}...vypadá to, že už máme všechno připravené.
 choosecharacter_finish_goodluck	Good luck!	Hodně štěstí!
 errorhandler_room_title	SOMETHING BROKE	NĚCO SE POKAZILO
 errorhandler_room_description	Room ID {roomID} ({extraInfo})	Room ID {roomID} ({extraInfo})
 errorhandler_extrainfo_savecorrupted	corrupted json savefile	nesprávně zapsaný json
 errorhandler_extrainfo_onload	upon load	při načtení
-SpawnObject_SPAWNROOM_outofinteract	Here lies the beginning of a great journey...{0.5} nothing else to note.	Lze je začátek tvé cesty...{0.5} není to jinak ničím zajímavé...
+SpawnObject_SPAWNROOM_outofinteract	Here lies the beginning of a great journey...{0.5} nothing else to note.	Zde je začátek tvé cesty...{0.5} není to jinak ničím zajímavé...
 Mushroom_SPAWNROOM_1_1	You curiously look at a mushroom emitting blue light...	Pozoruhodně hledíš na houbu vydávací modré světlo...
 Mushroom_SPAWNROOM_1_2	You feel as if...{0.5} you have some kind of connection with it...{0.5} but you don't know why.	Máš pocit, že něco o ní cítíš...{0.5} že ti je povědomá...{0.5} ale nevíš proč.
 Mushroom_SPAWNROOM_2_1	You could finally decide...	Mohl by jsi se rozhodnout...
@@ -122,26 +124,37 @@ LilypadFlower_LILYPADROOM_outofinteract	I don't think this is time for reading..
 StreetLamp_WEIRDFOREST_outofinteract	Near this lamp you feel that you can see your leaf shining even more...	Blízko téhle lampy cítíš jako kdyby se tvůj dar blízkal ještě více...
 BigBranch_LILYPADROOM_outofinteract	This way is blocked by this tree branch.{0.5} Looks like you must go by the lilypads.	Tahle cesta je zablokována touto větví... {0.5}vypadá to že, musíš jít přes lekníny...
 CemetaryGate_GATEROOM_outofinteract	It's locked.	Je to zamčené.
-Cutscene_CemetaryGate_1	Warriors of the Blue terror are buried here.	Vojáci Modrého teroru jsou zde pohřbeny.
+Cutscene_CemetaryGate_1	Warriors of the Blue terror are buried here.	Vojáci Modrého teroru jsou zde pohřbeni.
 Cutscene_CemetaryGate_2	Many failed rebels lie behind this gate.	Neúspěšní rebelové leží za touto branou.
 Cutscene_CemetaryGate_3	If you wish to get in, you must obtain a key.	Pokud si přeješ jít dát, musíš obdržet klíč.
 Cutscene_CemetaryGate_4	It's in possession of a tricky squirrel.	Nyní jej drží jedna zákeřná veverka.
 Cutscene_CemetaryGate_5	Obtain it and return here once again.	Obdrž klíč a znovu se sem vrať.
 GameOver_Option_Continue	Go Back	Vrať se zpět
 GameOver_Option_ResetBattle	Reset Battle	Resetuj bitvu
-GameOver_Comment_1_1	The cycle continues.	Cyklus pokračuje nadále.
+GameOver_Comment_1_1	The cycle continues.	Cyklus nadále pokračuje.
 GameOver_Comment_2_1	Very interesting.	Velmi podivuhodné.
 GameOver_Comment_3_1	The glow of the leaf faded.	Veškerá zář z tvého listu zmizela...
 GameOver_Comment_4_1	Your inputs caused termination.	Tvé vstupy vedli k terminaci listu...
 GameOver_Comment_5_1	It disintegrated again.	Znovu se to rozpadlo.
 GameOver_Comment_6_1	Neutral networks train on failure.	Neuronové sítě trénují na selhání.
-GameOver_Comment_7_1	Another severed connection.	Další experiment bez účelu.
+GameOver_Comment_7_1	Another severed connection.	Další přerušené spojení.
 GameOver_Comment_8_1	All gifts meet their ends.	Všechny dary spatří jejich konce.
 GameOver_FirstDeath_1	Your leaf disintegrated.	Tvůj list se rozpadl.
 GameOver_FirstDeath_2	You severed the connection to this world.	Odpojil jsi tvé spojení k tomuto světu.
-GameOver_FirstDeath_3	{0.5}However{0.5} I have found a solution.	{2}Ovšem existuje řešení...
+GameOver_FirstDeath_3	{1}However, I have found a solution.	{1}Ovšem existuje řešení...
 GameOver_FirstDeath_4	Your book that I gave you is intact,{0.5} isn't it?	Ta kniha co jsi obdržel nám pomůže.
-GameOver_FirstDeath_5	The place you last prayed to is our anchor.	Vím místo, kde jsi se naposledy modlil.
+GameOver_FirstDeath_5	The place you last prayed to is our anchor.	Vím místo, kde sis naposledy uložil hru.
 GameOver_FirstDeath_6	I can take you back to that point.	Mohu tě zpětně vrátit do tohoto bodu.
-GameOver_FirstDeath_7	When your leaf was still fine.	Když tvůj list byl v pořádku.
-GameOver_FirstDeath_8	So just say it when you want to get back.	Snačí jen říct když chceš zpět.
+Candle_SAVEINTROROOM_outofinteract	It looks like the candles are used for some kind of a religionous event.	Vypadá to, že ty svíčky se používají k nějaké náboženské události.
+OverworldSaving_SaveGame	Save Game	Ulož Hru
+OverworldSaving_DontSave	Don't Save	Neukládej
+SavePoint_Beehive_1_1	Your eyes skim the pages of your book.{0.5} The scent receptors in your nose provide you with a sweet aroma.	Tvé oči létají přes strany tvé knihy.{0.5} Pachové receptory v tvém nosu tě přináší sladké aroma.
+SavePoint_end_first_time	When you pray to {#69bf2c}the Tree{#/}, your game is saved.{0.5} Do you want to do so?	Když se modlíš ke {#69bf2c}Stromu{#/}, tvá hra je uložena. {0.5} Chceš tak udělat?
+SavePoint_end	Do you wish to save your game?	Přeješ si uložit hru?
+BeehiveRegular_SAVEINTROROOM_1_1	The bees in this beehive are living peacefully.	Včely v tomhle úlu žijí mírumilovně.
+BlueBeehive_SAVEINTROROOM_1_1	The bees in this beehive are playing some  {#3498eb}FIRE{#/} music.	Včely v tomhle úlu si pouští nějakou {#3498eb}FIRE{#/} hudbu.
+BibleInteractPrompt_SAVEINTROROOM_1_1	Maybe it would be a good idea to interact with the {#ebd334}book{#/} first, before going further into the forest.	Myslíš si, že bys nejdříve si měl prohlédnout tu {#ebd334}knihu{#/} než půjdeš dál do lesa.
+BibleInteractPrompt_SAVEINTROROOM_outofinteract	...{0.5} there's a something that won't let you go.	...{0.5} cítíš se jako tě něco nepovoluje tu knihu přeskočit.
+DetailedTree_SAVEINTROROOM_outofinteract	There's something hiding in the tree...{0.5} unfortunetly you can't tell what.	Něco se skrývá v tomto stromě...{0.5} ale bohužel nedokážeš zjisit co to je.
+OverworldSaving_GameSavedConfirm	GAME WAS SUCCESSFULLY SAVED!	HRA BYLA ÚSPĚŠNĚ ULOŽENA!
+OverworldSaving_GameSavedFailed	GAME FAILED TO SAVE!	UKLÁDÁNÍ HRY SELHALO!

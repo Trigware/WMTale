@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5b8ltud54sp5"]
-
-[sub_resource type="GDScript" id="GDScript_h57oh"]
-
-[node name="Presets" type="Node"]
-script = SubResource("GDScript_h57oh")

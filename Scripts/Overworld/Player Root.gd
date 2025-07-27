@@ -5,8 +5,13 @@ extends Node
 @onready var leafNode = $"Player Body/Leaf"
 @onready var camera = $"Player Body/Camera"
 @onready var hp_particle_point = $"Player Body/Health Particle Point"
-@onready var animNode = $"Player Body/Player Animations"
-@onready var bodyPoint = $"Player Body/Body Point"
+@onready var animNode = $"Player Body/Sprite"
+
+const playableCharacters = ["rabbitek", "xdaforge", "gertofin"]
+
+const player_speed := 250
+const fast_movement := 0.75
+const normal_move_fast_multiplier_default := 0.6
 
 var playerMaxHealth = 138
 var playerHealth = playerMaxHealth
@@ -16,22 +21,30 @@ var stamina = maxStamina
 var leafTween : Tween
 var time_spend_not_walking := 0.0
 
+var leaf_flash_disabled = false
 var in_water = false
 var in_leaves = false
 var on_lilypad = false
 var is_sinking = false
+var inputless_movement = false
 var sinked_times = 0
+var latest_shader = null
 
 var lilypad_overlaps = 0
 var previous_camera_pos = Vector2.ZERO
+
+var initial_camera_offset : Vector2
+
+var footsteps : Array[Dictionary] = []
 
 @onready var intended_leaf_pos = leafNode.position
 
 func _ready():
 	disable()
 	var current_flash_final = 1
+	initial_camera_offset = camera.offset
 	while true:
-		if LeafMode.game_over: return
+		if leaf_flash_disabled: return
 		leafTween = create_tween()
 		var duration = lerp(0.25, 4.0, Player.playerHealth / Player.playerMaxHealth)
 		leafTween.tween_property(leafNode, "modulate:v", current_flash_final, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -40,6 +53,10 @@ func _ready():
 
 func _process(delta):
 	time_spend_not_walking += delta
+
+func end_leaf_flashes():
+	leaf_flash_disabled = true
+	leafTween.kill()
 
 func enable():
 	node.enable()
@@ -64,15 +81,34 @@ func disable():
 func get_global_pos() -> Vector2:
 	return node.colliderNode.global_position
 
-func update_animation(suffix):
-	node.animationNode.animation = node.get_general_animation_name(suffix)
+func get_body_pos() -> Vector2:
+	return node.global_position
 
-func play_general_animation(suffix):
-	await play_animation(node.get_general_animation_name(suffix))
+func get_newest_dir():
+	return node.basic_direction
+
+func update_animation(anim_name):
+	node.animationNode.animation = anim_name
+
+func update_animation_without_shader(anim_name):
+	remove_shader()
+	update_animation(anim_name)
 
 func play_animation(anim_name):
-	var animatedSprite = node.animationNode
-	animatedSprite.play(anim_name)
+	animNode.play(anim_name)
+
+func play_animation_without_shader(anim_name):
+	remove_shader()
+	play_animation(anim_name)
+
+func readd_shader():
+	if latest_shader == null:
+		push_error("No shader to readd!")
+		return
+	animNode.material = latest_shader
+
+func remove_shader():
+	animNode.material = null
 
 func set_pos(pos: Vector2):
 	node.global_position = pos
@@ -92,6 +128,9 @@ func tween_value(final):
 func reset_camera_smoothing():
 	camera.reset_smoothing()
 
+func get_player_animation():
+	return animNode.animation
+
 func go_outside_water(ignore_water_rule = false):
 	if (not in_water or is_sinking) and not ignore_water_rule: return
 	leafNode.position = intended_leaf_pos
@@ -110,3 +149,12 @@ func move_camera_to(x, y, duration := 1.0):
 func return_camera(duration := 1.0):
 	var return_pos = previous_camera_pos / Overworld.scaleConst
 	await move_camera_to(return_pos.x, return_pos.y, duration)
+
+func move_camera_by(x, y, duration := 1.0):
+	var camera_global_pos = camera.global_position / Overworld.scaleConst
+	move_camera_to(camera_global_pos.x + x, camera_global_pos.y + y, duration)
+
+func get_fast_movement_speed():
+	var staminaPercentage = Player.stamina / Player.maxStamina
+	if not LeafMode.enabled(): staminaPercentage = normal_move_fast_multiplier_default
+	return 1 + fast_movement * staminaPercentage

@@ -3,11 +3,13 @@ extends Node2D
 const scaleConst := 1.7
 
 var activeRoom = null
-var currentRoom := Room.Weird_SpawnRoom
+var currentRoom := Room.ErrorHandlerer
 var latestExitRoom := Room.ErrorHandlerer
 var initialPosition := Vector2.ZERO
 var saveFileCorrupted = false
 var time_since_room_loaded = 0.0
+
+var party_members := []
 
 @onready var music = $Music
 @onready var baseLight = $"Base Light"
@@ -20,7 +22,7 @@ func _process(delta):
 func enable():
 	scale = Vector2(scaleConst, scaleConst)
 	Player.enable()
-	load_room(currentRoom, initialPosition * scaleConst)
+	load_room(currentRoom, initialPosition * scaleConst, true)
 	baseLight.show()
 	baseLight.color = base_light_color
 
@@ -30,7 +32,7 @@ func disable():
 	if activeRoom != null:
 		activeRoom.queue_free()
 
-func load_room(room: Room, newPlayerPosition := Vector2.ZERO):
+func load_room(room: Room, newPlayerPosition := Vector2.ZERO, autoload := false):
 	SaveData.save_autosave_file()
 	if activeRoom != null:
 		activeRoom.queue_free()
@@ -41,24 +43,28 @@ func load_room(room: Room, newPlayerPosition := Vector2.ZERO):
 	if not ResourceLoader.exists(roomPath) or saveFileCorrupted:
 		Player.disable()
 		await get_tree().process_frame
-		get_tree().change_scene_to_file("res://Rooms/ErrorHandler.tscn")
+		add_child(UID.SCN_ERROR_HANDLELER.instantiate())
 		return
-	setup_loaded_room(roomPath, strRoom, room, newPlayerPosition)
+	setup_loaded_room(roomPath, strRoom, room, newPlayerPosition, autoload)
 
-func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition):
+func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoload):
 	var sceneRoom = load(roomPath)
 	activeRoom = sceneRoom.instantiate()
 	activeRoom.name = strRoom
 	LeafMode.restore_all_stamina()
+	if BibleOverworld.activated:
+		BibleOverworld.reset()
 	
 	var roomCutscene = activeRoom.cutscene
 	if roomCutscene != CutsceneManager.Cutscene.None and not CutsceneManager.is_cutscene_finished(roomCutscene):
 		newPlayerPosition = Vector2(activeRoom.cutscenePosition) * scaleConst
 		CutsceneManager.let_cutscene_play_out(roomCutscene)
-		
+	
 	latestExitRoom = room
 	Player.set_pos(newPlayerPosition)
 	Player.reset_camera_smoothing()
+	MovingNPC.refresh_follower_agents()
+	if autoload: BibleOverworld.attempt_to_load_bible()
 	await check_if_no_rooms_loaded()
 	add_child(activeRoom)
 	time_since_room_loaded = 0.0
@@ -73,6 +79,9 @@ func check_if_no_rooms_loaded():
 			child.queue_free()
 			await child.tree_exited
 
+func trigger_blocked():
+	return Overworld.time_since_room_loaded < 0.05
+
 enum Room
 {
 	ErrorHandlerer = -1,
@@ -81,7 +90,9 @@ enum Room
 	Weird_TeleportRoom,
 	Weird_LilypadRoom,
 	Weird_CemetaryGate,
-	Weird_SaveIntroRoom
+	Weird_SaveIntroRoom,
+	Weird_MushroomTester,
+	Weird_LayeredNPCTester
 }
 
 func get_room_enum(room: Room) -> String:
@@ -89,3 +100,6 @@ func get_room_enum(room: Room) -> String:
 	if roomName == null:
 		return ""
 	return roomName.replace("_", "/")
+
+func get_room_ingame_name(room):
+	return Localization.get_text("room_name_" + get_room_enum(int(room)))

@@ -5,9 +5,8 @@ signal finished
 var waiting_for_stream = false
 var currentMusic := ""
 
-func play_sound(sound_path, pitch_shift = 0.0, volume = 0.0, ignore_game_over = false):
+func play_sound(stream : AudioStream, pitch_shift = 0.0, volume = 0.0, ignore_game_over = false):
 	if LeafMode.game_over and not ignore_game_over: return
-	var stream = load(sound_path)
 	play_stream(stream, pitch_shift, volume)
 	await finished
 

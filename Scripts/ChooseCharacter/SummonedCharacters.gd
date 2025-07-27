@@ -4,7 +4,7 @@ extends Control
 
 func summon_characters():
 	await get_tree().create_timer(0.7).timeout
-	Audio.play_sound("res://Audio/SFX/Summon Characters.mp3")
+	Audio.play_sound(UID.SFX_SUMMON_CHARACTERS)
 	show()
 	var childrenList = get_children()
 	var childCount = get_child_count()

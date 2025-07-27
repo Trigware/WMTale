@@ -10,11 +10,11 @@ enum Cutscene
 	ChoosePlayer,
 	SpawnRoom,
 	Legend,
-	CemetaryGate
+	CemetaryGate,
+	Nixie_Introductory
 }
 
 signal cutscene_completed
-
 
 func wait(duration):
 	await get_tree().create_timer(duration).timeout
@@ -28,7 +28,16 @@ func add_finished_cutscene_flag(cutscene: Cutscene):
 func is_cutscene_finished(cutscene: Cutscene):
 	return get_enum_name(cutscene) in FinishedCutscenes
 
+func after_cutscene_finished(cutscene: Cutscene):
+	action_lock = false
+	add_finished_cutscene_flag(cutscene)
+
+func get_base_cutscene_key():
+	var base_key = "Cutscene_" + CutsceneManager.latest_cutscene_name
+	return base_key
+
 func let_cutscene_play_out(cutscene: Cutscene):
+	if is_cutscene_finished(cutscene): return
 	latest_cutscene_name = get_enum_name(cutscene)
 	var function_name = "play_" + latest_cutscene_name.to_lower() + "_cutscene"
 	if not has_method(function_name):
@@ -40,16 +49,12 @@ func let_cutscene_play_out(cutscene: Cutscene):
 	after_cutscene_finished(cutscene)
 
 func play_spawnroom_cutscene():
-	Player.update_animation("LookDown")
+	Player.update_animation("spawn")
 	await wait(2)
-	Player.update_animation("WalkRight")
+	Player.update_animation("walk_right")
 	emit_signal("cutscene_completed")
-	await Audio.play_sound("res://Audio/SFX/GetUp.mp3")
+	await Audio.play_sound(UID.SFX_GET_UP)
 	Audio.play_music("Weird Forest", 0.1)
-
-func after_cutscene_finished(cutscene: Cutscene):
-	action_lock = false
-	add_finished_cutscene_flag(cutscene)
 
 func play_cemetarygate_cutscene():
 	await Player.move_camera_to(465, -850)
@@ -58,6 +63,6 @@ func play_cemetarygate_cutscene():
 	await Player.return_camera()
 	emit_signal("cutscene_completed")
 
-func get_base_cutscene_key():
-	var base_key = "Cutscene_" + CutsceneManager.latest_cutscene_name
-	return base_key
+func play_nixie_introductory_cutscene():
+	await wait(0.5)
+	emit_signal("cutscene_completed")

@@ -1,32 +1,36 @@
-res://Rooms/Weird/LilypadRoom.tscn
+res://Rooms/Weird/SaveIntroRoom.tscn
 res://Scripts/Text System/TextSystem.gd
-res://Spriteframes/Player.tres
-res://Shaders/GDSL/PlayerSink.gdshader
-res://Shaders/Shader Materials/PlayerSink.tres
-res://TileSets/WeirdGround.tres
-res://TileSets/WeirdRiver.tres
-res://TileSets/WeirdTree.tres
-res://TileSets/WeirdEnvironment.tres
-res://Spriteframes/Campfire.tres
-res://TileSets/WeirdBushes.tres
-res://Spriteframes/ExplosionEffect.tres
+res://Spriteframes/BibleOverworld.tres
 res://Spriteframes/LeafDisintegration.tres
 res://Label Settings/OutlinedText.tres
-res://Scenes/Dangerous Mushroom.tscn
-res://Scenes/Overworld.tscn
-res://Scenes/CutsceneManager.tscn
-res://Scenes/Cutscene Trigger.tscn
-res://Scenes/Campfire.tscn
-res://Scenes/OverworldBridge.tscn
-res://Scenes/QuittingNotice.tscn
-res://Scenes/Street Lamp.tscn
+res://Spriteframes/ExplosionEffect.tres
+res://Spriteframes/Player/xdaforge.tres
+res://Spriteframes/Player/rabbitek.tres
+res://Spriteframes/Player/gertofin.tres
+res://Spriteframes/Nixie.tres
+res://Shaders/GDSL/WaterSinking.gdshader
+res://TileSets/WeirdGround.tres
+res://TileSets/WeirdRiver.tres
+res://TileSets/WeirdEnvironment.tres
+res://TileSets/WeirdTree.tres
+res://Spriteframes/Campfire.tres
+res://Spriteframes/Tree.tres
+res://TileSets/WeirdBushes.tres
+res://Scenes/NPC Derivation/Weird Tree.tscn
+res://Scenes/NPC Derivation/Detailed Tree.tscn
+res://Scenes/Overworld/Player.tscn
+res://Rooms/Weird/TeleportRoom.tscn
 res://Rooms/Weird/SpawnRoomEnterance.tscn
-res://Scenes/Leaf Mode.tscn
-res://Scenes/File Select.tscn
-res://Scenes/Explosion.tscn
-res://Scenes/Game Over.tscn
-res://Scenes/Player.tscn
-res://Scenes/Presets.tscn
-res://Scenes/TextSystem.tscn
-res://Scenes/Health Change Info.tscn
-res://Rooms/Weird/SaveIntroRoom.tscn
+res://Scenes/NPC Derivation/NPC.tscn
+res://Scenes/NPC Derivation/Save Point.tscn
+res://Scenes/Core/Save Menu.tscn
+res://Scenes/Non-Overworld/Filebox.tscn
+res://Scripts/Overworld/Moving NPC.gd
+res://Scripts/Globals/MovingNPCManager.gd
+res://Scenes/Core/Moving NPC.tscn
+res://Scripts/Overworld/LayeredNPC.gd
+res://Scenes/NPC Derivation/Beehive.tscn
+res://Scripts/Globals/UIDConstants.gd
+res://Scripts/Rooms/SaveIntroRoom.gd
+res://Scripts/Overworld/SaveMenu.gd
+res://Scripts/Globals/CutsceneManager.gd

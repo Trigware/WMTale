@@ -38,7 +38,7 @@ func _process(_delta):
 	tween_node(selected_label, "modulate", used_selected_color, 0.2)
 	tween_node(white_label, "modulate", Color.WHITE, 0.2)
 	tween_node(selector, "modulate", used_selected_color, 0.2)
-	Audio.play_sound("res://Audio/SFX/Changed Choice.mp3", 0.2)
+	Audio.play_sound(UID.SFX_MENU_CHANGED_CHOICE, 0.2)
 
 func _ready():
 	LeafMode.stamina_root.hide()
@@ -47,7 +47,7 @@ func _ready():
 	leaf.position += Vector2(screen_width, screen_height) / 2
 	await get_tree().create_timer(1).timeout
 	LeafMode.game_over = false
-	Audio.play_sound("res://Audio/SFX/LeafBreak.mp3")
+	Audio.play_sound(UID.SFX_LEAF_BREAK)
 	leaf.play()
 	await get_tree().create_timer(1.5).timeout
 	if SaveData.death_counter == 1:
@@ -63,7 +63,7 @@ func first_death():
 func show_game_over():
 	tween_node(image)
 	await get_tree().create_timer(1).timeout
-	var sequence_found_successfully = await TextSystem.print_random_sequence("GameOver_Comment", "", {}, TextSystem.Preset.GameOver)
+	await TextSystem.print_random_sequence("GameOver_Comment", "", {}, TextSystem.Preset.GameOver)
 	show_options()
 
 func show_options():
@@ -97,17 +97,20 @@ func after_choice_selected():
 		return
 
 func agreement_option():
-	Audio.play_sound("res://Audio/SFX/Bible Appears.mp3")
+	Audio.play_sound(UID.SFX_RELIGIOUS_SPAWN)
 	SaveData.load_game(SaveData.loaded_save_file)
+	LeafMode.restore_all_health()
 	respawn_cleanup()
 	await Overlay.hide_scene(2)
 	await get_tree().create_timer(2).timeout
 	Overlay.show_scene()
 	Overworld.enable()
-	get_tree().change_scene_to_file("res://Scenes/Audio.tscn") # empty scene
+	get_tree().change_scene_to_packed(UID.SCN_EMPTY)
 
 func respawn_cleanup():
-	LeafMode.restore_all_health()
+	Player.leaf_flash_disabled = false
 	Player.is_sinking = false
 	LeafMode.stamina_root.show()
 	LeafMode.health_root.show()
+	Player.set_uniform("sink_progression", 0)
+	Player.camera.offset = Player.initial_camera_offset

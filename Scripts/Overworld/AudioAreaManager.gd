@@ -2,6 +2,7 @@ extends Area2D
 
 @export var audioStream : AudioStream
 @export var maxDistance := 1000
+@export var volume_multiplier := 1.0
 
 @onready var audioNode = $Audio
 
@@ -10,6 +11,7 @@ var closest_shape = null
 
 func _ready():
 	get_collision_shapes()
+	await get_tree().process_frame
 	audioNode.stream = audioStream
 	audioNode.play()
 	LeafMode.game_over_triggered.connect(stop_audio)
@@ -19,7 +21,7 @@ func stop_audio():
 
 func _process(_delta):
 	var distance = get_audio_area_distance()
-	var volume = clamp(1.0 - (distance / maxDistance), 0, 1)
+	var volume = clamp(1.0 - (distance / maxDistance), 0, 1) * volume_multiplier
 	var used_volume = linear_to_db(volume)
 	audioNode.volume_db = used_volume
 

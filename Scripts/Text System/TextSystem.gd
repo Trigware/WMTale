@@ -80,7 +80,7 @@ enum Property
 	ClearOnNextText
 }
 
-var TextConfigurations = {
+@onready var TextConfigurations = {
 	Preset.LegendSmallPanel: {
 		Property.Position: Vector2(255, 350),
 		Property.LineLength: 650,
@@ -90,18 +90,18 @@ var TextConfigurations = {
 	Preset.ChooseCharacter: {
 		Property.Position: Vector2(255, 590),
 		Property.CenterAlign: true,
-		Property.TalkAudio: load("res://Audio/Talk/WMT.mp3"),
+		Property.TalkAudio: UID.TALK_WMT,
 		Property.PitchRange: 0.2,
 		Property.Speed: 0.05,
 		Property.OverlapAudio: true
 	},
 	Preset.RegularDialog: {
-		Property.TalkAudio: load("res://Audio/Talk/Default.mp3"),
+		Property.TalkAudio: UID.TALK_DEFAULT,
 		Property.PitchRange: 0.15,
 		Property.FontSize: 44,
 		Property.Textbox: true,
 		Property.Position: Vector2(150, 405),
-		Property.LineLength: 885
+		Property.LineLength: 860
 	}
 }
 
@@ -348,7 +348,7 @@ func print_sequence_no_variables(sequence: Array[String]):
 		print_localization(text)
 		await want_next_text
 
-func give_choice(choiceAText, choiceBText, choiceCText = "", choiceDText = ""):
+func give_choice(choiceAKey, choiceBKey, choiceCKey = "", choiceDKey = ""):
 	waitLeaf.hide()
 	previousChoiceDirection = Vector2.ZERO
 	lockAction = true
@@ -357,7 +357,12 @@ func give_choice(choiceAText, choiceBText, choiceCText = "", choiceDText = ""):
 	choicerNode.show()
 	leafNode.position = defaultLeafPosition
 	
-	choiceList = [choiceAText, choiceBText, choiceCText, choiceDText]
+	var choiceAText = Localization.get_text(choiceAKey)
+	var choiceBText = Localization.get_text(choiceBKey)
+	var choiceCText = "" if choiceCKey == "" else Localization.get_text(choiceCKey)
+	var choiceDText = "" if choiceDKey == "" else Localization.get_text(choiceDKey)
+	
+	choiceList = [choiceAKey, choiceBKey, choiceCKey, choiceDKey]
 	choiceNodes[Vector2(-1, 0)].text = choiceAText
 	choiceNodes[Vector2(+1, 0)].text = choiceBText
 	choiceNodes[Vector2(0, -1)].text = choiceCText
@@ -403,7 +408,7 @@ func move_choicer_leaf(direction):
 
 func choicer_modulation_tweens(finalPosition, direction, usedDuration):
 	if finalPosition == leafNode.position: return
-	Audio.play_sound("res://Audio/SFX/Changed Choice.mp3", 0.1)
+	Audio.play_sound(UID.SFX_MENU_CHANGED_CHOICE, 0.1)
 	create_tween().tween_property(choiceNodes[direction], "modulate", Color.WEB_GREEN, usedDuration)
 	if defaultLeafPosition == leafNode.position:
 		create_tween().tween_property(leafNode, "modulate:a", 0, usedDuration)
@@ -444,7 +449,7 @@ func optional_get_item(
 	await print_wait_localization("item_choice_pickup", [fullVariableString])
 	
 	await give_basic_choice()
-	if lastChoiceText == Localization.get_text("choicer_decline"):
+	if lastChoiceText == "choicer_decline":
 		var textKey = "item_decline_" + Inventory.get_item_enum(item)
 		if Localization.text_exists(textKey): await print_wait_localization(textKey)
 		return
@@ -454,7 +459,7 @@ func optional_get_item(
 	if count > 1: itemStringCount = " (" + str(count) + "x)"
 	await print_wait_localization("item_confirm_pickup_" + itemTier, [fullVariableString, itemStringCount])
 	Inventory.add_item(item, count)
-	Audio.play_sound("res://Audio/SFX/GotItem.mp3")
+	Audio.play_sound(UID.SFX_ITEM_OBTAINED)
 	
 	if npcNode != null:
 		npcNode.queue_free()
@@ -468,7 +473,7 @@ func after_obtainted_item(item):
 			NPCData.set_data(NPCData.ID.BlockTree_SPAWNROOM, NPCData.Field.InteractionCount, 0)
 
 func give_basic_choice():
-	await give_choice_wait(Localization.get_text("choicer_agree"), Localization.get_text("choicer_decline"))
+	await give_choice_wait("choicer_agree", "choicer_decline")
 
 func print_sequence(base_key, variables := {}, preset := Preset.Fallback, suffix := ""):
 	var text_index = 1

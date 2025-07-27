@@ -10,6 +10,8 @@ var language_chosen = false
 var watched_intro_cutscene = false
 var seen_leaf = false
 var death_counter := 0
+var save_choice_seen := false
+var game_saved_times := 0
 #endregion
 
 var allow_game_load = false
@@ -70,8 +72,12 @@ func load_game(file):
 	positionDictionary["X"] = loadedDictionary.get("playerPosition", positionDictionary)["X"]
 	positionDictionary["Y"] = loadedDictionary.get("playerPosition", positionDictionary)["Y"]
 	CutsceneManager.FinishedCutscenes = loadedDictionary.get("FinishedCutscenes", CutsceneManager.FinishedCutscenes)
+	Player.node.stringAnimation = loadedDictionary.get("playerDirection", Player.node.stringAnimation)
+	Overworld.party_members = loadedDictionary.get("PartyMembers", Overworld.party_members)
+	save_choice_seen = loadedDictionary.get("save_choice_seen", save_choice_seen)
+	game_saved_times = loadedDictionary.get("game_saved_times", game_saved_times)
 	#endregion
-	Overworld.initialPosition = Vector2(positionDictionary["X"], positionDictionary["Y"])
+	Overworld.initialPosition = Vector2(positionDictionary["X"], positionDictionary["Y"]) / Overworld.scaleConst
 	LeafMode.update_head_texture()
 	loaded_save_file = file
 	load_autosave_file()
@@ -103,7 +109,11 @@ func save_game():
 		"currentRoom": Overworld.currentRoom,
 		"NPCData": NPCData.data,
 		"playerPosition": playerPosition,
-		"FinishedCutscenes": CutsceneManager.FinishedCutscenes
+		"playerDirection": Player.node.stringAnimation,
+		"FinishedCutscenes": CutsceneManager.FinishedCutscenes,
+		"PartyMembers": Overworld.party_members,
+		"save_choice_seen": save_choice_seen,
+		"game_saved_times": game_saved_times
 	}
 	#endregion
 	write_to_savedata(get_save_file_path(loaded_save_file), saveData)
@@ -111,10 +121,9 @@ func save_game():
 
 func write_to_savedata(path, writtenData):
 	var file := FileAccess.open(path, FileAccess.WRITE)
-	if file:
-		var json := JSON.stringify(writtenData, '\t')
-		file.store_string(json)
-		file.close()
+	var json := JSON.stringify(writtenData, '\t')
+	file.store_string(json)
+	file.close()
 
 func parse_json(contents):
 	var json = JSON.new()
@@ -130,21 +139,27 @@ func get_save_file_path(file_num):
 
 func access_other_file_data(file_num, data):
 	return load_dictionary(get_save_file_path(file_num)).get(data, "")
-	
+
+func access_loaded_file_data(data):
+	return access_other_file_data(loaded_save_file, data)
+
 func access_other_autosave_data(file_num, data):
 	return load_dictionary(get_autosave_file_path(file_num)).get(data, "")
+
+func access_loaded_autosave_data(data):
+	return access_other_autosave_data(loaded_save_file, data)
 
 func save_file_exists(file_num):
 	var file_path = get_save_file_path(file_num)
 	return FileAccess.file_exists(file_path)
 
-func get_next_load_scene():
+func get_next_load_scene() -> PackedScene:
 	if not SaveData.language_chosen:
-		return "res://Scenes/Choose Language.tscn"
+		return UID.SCN_CHOOSE_LANGUAGE
 	if not does_any_save_file_exist():
 		SaveData.load_game(1)
-		return "res://Scenes/Legend.tscn"
-	return "res://Scenes/File Select.tscn"
+		return UID.SCN_LEGEND
+	return UID.SCN_FILE_SELECT
 
 func does_any_save_file_exist():
 	var dir_path = "user://"

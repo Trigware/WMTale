@@ -17,7 +17,7 @@ func _ready():
 func fade_label(final):
 	create_tween().tween_property(self, "modulate:a", final, fadeDuration)
 
-func _process(delta):
+func _process(_delta):
 	if skipEnabled && Input.is_action_pressed("continue"):
 		end_cutscene()
 	
@@ -27,4 +27,4 @@ func end_cutscene():
 	SaveData.allow_game_load = true
 	SaveData.watched_intro_cutscene = true
 	SaveData.save_global_file()
-	Overlay.change_scene("res://Scenes/ChooseCharacter.tscn", 1, 2, 1.5)
+	Overlay.change_scene(UID.SCN_CHOOSE_CHARACTER, 1, 2, 1.5)

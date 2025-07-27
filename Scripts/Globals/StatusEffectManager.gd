@@ -1,7 +1,5 @@
 extends Node
 
-var status_effect = preload("res://Scenes/Status Effect.tscn")
-
 enum ID {
 	Uninitialized,
 	Poison,
@@ -20,7 +18,7 @@ func _ready():
 
 func activate(effect: ID, duration, stackable_time = false):
 	var previous_duration = effect_durations.get(effect, 0)
-	var effect_instance = status_effect.instantiate()
+	var effect_instance = UID.SCN_STATUS_EFFECT.instantiate()
 	effect_instance.effect = effect
 	var new_duration = previous_duration + duration
 	if previous_duration == 0 and new_duration > 0:
@@ -30,7 +28,7 @@ func activate(effect: ID, duration, stackable_time = false):
 	emit_signal("order_all_effects")
 	if not effect in processed_effects:
 		effect_processing_loop(effect)
-	Audio.play_sound("res://Audio/SFX/StatusEffect.mp3", 0.2)
+	Audio.play_sound(UID.SFX_STATUS_EFFECT, 0.2)
 
 func order_effects():
 	sorted_effects = effect_durations.keys()
@@ -79,7 +77,7 @@ func poison_effect(times_processed_since_start):
 		health_change = -(Player.playerHealth - 1)
 	health_change = roundi(health_change)
 	if health_change > 0: return
-	LeafMode.modify_hp_with_label(health_change, LeafMode.DamageSource.PoisonEffect)
+	LeafMode.modify_hp_with_label(health_change)
 
 func burning_effect(times_processed_since_start):
 	var damage = min(5 + times_processed_since_start * 3, 15)
@@ -87,17 +85,17 @@ func burning_effect(times_processed_since_start):
 	await wait(1)
 
 func blindness_start():
-	blindness_tween(-0.5)
+	blindness_tween(0.25)
 	tween_base_light(get_effect_colors(ID.Blindness))
 
 func blindness_end():
-	blindness_tween(1)
+	blindness_tween(LeafMode.initial_light_multiplier)
 	tween_base_light(Overworld.base_light_color)
 
 func blindness_tween(final): create_tween().tween_property(LeafMode, "light_multiplier", final, 1).set_ease(Tween.EASE_IN_OUT)
 
 func get_effect_colors(effect: ID):
-	var blidness_color = Color("333333")
+	var blidness_color = Color("555555")
 	
 	if effect_ongoing(ID.Blindness): return blidness_color
 	var color = Overworld.base_light_color
@@ -138,3 +136,7 @@ func get_ongoing_effects_count():
 
 func get_ongoing_effects():
 	return effect_durations.keys()
+
+func end_all_effects():
+	for effect in Effects.get_ongoing_effects():
+		Effects.effect_end(effect)

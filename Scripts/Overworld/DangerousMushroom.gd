@@ -38,6 +38,7 @@ func _ready():
 	sprite.frame_coords.x = mushroom_type
 	light.color = get_light_color()
 	light.texture_scale = effect_radius / 120.0
+	fire.show()
 	if mushroom_type in mushrooms_without_staticbody: staticbody.queue_free()
 	else: fire.queue_free()
 	var scale_size = effect_radius / 40.0
@@ -69,7 +70,7 @@ func _process(_delta):
 	during_cooldown = false
 
 func mushroom_damage_behaviour():
-	if disabled: return
+	if disabled or Overworld.trigger_blocked(): return
 	match mushroom_type:
 		MushroomType.RED:
 			LeafMode.modify_hp_with_id(LeafMode.HPChangeID.RedMushroom)
@@ -84,8 +85,8 @@ func mushroom_damage_behaviour():
 func brown_mushroom_behavior():
 	disabled = true
 	await mushroom_tween(0.5, 0.25)
-	Audio.play_sound("res://Audio/SFX/Explosion.mp3", 0.2)
-	var explosion_instance = load("res://Scenes/Explosion.tscn").instantiate()
+	Audio.play_sound(UID.SFX_EXPLOSION, 0.2)
+	var explosion_instance = UID.SCN_EXPLOSION.instantiate()
 	
 	sprite.add_child(explosion_instance)
 	explosion_instance.play()
@@ -118,7 +119,7 @@ func mushroom_decay():
 	disabled = true
 	await get_tree().create_timer(0.5).timeout
 	rotation = PI / 2
-	Audio.play_sound("res://Audio/SFX/MushroomPetrify.mp3", 0.2)
+	Audio.play_sound(UID.SFX_MUSHROOM_PETRIFY, 0.2)
 	await tween_energy(1)
 	var alpha_tween = create_tween()
 	await alpha_tween.tween_property(self, "modulate:a", 0, 1).finished
@@ -140,6 +141,5 @@ func damage_after_blast():
 
 func yellow_mushroom_behavior():
 	if Effects.get_ongoing_effects_count() == 0: return
-	Effects.effect_end(Effects.ID.Blindness)
-	for effect in Effects.get_ongoing_effects():
-		Effects.effect_end(effect)
+	Audio.play_sound(UID.SFX_ANTIDOTE_MUSHROOM, 0.2)
+	Effects.end_all_effects()

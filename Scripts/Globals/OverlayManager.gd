@@ -19,11 +19,15 @@ func show_overlay():
 	fadeOverlay.color.a = 0
 
 func show_scene(duration = 1.0):
-	overlay_tween(Color(fadeOverlay.color, 0), duration)
+	alpha_tween(0, duration)
 	await finished
 
 func hide_scene(duration = 1.0):
-	overlay_tween(Color(fadeOverlay.color, 1), duration)
+	alpha_tween(1, duration)
+	await finished
+
+func alpha_tween(alpha, duration = 1.0):
+	overlay_tween(Color(fadeOverlay.color, alpha), duration)
 	await finished
 
 func overlay_tween(color: Color, duration = 1):
@@ -37,7 +41,7 @@ func kill_tween():
 	if activeTween != null and is_instance_valid(activeTween):
 		activeTween.kill()
 
-func change_scene(scene, hideDuration = 1, showDuration = 1, betweenSceneWait: float = 0):
+func change_scene(scene : PackedScene, hideDuration = 1, showDuration = 1, betweenSceneWait: float = 0):
 	if sceneChangingDisabled: return
 	sceneChangingDisabled = true
 	hide_scene(hideDuration)
@@ -48,15 +52,15 @@ func change_scene(scene, hideDuration = 1, showDuration = 1, betweenSceneWait: f
 	if SaveData.allow_game_load:
 		load_post_legend_scene()
 	else:
-		get_tree().change_scene_to_file(scene)
+		get_tree().change_scene_to_packed(scene)
 	show_scene(showDuration)
 	await finished
 	sceneChangingDisabled = false
 
 func load_post_legend_scene():
-	var nextScenePath = "res://Scenes/ChooseCharacter.tscn"
+	var nextScenePath = UID.SCN_CHOOSE_CHARACTER
 	if CutsceneManager.is_cutscene_finished(CutsceneManager.Cutscene.ChoosePlayer):
 		Overworld.enable()
-		nextScenePath = "res://Scenes/Audio.tscn" # empty scene
-	if Overworld.saveFileCorrupted: nextScenePath = "res://Rooms/ErrorHandler.tscn"
-	get_tree().change_scene_to_file(nextScenePath)
+		nextScenePath = UID.SCN_EMPTY
+	if Overworld.saveFileCorrupted: nextScenePath = UID.SCN_ERROR_HANDLELER
+	get_tree().change_scene_to_packed(nextScenePath)

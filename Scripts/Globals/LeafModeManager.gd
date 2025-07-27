@@ -23,7 +23,8 @@ var cannot_start_hp_tween = false
 var invincibility = false
 var health_bar_tween
 var damage_bar_tween
-var light_multiplier : float = 1
+const initial_light_multiplier := 0.75
+var light_multiplier := initial_light_multiplier
 var last_health_change = 0
 var game_over = false
 
@@ -49,8 +50,9 @@ func _ready():
 	restore_all_stamina()
 
 func update_head_texture():
-	var head_path = "res://Textures/UI Heads/" + SaveData.selectedCharacter + "Head.png"
-	playerHead.texture = load(head_path)
+	var head_texture = UID.get_ui_head_with_string(SaveData.selectedCharacter)
+	if head_texture == null: return
+	playerHead.texture = head_texture
 
 func update_health(updateTo):
 	var used_update_to = max(0, updateTo)
@@ -90,11 +92,12 @@ func update_stamina(update_to):
 	staminaLeaf.modulate.a = leafAlpha
 
 func trigger_game_over():
+	Effects.end_all_effects()
 	SaveData.death_counter += 1
 	SaveData.save_autosave_file()
 	Overlay.set_alpha(0.4)
 	game_over = true
-	Player.leafTween.kill()
+	Player.end_leaf_flashes()
 	Audio.stop_overworld_music()
 	Overlay.kill_tween()
 	emit_signal("game_over_triggered")
@@ -102,7 +105,7 @@ func trigger_game_over():
 		Player.light.energy = 1
 	await get_tree().create_timer(0.75).timeout
 	await Overlay.hide_scene(0.25)
-	get_tree().change_scene_to_file("res://Scenes/Game Over.tscn")
+	get_tree().change_scene_to_packed(UID.SCN_GAME_OVER)
 
 func restore_all_stamina():
 	update_stamina(Player.maxStamina)
@@ -110,7 +113,7 @@ func restore_all_stamina():
 func change_stamina(by):
 	update_stamina(Player.stamina + by)
 
-func modify_hp_with_label(by, sound = ""):
+func modify_hp_with_label(by, sound : AudioStream = null):
 	var positive_change = by > 0
 	by = roundi(by)
 	if not positive_change and invincibility: return
@@ -129,10 +132,10 @@ func modify_hp_with_label(by, sound = ""):
 	health_ui_tween(5, ui_tween_duration/2)
 	damage_tween_func(by)
 	
-	if sound == "":
-		sound = "res://Audio/SFX/GetUp.mp3"
+	if sound == null:
+		sound = UID.SFX_PLAYER_HIT
 		if positive_change:
-			sound = "res://Audio/SFX/PlayerHeal.mp3"
+			sound = UID.SFX_PLAYER_HEAL
 	Audio.play_sound(sound, 0.2, 10, true)
 	
 	var player_color = Color.RED
@@ -191,8 +194,7 @@ func damage_tween_func(damage_taken):
 	tween.tween_property(damage_bar, "value", Player.playerHealth, tween_duration).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 
 func spawn_health_change_info_particle(health_change, player_color):
-	var scene : PackedScene = load("res://Scenes/Health Change Info.tscn")
-	var instance = scene.instantiate()
+	var instance = UID.SCN_HEALTH_CHANGE_INFO.instantiate()
 	instance.modulate = player_color
 	
 	Player.hp_particle_point.add_child(instance)
@@ -206,10 +208,10 @@ func post_river_fail(marker):
 	Player.node.global_position = marker.global_position
 	var walkable_lilypads_node = Overworld.activeRoom.get_node("Walkable Lilypads")
 	walkable_lilypads_node.queue_free()
-	var scene_name = "res://Scenes/" + Overworld.activeRoom.name + " Lilypads.tscn"
 	await get_tree().process_frame
-	var scene = load(scene_name).instantiate()
+	var scene = UID.SCN_LILYPAD_MECHANIC[Overworld.currentRoom].instantiate()
 	scene.name = "Walkable Lilypads"
+	MovingNPC.refresh_follower_agents()
 	Overworld.activeRoom.add_child(scene)
 	
 	Player.go_outside_water(true)

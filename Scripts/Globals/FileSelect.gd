@@ -40,14 +40,14 @@ func _ready():
 func load_player_data():
 	for i in range(1, 4):
 		for data in ["playerName", "PlayTime", "currentRoom"]:
-			var node_path = "Save Files/File " + str(i) + "/" + data
+			var node_path = "Save Files/File " + str(i) + "/Labels/" + data
 			var label_node = get_node(node_path)
 			var accessed_data = SaveData.access_other_file_data(i, data)
 			if data == "PlayTime":
 				accessed_data = SaveData.access_other_autosave_data(i, data)
 			match data:
-				"PlayTime": accessed_data = convert_to_time_format(accessed_data)
-				"currentRoom": accessed_data = Localization.get_text("room_name_" + Overworld.get_room_enum(int(accessed_data)))
+				"PlayTime": accessed_data = SaveMenu.convert_to_time_format(accessed_data)
+				"currentRoom": accessed_data = Overworld.get_room_ingame_name(accessed_data)
 			var handled_file = get_file_node(i)
 			var save_file_exists = SaveData.save_file_exists(i)
 			handled_file.modulate = Color.WHITE
@@ -60,17 +60,7 @@ func load_player_data():
 func get_file_node(file_num):
 	return get_node("Save Files/File " + str(file_num))
 
-func convert_to_time_format(seconds):
-	if str(seconds) == "": return ""
-	var sec = str(int(seconds) % 60)
-	if sec.length() == 1: sec = "0" + sec
-	var min = str((int(seconds) / 60) % 60) + ":"
-	var hours = str(int(seconds) / 3600) + ":"
-	if hours == "0:": hours = ""
-	elif min.length() == 2: min = "0" + min[0] + ":"
-	return hours + min + sec
-
-func _process(delta: float) -> void:
+func _process(_delta) -> void:
 	return_on_process = false
 	if disable_actions: return
 	var previous_selected_file = current_selected_file
@@ -89,7 +79,7 @@ func _process(delta: float) -> void:
 		else: selected_file()
 		return
 	if previous_selected_file == current_selected_file and previous_file_option == file_option: return
-	Audio.play_sound("res://Audio/SFX/Changed Choice.mp3", 0.2)
+	Audio.play_sound(UID.SFX_MENU_CHANGED_CHOICE, 0.2)
 	if previous_selected_file != current_selected_file:
 		move_unselected_file(leaf_move_speed)
 	if previous_file_option != file_option:
@@ -131,7 +121,7 @@ func handle_inputs():
 		if pressed_left: booleanChoice = 0
 		if pressed_right: booleanChoice = 1
 		if previous_boolean_choice == booleanChoice: return
-		Audio.play_sound("res://Audio/SFX/Changed Choice.mp3", 0.2)
+		Audio.play_sound(UID.SFX_MENU_CHANGED_CHOICE, 0.2)
 		boolean_choice_move(leaf_move_speed)
 		return
 	if pressed_back and current_file_mode != FileModes.PLAY:
@@ -148,7 +138,7 @@ func handle_inputs():
 
 func selected_file():
 	erase_file_sure = false
-	Audio.play_sound("res://Audio/SFX/GetUp.mp3", 0.2)
+	Audio.play_sound(UID.SFX_MENU_CANCEL, 0.2)
 	if current_selected_file == 4:
 		interact_with_file_option()
 		return
@@ -177,7 +167,7 @@ func get_question_label():
 	return get_node(file_node_path + "playerName")
 
 func get_current_selected_file_node_path():
-	return "Save Files/File " + str(current_selected_file) + "/"
+	return "Save Files/File " + str(current_selected_file) + "/Labels/"
 
 func interact_with_file_option(in_ready := false):
 	var option_name = get_file_mode_name(file_option)
@@ -206,7 +196,7 @@ func interact_with_file_option(in_ready := false):
 func transition_to_language_select():
 	if Overlay.sceneChangingDisabled: return
 	disable_actions = true
-	Overlay.change_scene("res://Scenes/Choose Language.tscn", 1, 1)
+	Overlay.change_scene(UID.SCN_CHOOSE_LANGUAGE, 1, 1)
 
 func get_file_mode_name(mode: FileModes):
 	return FileModes.find_key(mode)
@@ -230,7 +220,7 @@ func confirm_on_selected_file():
 		FileModes.ERASE:
 			if booleanChoice == 0:
 				if not erase_file_sure:
-					Audio.play_sound("res://Audio/SFX/GetUp.mp3", 0.2)
+					Audio.play_sound(UID.SFX_MENU_CANCEL, 0.2)
 					get_question_label().text = Localization.get_text("save_file_choice_ACTUALLY_ERASE")
 					file_node.modulate = Color.RED
 					erase_file_sure = true
@@ -246,13 +236,13 @@ func confirm_on_selected_file():
 		cancel_file_selection()
 		return
 	disable_actions = true
-	Audio.play_sound("res://Audio/SFX/Bible Appears.mp3")
-	Overlay.change_scene("res://Scenes/Legend.tscn", 2, 1, 2)
+	Audio.play_sound(UID.SFX_RELIGIOUS_SPAWN)
+	Overlay.change_scene(UID.SCN_LEGEND, 2, 1, 2)
 	SaveData.load_game(current_selected_file)
 	Audio.fade_music(1)
 
 func cancel_file_selection():
-	Audio.play_sound("res://Audio/SFX/GetUp.mp3", 0.2)
+	Audio.play_sound(UID.SFX_MENU_CANCEL, 0.2)
 	file_selected = false
 	move_unselected_file(leaf_move_speed)
 	resize_leaf(3, leaf_move_speed)
@@ -266,7 +256,7 @@ func delete_file():
 	delete_file_on_disk(regular_savefile)
 	delete_file_on_disk(auto_savefile)
 	cancel_file_selection()
-	Audio.play_sound("res://Audio/SFX/Summon Characters.mp3", 0.2)
+	Audio.play_sound(UID.SFX_FILE_SELECT_DELETE_FILE, 0.2)
 
 func is_space_for_file_copy():
 	file_paste_destination = 0
@@ -292,7 +282,7 @@ func copy_file():
 	copy_file_on_disk(autosave_copy, autosave_paste)
 	
 	cancel_file_selection()
-	Audio.play_sound("res://Audio/SFX/OverworldLeafMode.mp3", 0.2)
+	Audio.play_sound(UID.SFX_FILE_SELECT_COPY, 0.2)
 
 func copy_file_on_disk(copy_origin_path, paste_destination_path):
 	var origin_file = FileAccess.open(copy_origin_path, FileAccess.READ)

@@ -22,7 +22,7 @@ func sink_underwater():
 	Player.is_sinking = true
 	create_tween().tween_property(Player.leafNode, "modulate:a", 0, 0.7).set_ease(Tween.EASE_IN_OUT)
 	TextSystem.lockAction = true
-	Audio.play_sound("res://Audio/SFX/Deep Water Splash.mp3", 0.2, 5)
+	Audio.play_sound(UID.SFX_DEEP_WATER_SPLASH, 0.2, 5)
 	
 	player_river_damage()
 	await sink_tween(1, 1.5)
@@ -49,4 +49,4 @@ func on_entering_shallow_water():
 	Player.in_water = true
 	Player.set_uniform("sink_progression", shallow_water_sink)
 	Player.leafNode.position.y += shallow_water_sink * image_pixel_height
-	Audio.play_sound("res://Audio/SFX/Splash.mp3", 0.2, 5)
+	Audio.play_sound(UID.SFX_SHALLOW_WATER_SPLASH, 0.2, 5)

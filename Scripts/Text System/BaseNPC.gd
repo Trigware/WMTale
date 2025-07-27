@@ -10,6 +10,9 @@ extends Area2D
 @export var ignoreDirections := false
 @export var disable_placeholder_interactions := false
 @export var deactivated_at_start := false
+@export var save_menu := false
+@export var override_id_from_parent := false
+@export var interactionCountForeverOne := false
 
 @onready var triggerZone = $"Trigger Zone"
 
@@ -23,10 +26,13 @@ var first_text_exists : bool
 var padestalTexts := [NPCData.ID.Pedestal_SPAWN_ENTERANCE]
 
 func _ready():
+	await get_tree().process_frame
+	if override_id_from_parent:
+		override_id_from_parent_fn()
+	
 	if npcID == NPCData.ID.Uninitialized:
 		push_error("NPC ID is not initiliazed!")
 		return
-	await get_tree().process_frame
 	if deactivated_at_start:
 		NPCData.set_data(npcID, NPCData.Field.Deactivated, true)
 	textID = NPCData.get_id_name(npcID)
@@ -40,6 +46,22 @@ func _ready():
 	placeholderExists = Localization.text_exists(placeholderInteraction)
 	if not placeholderExists and not first_text_exists:
 		push_error("No text key with NPC ID exists (" + textID + ")!")
+
+func override_id_from_parent_fn():
+	var parent = get_parent()
+	if parent == null: return
+	if parent.has_meta("npc_id"):
+		var strID = parent.get_meta("npc_id")
+		npcID = NPCData.convert_string_to_id(strID)
+		return
+	
+	var parent_properties = get_property_list()
+	for property in parent_properties:
+		var prop_name = property.name
+		if prop_name == "npcID":
+			npcID = parent.npcID
+			return
+	push_error("Parent has no NPC ID metadata or property!")
 
 func remove_static_body():
 	if not removeStaticBody: return
@@ -57,9 +79,16 @@ func _process(_delta):
 			return
 
 func interact_with_npc():
-	if NPCData.get_data(npcID, NPCData.Field.Deactivated) or TextSystem.lockAction: return
+	var deactivated = NPCData.get_data(npcID, NPCData.Field.Deactivated)
+	if deactivated: return
+	if TextSystem.lockAction or SaveMenu.menu_openned or Player.inputless_movement: return
 	if not is_player_looking_towards_npc(): return
+	
+	if autoTrigger:
+		NPCData.set_data(npcID, NPCData.Field.Deactivated, true)
+	
 	interactionCount = NPCData.get_incremented_data(npcID, NPCData.Field.InteractionCount)
+	if interactionCountForeverOne: interactionCount = 1
 	TextSystem.canInteract = false
 	
 	if not placeholderExists and not disable_placeholder_interactions:
@@ -76,6 +105,8 @@ func interact_with_npc():
 	
 	await after_base_dialog_complete()
 	TextSystem.end_npc_dialog(npcID, self, deleteAfterTalk)
+	if save_menu:
+		SaveMenu.on_menu_open()
 
 func print_regular_npc_text():
 	var i = 1
@@ -93,20 +124,20 @@ func get_current_text(index, interact_override = false, interact_override_value 
 
 func is_player_looking_towards_npc() -> bool:
 	if autoTrigger or removeStaticBody or ignoreDirections: return true
-	var playerPos : Vector2 = Player.get_global_pos()
+	var playerPos : Vector2 = Player.get_body_pos()
 	var npcPos : Vector2 = triggerZone.global_position
-	var playerDir = Player.node.animationDir
+	var playerDir = Player.node.stringAnimation
 	
 	match playerDir:
-		Vector2.LEFT: return playerPos.x > npcPos.x
-		Vector2.RIGHT: return playerPos.x < npcPos.x
-		Vector2.UP: return playerPos.y > npcPos.y
+		"Left": return playerPos.x > npcPos.x
+		"Right": return playerPos.x < npcPos.x
+		"Up": return playerPos.y > npcPos.y
 		_: return playerPos.y < npcPos.y
 
 func after_base_dialog_complete():
 	if npcID in padestalTexts:
 		await TextSystem.give_basic_choice()
-		if TextSystem.lastChoiceText == Localization.get_text("choicer_decline"): return
+		if TextSystem.lastChoiceText == "choicer_decline": return
 		await TextSystem.print_wait_localization("PedestalText_intro", [SaveData.playerName])
 		var textPrefix = "PedestalText_" + SaveData.selectedCharacter + "_"
 		await TextSystem.print_sequence_no_variables(
@@ -114,3 +145,14 @@ func after_base_dialog_complete():
 			textPrefix + "2",
 			"PedestalText_end"]
 		)
+		return
+	if NPCData.is_identifier_save_point(npcID):
+		var final_text_key = "SavePoint_end"
+		if not SaveData.save_choice_seen:
+			final_text_key = "SavePoint_end_first_time"
+		await TextSystem.print_wait_localization(final_text_key)
+		return
+	if npcID == NPCData.ID.BibleInteractPrompt_SAVEINTROROOM:
+		await MovingNPC.move_player_by(-100)
+		NPCData.set_data(npcID, NPCData.Field.Deactivated, false)
+		return
