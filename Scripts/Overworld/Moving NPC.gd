@@ -17,9 +17,16 @@ var currently_moving = false
 var follower_index := 0
 var base_follower_zindex = 50
 var layer_npc_areas = 0
+var jumping = false
+var affected_by_gravity = false
+var vertical_jump_destination : float
+var horizontal_jump_tween
+var emitted_notice_signal := false
 
-const default_jump_height = 50
-const default_jump_duaration = 0.65
+const jump_height = 250
+const jump_gravity = 7
+const default_jump_duaration = 2
+const near_ground_notice_distance = 100
 
 @onready var sprite = $Sprite
 @onready var collider = $Collider
@@ -185,7 +192,26 @@ func tween_hide_progression(final, duration):
 	visibility_tween.set_trans(Tween.TRANS_EXPO)
 	await visibility_tween.finished
 
-func jump_to_point(point: Vector2, jump_height := default_jump_height, jump_duration := default_jump_duaration):
-	var start_position = position
-	var heighest_vertical_point = position.y - jump_height
-	
+func jump_to_point(point: Vector2):
+	emitted_notice_signal = false
+	jumping = true
+	affected_by_gravity = true
+	vertical_jump_destination = point.y
+	horizontal_jump_tween = create_tween()
+	horizontal_jump_tween.tween_property(self, "global_position:x", point.x, default_jump_duaration)
+
+func _physics_process(_delta):
+	var vertical_position_motice = vertical_jump_destination - near_ground_notice_distance
+	if not emitted_notice_signal and position.y > vertical_position_motice:
+		emitted_notice_signal = true
+		MovingNPC.emit_signal("near_ground")
+	if position.y > vertical_jump_destination:
+		affected_by_gravity = true
+		if horizontal_jump_tween != null: horizontal_jump_tween.kill()
+		return
+	if affected_by_gravity:
+		velocity.y += jump_gravity
+	if jumping:
+		velocity.y = -jump_height
+		jumping = false
+	move_and_slide()

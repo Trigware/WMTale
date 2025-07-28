@@ -1,0 +1,22 @@
+res://Rooms/Weird/SaveIntroRoom.tscn
+res://Scripts/Text System/TextSystem.gd
+res://Spriteframes/BibleOverworld.tres
+res://Spriteframes/LeafDisintegration.tres
+res://Label Settings/OutlinedText.tres
+res://Spriteframes/ExplosionEffect.tres
+res://Spriteframes/Player/xdaforge.tres
+res://Spriteframes/Player/rabbitek.tres
+res://Spriteframes/Player/gertofin.tres
+res://Spriteframes/Nixie.tres
+res://Shaders/GDSL/HideSprite.gdshader
+res://TileSets/WeirdGround.tres
+res://TileSets/WeirdRiver.tres
+res://TileSets/WeirdEnvironment.tres
+res://TileSets/WeirdTree.tres
+res://Spriteframes/Campfire.tres
+res://Scenes/Core/Moving NPC.tscn
+res://Scenes/Overworld/Player.tscn
+res://Scenes/Core/Moving NPC Manager.tscn
+res://Scripts/Overworld/Moving NPC.gd
+res://Scripts/Globals/CutsceneManager.gd
+res://Scripts/Globals/MovingNPCManager.gd

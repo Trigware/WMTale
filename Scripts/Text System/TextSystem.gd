@@ -46,6 +46,7 @@ var currentOverlappingSoundsValue := false
 var canInteract = true
 var init_color : Color
 var end_latest_text_automatically := false
+var end_latest_text_externally := false
 
 signal text_finished
 signal want_next_text
@@ -79,7 +80,8 @@ enum Property
 	Textbox,
 	Outline,
 	InitialColor,
-	EndAutomatically
+	EndAutomatically,
+	EndExternally
 }
 
 @onready var TextConfigurations = {
@@ -125,7 +127,7 @@ func preset_variations():
 		Property.LineLength: 0
 	})
 	add_variation(Preset.TreeTextCutoff, Preset.OverworldTreeTalk, {
-		Property.EndAutomatically: true
+		Property.EndExternally: false
 	})
 
 func _ready():
@@ -154,7 +156,7 @@ func on_finished_text():
 func color_to_hex(color: Color):
 	return color.to_html(false).to_upper()
 
-func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, allowTextSkip, talkAudio, pitchRange, textbox, overlappingSounds, outline, initial_color, end_automatically):
+func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, allowTextSkip, talkAudio, pitchRange, textbox, overlappingSounds, outline, initial_color, end_automatically, end_externally):
 	Player.node.animationNode.stop()
 	lockAction = true
 	if overwriteSkippable:
@@ -167,6 +169,7 @@ func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, al
 	else: textNode = $CanvasLayer/Text
 	
 	end_latest_text_automatically = end_automatically
+	end_latest_text_externally = end_externally
 	init_color = initial_color
 	currentColor = color_to_hex(initial_color)
 	textNode.scale = Vector2(fontSize, fontSize) / 48
@@ -211,7 +214,8 @@ func print_preset(text, preset: Preset = Preset.Fallback):
 		config.get(Property.OverlapAudio, false),
 		config.get(Property.Outline, false),
 		config.get(Property.InitialColor, "#FFFFFF"),
-		config.get(Property.EndAutomatically, false)
+		config.get(Property.EndAutomatically, false),
+		config.get(Property.EndExternally, false)
 	)
 
 func print_next_char():
@@ -260,7 +264,7 @@ func split_text_by_lines(text, lineLength) -> String:
 
 	return wrapped_text.strip_edges()
 
-func clear_text():
+func clear_text(continue_text = false):
 	textNode.text = ""
 	typewritterTimer.stop()
 	lockAction = false
@@ -271,6 +275,7 @@ func clear_text():
 		choiceNodes[previousChoiceDirection].modulate = Color.WHITE
 	leafNode.modulate.a = 1
 	waitLeaf.hide()
+	if continue_text: emit_signal("want_next_text")
 	
 func get_text_width(text) -> float:
 	var font = textNode.get_theme_font("normal_font")
@@ -332,6 +337,7 @@ func add_color_to_text(text) -> String:
 	return resultText
 
 func _unhandled_input(_event: InputEvent):
+	if end_latest_text_externally: return
 	if (Input.is_action_just_pressed("continue") or Input.is_action_pressed("skip_text")) and textFinished:
 		emit_signal("want_next_text")
 	if Input.is_action_just_pressed("continue") and inChoicer:

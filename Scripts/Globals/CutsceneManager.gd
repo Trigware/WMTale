@@ -68,7 +68,7 @@ func play_cemetarygate_cutscene():
 func play_nixie_introductory_cutscene():
 	var nixie = cutscene_nodes["nixie"]
 	nixie_logic_introductory(nixie)
-	await wait(0.5)
+	await wait(0.2)
 	await TextSystem.print_wait_localization("Cutscene_Nixie_Introductory_TreeSaveDialog", {}, TextSystem.Preset.TreeTextCutoff)
 	emit_signal("cutscene_completed")
 
@@ -78,8 +78,10 @@ func nixie_logic_introductory(nixie):
 	nixie.hide()
 	nixie.set_anim("walk_left")
 	nixie.set_uniform("hide_progression", 1)
-	await wait(0.3)
+	await wait(0.6)
 	nixie.show()
 	nixie.tween_hide_progression(0, 0.75)
 	await wait(1)
-	nixie.jump_to_point(Player.get_body_pos())
+	nixie.jump_to_point(Player.get_global_pos())
+	await MovingNPC.near_ground
+	TextSystem.clear_text(true)
