@@ -184,7 +184,7 @@ position = Vector2(825, -129)
 
 [node name="Nixie" parent="." instance=ExtResource("16_rf7te")]
 position = Vector2(795, -180)
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 agent_type = 3
 agent_variation = 4
 

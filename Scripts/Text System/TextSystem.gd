@@ -45,6 +45,7 @@ var lastChoiceText := ""
 var currentOverlappingSoundsValue := false
 var canInteract = true
 var init_color : Color
+var end_latest_text_automatically := false
 
 signal text_finished
 signal want_next_text
@@ -60,7 +61,8 @@ enum Preset
 	RegularDialog,
 	OverworldTreeTalk,
 	GameOver,
-	FirstGameOver
+	FirstGameOver,
+	TreeTextCutoff
 }
 
 enum Property
@@ -77,7 +79,7 @@ enum Property
 	Textbox,
 	Outline,
 	InitialColor,
-	ClearOnNextText
+	EndAutomatically
 }
 
 @onready var TextConfigurations = {
@@ -117,11 +119,13 @@ func preset_variations():
 		Property.Outline: true,
 		Property.InitialColor: Color.WEB_GRAY,
 		Property.FontSize: 54,
-		Property.LineLength: 850,
-		Property.ClearOnNextText: false
+		Property.LineLength: 850
 	})
 	add_variation(Preset.FirstGameOver, Preset.GameOver, {
 		Property.LineLength: 0
+	})
+	add_variation(Preset.TreeTextCutoff, Preset.OverworldTreeTalk, {
+		Property.EndAutomatically: true
 	})
 
 func _ready():
@@ -150,7 +154,7 @@ func on_finished_text():
 func color_to_hex(color: Color):
 	return color.to_html(false).to_upper()
 
-func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, allowTextSkip, talkAudio, pitchRange, textbox, overlappingSounds, outline, initial_color):
+func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, allowTextSkip, talkAudio, pitchRange, textbox, overlappingSounds, outline, initial_color, end_automatically):
 	Player.node.animationNode.stop()
 	lockAction = true
 	if overwriteSkippable:
@@ -162,6 +166,7 @@ func print_text(text, speed, textSize, textPosition, lineLength, centerAlign, al
 	if outline: textNode = $"CanvasLayer/Outlined Text"
 	else: textNode = $CanvasLayer/Text
 	
+	end_latest_text_automatically = end_automatically
 	init_color = initial_color
 	currentColor = color_to_hex(initial_color)
 	textNode.scale = Vector2(fontSize, fontSize) / 48
@@ -205,7 +210,8 @@ func print_preset(text, preset: Preset = Preset.Fallback):
 		config.get(Property.Textbox, false),
 		config.get(Property.OverlapAudio, false),
 		config.get(Property.Outline, false),
-		config.get(Property.InitialColor, "#FFFFFF")
+		config.get(Property.InitialColor, "#FFFFFF"),
+		config.get(Property.EndAutomatically, false)
 	)
 
 func print_next_char():
@@ -228,6 +234,8 @@ func print_next_char():
 	textCanBeSkipped = false
 	textFinished = true
 	emit_signal("text_finished")
+	if end_latest_text_automatically:
+		emit_signal("want_next_text")
 
 func split_text_by_lines(text, lineLength) -> String:
 	if lineLength == 0: return text

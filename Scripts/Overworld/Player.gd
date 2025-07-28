@@ -22,12 +22,15 @@ enum MovementMode {
 }
 
 func _ready():
-	Player.latest_shader = UID.SHD_SINK_WATER.duplicate()
-	animationNode.material = Player.latest_shader
-	var player_agent_variation = MovingNPC.convert_str_to_agent_variation(SaveData.selectedCharacter)
-	animationNode.sprite_frames = UID.SPF_MOVING_NPCS[player_agent_variation]
+	animationNode.animation_changed.connect(on_frame_changed)
+	animationNode.material = UID.SHD_HIDE_SPRITE.duplicate()
+
+func on_frame_changed():
+	MovingNPC.set_texture_height(animationNode, Player)
 
 func enable():
+	var player_agent_variation = MovingNPC.convert_str_to_agent_variation(SaveData.selectedCharacter)
+	animationNode.sprite_frames = UID.SPF_MOVING_NPCS[player_agent_variation]
 	disableFootsteps = false
 	TextSystem.fallbackPreset = TextSystem.Preset.RegularDialog
 	animationNode.frame = 0
@@ -120,7 +123,7 @@ func play_footstep():
 func add_to_footstep_targets():
 	var footstep = {
 		"target": global_position,
-		"sink_progression": Player.get_uniform("sink_progression")
+		"hide_progression": Player.get_uniform("hide_progression")
 	}
 	Player.footsteps.append(footstep)
 	MovingNPC.check_for_follower_movement()

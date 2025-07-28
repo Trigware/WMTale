@@ -46,7 +46,7 @@ func after_choice_behavior():
 	SaveData.game_saved_times += 1
 	SaveData.save_game()
 	emit_signal("game_saved")
-	Player.update_animation_without_shader("praying")
+	Player.update_animation("praying")
 	Audio.play_sound(UID.SFX_SIT, 0.2)
 	await get_tree().create_timer(0.2).timeout
 	Audio.play_sound(UID.SFX_PRAYING)
@@ -75,7 +75,6 @@ func on_menu_close():
 	await Overlay.alpha_tween(0, change_visibility_duration)
 	if saved_game: emit_signal("game_saved_menu_closed")
 	menu_openned = false
-	Player.readd_shader()
 
 func convert_to_time_format(seconds, ignore_empty = false):
 	if str(seconds) == "":

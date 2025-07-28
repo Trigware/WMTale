@@ -18,6 +18,9 @@ var follower_index := 0
 var base_follower_zindex = 50
 var layer_npc_areas = 0
 
+const default_jump_height = 50
+const default_jump_duaration = 0.65
+
 @onready var sprite = $Sprite
 @onready var collider = $Collider
 
@@ -26,12 +29,16 @@ func _ready():
 		push_error("Uninitialized agent type for a moving NPC!")
 		queue_free()
 		return
+	sprite.animation_changed.connect(on_animation_changed)
 	if agent_type != Enum.AgentType.CutsceneAgent:
 		global_position = Player.get_body_pos()
 		name = get_appropriate_name()
 	if agent_type != Enum.AgentType.PlayerAgent:
 		setup_moving_npc()
 		set_follower_index()
+
+func on_animation_changed():
+	MovingNPC.set_texture_height(sprite, self)
 
 func set_follower_index():
 	follower_index = Overworld.party_members.find(agent_variation) + 1
@@ -43,7 +50,7 @@ func setup_moving_npc():
 		push_error("Excepted agent variation for a " + name + ", but found none!")
 		return
 	
-	sprite.material = UID.SHD_SINK_WATER.duplicate()
+	sprite.material = UID.SHD_HIDE_SPRITE.duplicate()
 	sprite.sprite_frames = UID.SPF_MOVING_NPCS[agent_variation]
 	var collider_info = UID.get_agent_collider_info(agent_variation)
 	if collider_info != {}:
@@ -130,8 +137,8 @@ func get_movement_direction(vec: Vector2):
 func take_step_towards_player(footstep):
 	var previous_position = global_position
 	var target = footstep["target"]
-	var sink_progress = footstep["sink_progression"]
-	set_uniform("sink_progression", sink_progress)
+	var sink_progress = footstep["hide_progression"]
+	set_uniform("hide_progression", sink_progress)
 	global_position = target
 	var delta = target - previous_position
 	var str_dir = get_string_direction(delta)
@@ -141,7 +148,11 @@ func take_step_towards_player(footstep):
 
 func set_uniform(parameter: String, value):
 	var shader_mat = get_shader_material()
-	shader_mat.set_shader_parameter(parameter, value)
+	shader_mat.set_shader_parameter(parameter, float(value))
+
+func get_uniform(parameter: String):
+	var shader_mat = get_shader_material()
+	return shader_mat.get_shader_parameter(parameter)
 
 func get_shader_material() -> ShaderMaterial:
 	return sprite.material
@@ -152,5 +163,29 @@ func play_animation(anim_name):
 func play_current():
 	sprite.play(sprite.animation)
 
+func set_anim(anim_name):
+	sprite.animation = anim_name
+
 func scale_both_axis(new_scale: float):
 	scale = Vector2(new_scale, new_scale)
+
+func get_texture_size():
+	return sprite.texture.get_size()
+
+func tween_hide_progression(final, duration):
+	var visibility_tween = create_tween()
+	visibility_tween.tween_method(
+		func(val):
+			set_uniform("hide_progression", val + 0.01),
+		get_uniform("hide_progression"),
+		final,
+		duration
+	)
+	visibility_tween.set_ease(Tween.EASE_IN_OUT)
+	visibility_tween.set_trans(Tween.TRANS_EXPO)
+	await visibility_tween.finished
+
+func jump_to_point(point: Vector2, jump_height := default_jump_height, jump_duration := default_jump_duaration):
+	var start_position = position
+	var heighest_vertical_point = position.y - jump_height
+	

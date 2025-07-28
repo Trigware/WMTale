@@ -169,18 +169,6 @@ gizmo_extents = 100.0
 z_index = 5
 position = Vector2(501, -275)
 scale = Vector2(2, 2)
-npcID = 10
-item = null
-itemCount = null
-itemColor = null
-removeStaticBody = null
-autoTrigger = null
-deleteAfterTalk = null
-disable_placeholder_interactions = null
-deactivated_at_start = null
-save_menu = null
-override_id_from_parent = null
-interactionCountForeverOne = null
 
 [node name="Small Branch" parent="." instance=ExtResource("12_3i1th")]
 position = Vector2(272, -284)

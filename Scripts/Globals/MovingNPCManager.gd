@@ -1,7 +1,7 @@
 extends Node
 
 var follower_agents := {}
-const follower_distance = 15
+const follower_distance = 35
 
 func _process(_delta):
 	update_followers_zindex()
@@ -82,3 +82,12 @@ func get_agent_variation_as_str(agent_variation: Enum.AgentVariation) -> String:
 
 func convert_str_to_agent_variation(agent_variation: String) -> Enum.AgentVariation:
 	return Enum.AgentVariation[agent_variation]
+
+func set_texture_height(anim_node, uniform_func_scope):
+	await get_tree().process_frame
+	var spr_frames = anim_node.sprite_frames
+	var frame_texture = spr_frames.get_frame_texture(anim_node.animation, anim_node.frame)
+	if frame_texture == null: return
+	var texture_size = frame_texture.get_size()
+	uniform_func_scope.set_uniform("image_pixel_height", texture_size.y)
+	return texture_size.y

@@ -33,7 +33,7 @@ func generate_pitch_scale(pitch_shift):
 	return max(0.01, randomPitch)
 
 func play_awaited_stream(stream, pitch_shift = 0.0, volume = 0.0):
-	if waiting_for_stream: return
+	if waiting_for_stream or stream == null: return
 	waiting_for_stream = true
 	play_stream(stream, pitch_shift, volume)
 	await finished
