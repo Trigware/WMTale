@@ -10,7 +10,7 @@ size = Vector2(38, 10)
 size = Vector2(95, 137)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e63j"]
-size = Vector2(184, 64)
+size = Vector2(70.6667, 58)
 
 [node name="Layered NPC" type="Area2D"]
 script = ExtResource("3_0suky")
@@ -26,6 +26,7 @@ position = Vector2(-20.5, 57.75)
 shape = SubResource("RectangleShape2D_72j6q")
 
 [node name="Trigger Area" type="Area2D" parent="Layered Manager"]
+collision_mask = 3
 
 [node name="Collider" type="CollisionShape2D" parent="Layered Manager/Trigger Area"]
 position = Vector2(0, -6)

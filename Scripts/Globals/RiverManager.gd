@@ -36,8 +36,8 @@ func sink_tween(final, duration):
 	var sink_tween_v = create_tween()
 	sink_tween_v.tween_method(
 		func(val):
-			Player.set_uniform("sink_progression", val + 0.01),
-		Player.get_uniform("sink_progression"),
+			Player.set_uniform("hide_progression", val + 0.01),
+		Player.get_uniform("hide_progression"),
 		final,
 		duration
 	).set_ease(Tween.EASE_IN_OUT)
@@ -47,6 +47,6 @@ func on_entering_shallow_water():
 	if Player.in_water or Player.on_lilypad: return
 	Effects.effect_end(Effects.ID.Burning)
 	Player.in_water = true
-	Player.set_uniform("sink_progression", shallow_water_sink)
+	Player.set_uniform("hide_progression", shallow_water_sink)
 	Player.leafNode.position.y += shallow_water_sink * image_pixel_height
 	Audio.play_sound(UID.SFX_SHALLOW_WATER_SPLASH, 0.2, 5)

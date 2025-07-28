@@ -61,9 +61,10 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoloa
 		CutsceneManager.let_cutscene_play_out(roomCutscene)
 	
 	latestExitRoom = room
+	if SaveData.load_at_room_center: newPlayerPosition = Vector2.ZERO
 	Player.set_pos(newPlayerPosition)
 	Player.reset_camera_smoothing()
-	MovingNPC.create_all_follower_agents()
+	MovingNPC.refresh_follower_agents()
 	if autoload: BibleOverworld.attempt_to_load_bible()
 	await check_if_no_rooms_loaded()
 	add_child(activeRoom)
@@ -91,7 +92,8 @@ enum Room
 	Weird_LilypadRoom,
 	Weird_CemetaryGate,
 	Weird_SaveIntroRoom,
-	Weird_MushroomTester
+	Weird_MushroomTester,
+	Weird_LayeredNPCTester
 }
 
 func get_room_enum(room: Room) -> String:

@@ -1,15 +1,16 @@
+res://Spritesheets
+res://Scripts/Overworld
+res://Scripts/Globals
+res://Spriteframes
+res://Label Settings
+res://Spriteframes/Player
 res://Colliders
 res://Scenes/Core
-res://Scripts/Globals
-res://Scripts/Overworld
 res://Scenes/Overworld
 res://Scenes
-res://Spritesheets
 res://Textures/Other
 res://Textures/ChooseCharacter
-res://Spriteframes
 C:/Users/Honzík/Downloads
-res://Label Settings
 res://Shaders/Shader Materials
 res://Shaders/GDSL
 res://Textures/Weird Forest

@@ -56,6 +56,7 @@ size = Vector2(151, 131)
 size = Vector2(203, 179)
 
 [node name="TeleportTree" type="Node2D"]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_wwjg1")
 
 [node name="Tree Root" type="Node2D" parent="."]
@@ -96,6 +97,7 @@ autoplay = true
 max_distance = 1000.0
 
 [node name="Trigger Area" type="Area2D" parent="Tree Root"]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tree Root/Trigger Area"]
 position = Vector2(1.5, -3.5)

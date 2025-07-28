@@ -23,7 +23,8 @@ enum ID
 	SavePoint_Beehive,
 	BeehiveRegular_SAVEINTROROOM,
 	BlueBeehive_SAVEINTROROOM,
-	BibleInteractPrompt_SAVEINTROROOM
+	BibleInteractPrompt_SAVEINTROROOM,
+	DetailedTree_SAVEINTROROOM
 }
 
 enum Field
@@ -75,3 +76,9 @@ func get_enum_from_str(wanted_enum_name: String) -> ID:
 func is_identifier_save_point(id: ID) -> bool:
 	var id_name = get_id_name(id)
 	return id_name.begins_with("SavePoint")
+
+func convert_string_to_id(strID: String):
+	if not strID in ID:
+		push_error(strID + " is not a valid NPC identifier!")
+		return
+	return ID[strID]

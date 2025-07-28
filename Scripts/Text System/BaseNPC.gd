@@ -50,8 +50,18 @@ func _ready():
 func override_id_from_parent_fn():
 	var parent = get_parent()
 	if parent == null: return
-	for property in parent.get_property_list():
-		if property.name == "npcID": npcID = parent.npcID
+	if parent.has_meta("npc_id"):
+		var strID = parent.get_meta("npc_id")
+		npcID = NPCData.convert_string_to_id(strID)
+		return
+	
+	var parent_properties = get_property_list()
+	for property in parent_properties:
+		var prop_name = property.name
+		if prop_name == "npcID":
+			npcID = parent.npcID
+			return
+	push_error("Parent has no NPC ID metadata or property!")
 
 func remove_static_body():
 	if not removeStaticBody: return
@@ -137,7 +147,10 @@ func after_base_dialog_complete():
 		)
 		return
 	if NPCData.is_identifier_save_point(npcID):
-		await TextSystem.print_wait_localization("SavePoint_end")
+		var final_text_key = "SavePoint_end"
+		if not SaveData.save_choice_seen:
+			final_text_key = "SavePoint_end_first_time"
+		await TextSystem.print_wait_localization(final_text_key)
 		return
 	if npcID == NPCData.ID.BibleInteractPrompt_SAVEINTROROOM:
 		await MovingNPC.move_player_by(-100)

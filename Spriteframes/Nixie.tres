@@ -1,0 +1,51 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://b785s2t3fewxf"]
+
+[ext_resource type="Texture2D" uid="uid://dm1xv0toy7s2u" path="res://Spritesheets/NixieEyes.png" id="1_474c4"]
+[ext_resource type="Texture2D" uid="uid://daewvog5i8h17" path="res://Spritesheets/Nixie.png" id="2_4qlao"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qlao"]
+atlas = ExtResource("1_474c4")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcogd"]
+atlas = ExtResource("1_474c4")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7m43"]
+atlas = ExtResource("1_474c4")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ey3vf"]
+atlas = ExtResource("2_4qlao")
+region = Rect2(0, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_4qlao")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_bcogd")
+}, {
+"duration": 0.35,
+"texture": SubResource("AtlasTexture_n7m43")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"eyes",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ey3vf")
+}],
+"loop": false,
+"name": &"walk_left",
+"speed": 5.0
+}]

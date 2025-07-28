@@ -25,8 +25,6 @@ var finalLeafRescalePosition = Vector2(537, 460)
 const leafShrinkDuration = 2
 const leafCharacterSelectDuration = 0.35
 
-var playableCharacters = ["rabbitek", "xdaforge", "gertofin"]
-
 enum PlayableCharacter
 {
 	Rabbitek = 1,
@@ -134,7 +132,7 @@ func select_character():
 	var tween = create_tween()
 	tween.tween_property(leafTexture, "position:y", 305, 2).set_trans(Tween.TRANS_SINE).\
 	set_ease(Tween.EASE_IN_OUT)
-	SaveData.selectedCharacter = playableCharacters[chosenCharacter - 1]
+	SaveData.selectedCharacter = Player.playableCharacters[chosenCharacter - 1]
 	await tween.finished
 	TextSystem.print_localization("choosecharacter_choose_name")
 	create_tween().tween_property(nameInput, "modulate:a", 1, 1)
@@ -145,7 +143,7 @@ func on_name_submitted(text):
 	var checkedName = text.to_lower()
 	var invalidName = false
 	TextSystem.overwriteSkippable = true
-	if checkedName in playableCharacters:
+	if checkedName in Player.playableCharacters:
 		if SaveData.selectedCharacter.to_lower() == checkedName:
 			TextSystem.overwriteSkippable = false
 			await TextSystem.print_wait_localization("choosecharacter_namereaction_canonname")
@@ -197,7 +195,8 @@ func finish_scene():
 		"choosecharacter_postchoose_givebook",
 		"choosecharacter_finish_goodbad",
 		"choosecharacter_finish_terror",
-		"choosecharacter_finish_religion",
+		"choosecharacter_finish_destroy",
+		"choosecharacter_finish_lies",
 		"choosecharacter_finish_prepared",
 		"choosecharacter_finish_goodluck"
 	])

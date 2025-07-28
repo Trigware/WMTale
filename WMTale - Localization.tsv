@@ -75,8 +75,9 @@ choosecharacter_postchoose_onemorething	There's just one more thing...	Ještě n
 choosecharacter_postchoose_givebook	This sacred book is neccessary for my gift.	Tato posvátná kniha je nezbytná k mému daru.
 choosecharacter_finish_goodbad	I don't care if it's used for good or evil...	Jestli jej využiješ k dobru či zlu, je mi jedno.
 choosecharacter_finish_terror	I only want you to banish the Blue terror...	Chci jen, aby ses zbavil Modrého teroru...
-choosecharacter_finish_religion	and the spread of their lies.	a šíření jejich víry.
-choosecharacter_finish_prepared	...looks like everything's ready.	...vypadá to, že už máme všechno připravené.
+choosecharacter_finish_destroy	...to destroy Smurf Cats once and for all.	...aby jsi zničil Smurf Caty jednou a navždy.
+choosecharacter_finish_lies	In order to stop the spread of their lies.	K tomu aby skončilo šíření jejich lží...
+choosecharacter_finish_prepared	{0.5}...looks like everything's ready.	{0.5}...vypadá to, že už máme všechno připravené.
 choosecharacter_finish_goodluck	Good luck!	Hodně štěstí!
 errorhandler_room_title	SOMETHING BROKE	NĚCO SE POKAZILO
 errorhandler_room_description	Room ID {roomID} ({extraInfo})	Room ID {roomID} ({extraInfo})
@@ -148,8 +149,12 @@ Candle_SAVEINTROROOM_outofinteract	It looks like the candles are used for some k
 OverworldSaving_SaveGame	Save Game	Ulož Hru
 OverworldSaving_DontSave	Don't Save	Neukládej
 SavePoint_Beehive_1_1	Your eyes skim the pages of your book.{0.5} The scent receptors in your nose provide you with a sweet aroma.	Tvé oči létají přes strany tvé knihy.{0.5} Pachové receptory v tvém nosu tě přináší sladké aroma.
-SavePoint_end	Do you wish to save your game here?	Přeješ si zde uložit hru?
+SavePoint_end_first_time	When you pray to {#69bf2c}the Tree{#/}, your game is saved.{0.5} Do you want to do so?	Když se modlíš ke {#69bf2c}Stromu{#/}, tvá hra je uložena. {0.5} Chceš tak udělat?
+SavePoint_end	Do you wish to save your game?	Přeješ si uložit hru?
 BeehiveRegular_SAVEINTROROOM_1_1	The bees in this beehive are living peacefully.	Včely v tomhle úlu žijí mírumilovně.
 BlueBeehive_SAVEINTROROOM_1_1	The bees in this beehive are playing some  {#3498eb}FIRE{#/} music.	Včely v tomhle úlu si pouští nějakou {#3498eb}FIRE{#/} hudbu.
-BibleInteractPrompt_SAVEINTROROOM_1_1	Maybe it would be a good idea to interact with the {#ebd334}book{#/} first, before going further into the forest.	Myslíš si, že bys nejdříve měl si prohlédnout tu {#ebd334}knihu{#/} než půjdeš dál do lesa.
+BibleInteractPrompt_SAVEINTROROOM_1_1	Maybe it would be a good idea to interact with the {#ebd334}book{#/} first, before going further into the forest.	Myslíš si, že bys nejdříve si měl prohlédnout tu {#ebd334}knihu{#/} než půjdeš dál do lesa.
 BibleInteractPrompt_SAVEINTROROOM_outofinteract	...{0.5} there's a something that won't let you go.	...{0.5} cítíš se jako tě něco nepovoluje tu knihu přeskočit.
+DetailedTree_SAVEINTROROOM_outofinteract	There's something hiding in the tree...{0.5} unfortunetly you can't tell what.	Něco se skrývá v tomto stromě...{0.5} ale bohužel nedokážeš zjisit co to je.
+OverworldSaving_GameSavedConfirm	GAME WAS SUCCESSFULLY SAVED!	HRA BYLA ÚSPĚŠNĚ ULOŽENA!
+Cutscene_Nixie_Introductory_TreeSaveDialog	Oh.{0.5}It looks like you used the boo	Zajímavé.{0.5} Vypadá to, že jsi už použil tu kni

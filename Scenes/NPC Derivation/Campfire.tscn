@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="6_3u7do"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4oil"]
-size = Vector2(66, 41.3333)
+size = Vector2(66, 26.6666)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h71cq"]
-size = Vector2(186, 136.667)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsgda"]
+size = Vector2(152, 121.333)
 
 [node name="Campfire" type="Node2D"]
 scale = Vector2(1.5, 1.5)
@@ -40,7 +40,7 @@ interactionCountForeverOne = null
 treeSprite = NodePath("../../Fire")
 
 [node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
-position = Vector2(-2.33333, 15.3333)
+position = Vector2(-2.33333, 22.6666)
 shape = SubResource("RectangleShape2D_g4oil")
 debug_color = Color(0.71, 0.118333, 0, 0.419608)
 
@@ -49,7 +49,7 @@ position = Vector2(-0.333332, -33.5833)
 
 [node name="Trigger Zone" parent="Layered NPC" index="1"]
 position = Vector2(0, 0)
-shape = SubResource("RectangleShape2D_h71cq")
+shape = SubResource("RectangleShape2D_lsgda")
 
 [editable path="Fire"]
 [editable path="Layered NPC"]

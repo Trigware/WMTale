@@ -211,6 +211,7 @@ func post_river_fail(marker):
 	await get_tree().process_frame
 	var scene = UID.SCN_LILYPAD_MECHANIC[Overworld.currentRoom].instantiate()
 	scene.name = "Walkable Lilypads"
+	MovingNPC.refresh_follower_agents()
 	Overworld.activeRoom.add_child(scene)
 	
 	Player.go_outside_water(true)

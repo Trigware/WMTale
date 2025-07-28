@@ -18,6 +18,7 @@ boot_splash/image="uid://b5nn32wkdodwr"
 
 [autoload]
 
+Enum="*res://Scripts/Globals/Enums.gd"
 Overlay="*res://Scenes/Core/Overlay.tscn"
 Audio="*res://Scenes/Core/Audio.tscn"
 TextSystem="*res://Scenes/Core/TextSystem.tscn"

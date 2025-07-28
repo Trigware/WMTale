@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var agent_type := Enum.AgentType.Uninitialized
 var diagonal_path_direction : Vector2
 var remainder_path_direction : Vector2
 
@@ -9,41 +10,65 @@ var final_look_dir := Vector2.ZERO
 var speed := Player.player_speed
 
 var controlled_body = Player.node
-var agent_type = MovingNPC.AgentType.Uninitialized
 var stringAnimation : String
 
 var currently_moving = false
-var agent_variation := ""
-var party_member_index : int
+@export var agent_variation := Enum.AgentVariation.NoVariation
+var follower_index := 0
+var base_follower_zindex = 50
+var layer_npc_areas = 0
+
+const default_jump_height = 50
+const default_jump_duaration = 0.65
 
 @onready var sprite = $Sprite
 @onready var collider = $Collider
 
 func _ready():
-	if agent_type == MovingNPC.AgentType.Uninitialized:
+	if agent_type == Enum.AgentType.Uninitialized:
 		push_error("Uninitialized agent type for a moving NPC!")
 		queue_free()
 		return
-	global_position = Player.get_body_pos()
-	name = get_appropriate_name()
-	if agent_type != MovingNPC.AgentType.PlayerAgent:
+	sprite.animation_changed.connect(on_animation_changed)
+	if agent_type != Enum.AgentType.CutsceneAgent:
+		global_position = Player.get_body_pos()
+		name = get_appropriate_name()
+	if agent_type != Enum.AgentType.PlayerAgent:
 		setup_moving_npc()
+		set_follower_index()
+
+func on_animation_changed():
+	MovingNPC.set_texture_height(sprite, self)
+
+func set_follower_index():
+	follower_index = Overworld.party_members.find(agent_variation) + 1
 
 func setup_moving_npc():
-	sprite.sprite_frames = UID.SPF_MOVING_NPC[agent_type]
-	set_animation(Player.node.stringAnimation)
+	add_to_group("Moving NPC")
+	var is_cutscene_agent = agent_type == Enum.AgentType.CutsceneAgent
+	if not is_cutscene_agent and agent_variation == Enum.AgentVariation.NoVariation:
+		push_error("Excepted agent variation for a " + name + ", but found none!")
+		return
 	
+	sprite.material = UID.SHD_HIDE_SPRITE.duplicate()
+	sprite.sprite_frames = UID.SPF_MOVING_NPCS[agent_variation]
+	var collider_info = UID.get_agent_collider_info(agent_variation)
+	if collider_info != {}:
+		collider.shape = collider_info["collider"]
+		collider.position = collider_info["position"]
 	controlled_body = self
-	if agent_type == MovingNPC.AgentType.FollowerAgent:
-		party_member_index = Overworld.party_members.find(agent_variation)
+	
+	if not is_cutscene_agent:
+		set_animation(Player.node.stringAnimation)
 
 func set_animation(dir):
-	sprite.animation = agent_variation + "Walk" + dir
+	var animation_name = "walk_" + str(dir).to_lower()
+	sprite.animation = animation_name
 
 func get_appropriate_name():
 	var agent_type_name = MovingNPC.get_agent_type_name(agent_type)
-	if agent_variation == "": return agent_type_name
-	return agent_variation + " (" + agent_type_name + ")"
+	if agent_variation == Enum.AgentVariation.NoVariation: return agent_type_name
+	return MovingNPC.get_agent_variation_as_str(agent_variation) + " (" + agent_type_name + ")"
 
 func move_by(x_offset, y_offset):
 	await move_to_target(controlled_body.global_position + Vector2(x_offset, y_offset) * Overworld.scaleConst)
@@ -69,7 +94,7 @@ func move_to_point(point: Vector2, dir: Vector2):
 		var current_position = controlled_body.global_position
 		var distance_to_point = point.distance_to(current_position)
 		if distance_to_point < 1 or distance_to_point >= previous_distance_to_point: return
-		var hit_wall = controlled_body.take_step(dir, speed)
+		var hit_wall = controlled_body.take_step(dir, speed * Player.player_speed)
 		if hit_wall: return
 		previous_distance_to_point = distance_to_point
 		await get_tree().process_frame
@@ -83,6 +108,15 @@ func get_string_direction(dir: Vector2):
 	if dir == Vector2.ZERO: return ""
 	if dir.x != 0: return "Left" if dir.x < 0 else "Right"
 	return "Up" if dir.y < 0 else "Down"
+
+func string_to_vector_direction(str_dir: String) -> Vector2:
+	match str_dir:
+		"Left": return Vector2.LEFT
+		"Right": return Vector2.RIGHT
+		"Up": return Vector2.UP
+		"Down": return Vector2.DOWN
+	push_error("Attempted to parse invalid string direction " + str_dir + "!")
+	return Vector2.ZERO
 
 func get_diagonal_path_info():
 	var current_position = controlled_body.global_position
@@ -100,6 +134,58 @@ func get_dialogal_path(delta: Vector2):
 func get_movement_direction(vec: Vector2):
 	return Vector2(sign(vec.x), sign(vec.y))
 	
-func take_step_towards_player(target):
+func take_step_towards_player(footstep):
+	var previous_position = global_position
+	var target = footstep["target"]
+	var sink_progress = footstep["hide_progression"]
+	set_uniform("hide_progression", sink_progress)
 	global_position = target
-	print(target)
+	var delta = target - previous_position
+	var str_dir = get_string_direction(delta)
+	if str_dir != "": stringAnimation = str_dir
+	sprite.play()
+	set_animation(stringAnimation)
+
+func set_uniform(parameter: String, value):
+	var shader_mat = get_shader_material()
+	shader_mat.set_shader_parameter(parameter, float(value))
+
+func get_uniform(parameter: String):
+	var shader_mat = get_shader_material()
+	return shader_mat.get_shader_parameter(parameter)
+
+func get_shader_material() -> ShaderMaterial:
+	return sprite.material
+
+func play_animation(anim_name):
+	sprite.play(anim_name)
+
+func play_current():
+	sprite.play(sprite.animation)
+
+func set_anim(anim_name):
+	sprite.animation = anim_name
+
+func scale_both_axis(new_scale: float):
+	scale = Vector2(new_scale, new_scale)
+
+func get_texture_size():
+	return sprite.texture.get_size()
+
+func tween_hide_progression(final, duration):
+	var visibility_tween = create_tween()
+	visibility_tween.tween_method(
+		func(val):
+			set_uniform("hide_progression", val + 0.01),
+		get_uniform("hide_progression"),
+		final,
+		duration
+	)
+	visibility_tween.set_ease(Tween.EASE_IN_OUT)
+	visibility_tween.set_trans(Tween.TRANS_EXPO)
+	await visibility_tween.finished
+
+func jump_to_point(point: Vector2, jump_height := default_jump_height, jump_duration := default_jump_duaration):
+	var start_position = position
+	var heighest_vertical_point = position.y - jump_height
+	

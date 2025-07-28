@@ -10,6 +10,9 @@ var language_chosen = false
 var watched_intro_cutscene = false
 var seen_leaf = false
 var death_counter := 0
+var save_choice_seen := false
+var game_saved_times := 0
+var load_at_room_center := false
 #endregion
 
 var allow_game_load = false
@@ -72,6 +75,9 @@ func load_game(file):
 	CutsceneManager.FinishedCutscenes = loadedDictionary.get("FinishedCutscenes", CutsceneManager.FinishedCutscenes)
 	Player.node.stringAnimation = loadedDictionary.get("playerDirection", Player.node.stringAnimation)
 	Overworld.party_members = loadedDictionary.get("PartyMembers", Overworld.party_members)
+	save_choice_seen = loadedDictionary.get("save_choice_seen", save_choice_seen)
+	game_saved_times = loadedDictionary.get("game_saved_times", game_saved_times)
+	load_at_room_center = loadedDictionary.get("load_at_room_center", load_at_room_center)
 	#endregion
 	Overworld.initialPosition = Vector2(positionDictionary["X"], positionDictionary["Y"]) / Overworld.scaleConst
 	LeafMode.update_head_texture()
@@ -107,7 +113,10 @@ func save_game():
 		"playerPosition": playerPosition,
 		"playerDirection": Player.node.stringAnimation,
 		"FinishedCutscenes": CutsceneManager.FinishedCutscenes,
-		"PartyMembers": Overworld.party_members
+		"PartyMembers": Overworld.party_members,
+		"save_choice_seen": save_choice_seen,
+		"game_saved_times": game_saved_times,
+		"load_at_room_center": load_at_room_center
 	}
 	#endregion
 	write_to_savedata(get_save_file_path(loaded_save_file), saveData)
@@ -115,10 +124,9 @@ func save_game():
 
 func write_to_savedata(path, writtenData):
 	var file := FileAccess.open(path, FileAccess.WRITE)
-	if file:
-		var json := JSON.stringify(writtenData, '\t')
-		file.store_string(json)
-		file.close()
+	var json := JSON.stringify(writtenData, '\t')
+	file.store_string(json)
+	file.close()
 
 func parse_json(contents):
 	var json = JSON.new()

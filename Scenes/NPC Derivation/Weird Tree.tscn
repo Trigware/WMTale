@@ -1,47 +1,41 @@
-[gd_scene load_steps=7 format=3 uid="uid://5oa134207dka"]
+[gd_scene load_steps=6 format=3 uid="uid://5oa134207dka"]
 
-[ext_resource type="Script" uid="uid://gio061ico1sg" path="res://Scripts/Text System/BaseNPC.gd" id="1_j24oa"]
-[ext_resource type="Script" uid="uid://v57kgnejodot" path="res://Scripts/Overworld/LayeredNPC.gd" id="2_4dwgd"]
-[ext_resource type="SpriteFrames" uid="uid://bp0v5kr2ilye2" path="res://Spriteframes/Tree.tres" id="3_4dwgd"]
+[ext_resource type="PackedScene" uid="uid://dwwrihbghedg3" path="res://Scenes/NPC Derivation/Layered NPC.tscn" id="1_vn02o"]
+[ext_resource type="SpriteFrames" uid="uid://bp0v5kr2ilye2" path="res://Spriteframes/Tree.tres" id="2_vn02o"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_72j6q"]
-size = Vector2(84.3243, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqnm8"]
+size = Vector2(83, 17)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fxwtr"]
-size = Vector2(128, 130)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vn02o"]
+size = Vector2(112, 126.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4dwgd"]
-size = Vector2(176, 60.568)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vk88w"]
+size = Vector2(88, 48)
 
-[node name="Tree Root" type="Area2D"]
-scale = Vector2(1.85, 1.85)
-script = ExtResource("1_j24oa")
+[node name="Tree" type="Node2D"]
+
+[node name="Layered NPC" parent="." instance=ExtResource("1_vn02o")]
 ignoreDirections = true
+override_id_from_parent = true
 
-[node name="Tree Manager" type="Node2D" parent="." node_paths=PackedStringArray("treeSprite")]
-scale = Vector2(2, 2)
-script = ExtResource("2_4dwgd")
-treeSprite = NodePath("Tree Sprite")
+[node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
+treeSprite = NodePath("../../Sprite")
 
-[node name="Static Body" type="StaticBody2D" parent="Tree Manager"]
+[node name="Collider" parent="Layered NPC/Layered Manager/Static Body" index="0"]
+position = Vector2(-5, 55)
+shape = SubResource("RectangleShape2D_dqnm8")
 
-[node name="Collider" type="CollisionShape2D" parent="Tree Manager/Static Body"]
-light_mask = 3
-position = Vector2(-20.5405, 56)
-shape = SubResource("RectangleShape2D_72j6q")
+[node name="Collider" parent="Layered NPC/Layered Manager/Trigger Area" index="0"]
+position = Vector2(8, -0.75)
+shape = SubResource("RectangleShape2D_vn02o")
 
-[node name="Trigger Area" type="Area2D" parent="Tree Manager"]
+[node name="Trigger Zone" parent="Layered NPC" index="1"]
+position = Vector2(-4, 56)
+shape = SubResource("RectangleShape2D_vk88w")
 
-[node name="Collider" type="CollisionShape2D" parent="Tree Manager/Trigger Area"]
-position = Vector2(0, -6)
-shape = SubResource("RectangleShape2D_fxwtr")
-debug_color = Color(0.7, 0.233333, 0, 0.419608)
-
-[node name="Tree Sprite" type="AnimatedSprite2D" parent="Tree Manager"]
-sprite_frames = ExtResource("3_4dwgd")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, 0)
+sprite_frames = ExtResource("2_vn02o")
 animation = &"Tree"
 
-[node name="Trigger Zone" type="CollisionShape2D" parent="."]
-position = Vector2(-40, 127.568)
-shape = SubResource("RectangleShape2D_4dwgd")
-debug_color = Color(0.431667, 0.7, 0, 0.419608)
+[editable path="Layered NPC"]

@@ -1,11 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfj7f8jn24p1"]
+[gd_scene load_steps=6 format=3 uid="uid://dfj7f8jn24p1"]
 
 [ext_resource type="Script" uid="uid://35ebop2fx7cc" path="res://Scripts/Overworld/Player Root.gd" id="1_y5qff"]
 [ext_resource type="Script" uid="uid://bfo312wgsexbh" path="res://Scripts/Overworld/Player.gd" id="2_w8g5s"]
-[ext_resource type="Material" uid="uid://dqmk2fcx6j66e" path="res://Shaders/Shader Materials/PlayerSink.tres" id="3_k2r6n"]
-[ext_resource type="SpriteFrames" uid="uid://bqnq6bo7koaey" path="res://Spriteframes/Player.tres" id="4_j1mx6"]
 [ext_resource type="Texture2D" uid="uid://drnva60a84gml" path="res://Textures/Other/Light Circle.png" id="5_d72xc"]
-[ext_resource type="Shape2D" uid="uid://bj0u242dgcot1" path="res://Colliders/Player.tres" id="5_w8g5s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5qff"]
+size = Vector2(10.3333, 3)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5ixxa"]
 load_path = "res://.godot/imported/Leaf.png-d86ec70f178036e59957e8e64285e7e1.ctex"
@@ -20,14 +20,10 @@ script = ExtResource("2_w8g5s")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Player Body"]
 light_mask = 2
-z_index = 50
-material = ExtResource("3_k2r6n")
-sprite_frames = ExtResource("4_j1mx6")
-animation = &"rabbitekWalkDown"
 
 [node name="Player Collider" type="CollisionShape2D" parent="Player Body"]
 position = Vector2(0, 16)
-shape = ExtResource("5_w8g5s")
+shape = SubResource("RectangleShape2D_y5qff")
 
 [node name="Camera" type="Camera2D" parent="Player Body"]
 scale = Vector2(0.350877, 0.350877)
@@ -55,7 +51,6 @@ scale = Vector2(0.336134, 0.336134)
 [node name="Leaf" type="Sprite2D" parent="Player Body"]
 modulate = Color(1, 1, 1, 0)
 light_mask = 3
-z_index = 70
 use_parent_material = true
 position = Vector2(1, 2)
 scale = Vector2(0.3, 0.3)

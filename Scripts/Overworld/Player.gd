@@ -7,9 +7,11 @@ var is_left_last_horizontal_dir = false
 var speedMultiplier = 1
 var disableFootsteps = true
 var latest_speed : float
+var base_follower_zindex = 50
+var layer_npc_areas = 0
 
 @onready var animationNode = $"Sprite"
-@onready var sprite = animationNode # animationNode alias for Inputless Movement
+@onready var sprite = animationNode
 @onready var cameraNode = $"Camera"
 @onready var colliderNode = $"Player Collider"
 
@@ -19,7 +21,16 @@ enum MovementMode {
 	RUN
 }
 
+func _ready():
+	animationNode.animation_changed.connect(on_frame_changed)
+	animationNode.material = UID.SHD_HIDE_SPRITE.duplicate()
+
+func on_frame_changed():
+	MovingNPC.set_texture_height(animationNode, Player)
+
 func enable():
+	var player_agent_variation = MovingNPC.convert_str_to_agent_variation(SaveData.selectedCharacter)
+	animationNode.sprite_frames = UID.SPF_MOVING_NPCS[player_agent_variation]
 	disableFootsteps = false
 	TextSystem.fallbackPreset = TextSystem.Preset.RegularDialog
 	animationNode.frame = 0
@@ -83,17 +94,15 @@ func take_step(dir, speed):
 
 func update_animations():
 	update_walk_animation_frame()
-	if velocity == Vector2.ZERO:
-		animationNode.stop()
-		return
+	if get_slide_collision_count() > 0: animationNode.stop()
+	if velocity == Vector2.ZERO: return
 	add_to_footstep_targets()
 	Player.time_spend_not_walking = 0.0
 	on_footstep()
 	animationNode.speed_scale = speedMultiplier
 	Player.play_animation(get_walk_animation_name())
 
-func get_walk_animation_name() -> String: return SaveData.selectedCharacter + "Walk" + stringAnimation
-func get_general_animation_name(suffix) -> String: return SaveData.selectedCharacter + str(suffix)
+func get_walk_animation_name() -> String: return "walk_" + stringAnimation.to_lower()
 
 func update_walk_animation_frame():
 	animationNode.animation = get_walk_animation_name()
@@ -112,5 +121,9 @@ func play_footstep():
 	Audio.play_sound(UID.SFX_FOOTSTEPS[footstep_type], 0.3, -5)
 
 func add_to_footstep_targets():
-	Player.footstep_targets.append(global_position)
+	var footstep = {
+		"target": global_position,
+		"hide_progression": Player.get_uniform("hide_progression")
+	}
+	Player.footsteps.append(footstep)
 	MovingNPC.check_for_follower_movement()

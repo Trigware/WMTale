@@ -9,7 +9,9 @@ const SFX_LEAF_MODE_ENTER = preload("uid://b7fftayvh5ay5")
 const SFX_FILE_SELECT_COPY = SFX_LEAF_MODE_ENTER
 const SFX_MENU_CANCEL = preload("uid://bw4i3h1xntksn")
 const SFX_GET_UP := SFX_MENU_CANCEL
-const SFX_PLAYER_HIT = SFX_MENU_CANCEL
+const SFX_PLAYER_HIT := SFX_MENU_CANCEL
+const SFX_SIT := preload("uid://we2j25k6lspy")
+const SFX_PRAYING := preload("uid://d22ia3bcj5w51")
 const SFX_PLAYER_HEAL := preload("uid://cdcvjc15gqrbu")
 const SFX_MENU_CHANGED_CHOICE := preload("uid://cufhe7c7ppn6k")
 const SFX_ITEM_OBTAINED := preload("uid://bkbyp23xibt1j")
@@ -21,6 +23,7 @@ const SFX_BIBLE_BALL_APPEARS := preload("uid://cntva0ygm8pfl")
 const SFX_LILYPAD_DISAPPEAR := preload("uid://ditkvdbpa3d5t")
 const SFX_EXPLOSION := preload("uid://biy5kk5vnsyw1")
 const SFX_MUSHROOM_PETRIFY := preload("uid://c3ot5d7e3um0h")
+const SFX_START_GAME := SFX_MUSHROOM_PETRIFY
 const SFX_ANTIDOTE_MUSHROOM := preload("uid://do1t2ow1doy85")
 const SFX_CAMPFIRE := preload("uid://bpp7qnbmhttta")
 
@@ -103,17 +106,21 @@ func get_enum_member_with_string(text: String, enumerable: Dictionary, resource_
 	var enum_member = enumerable[upper_case_str]
 	return resource_map[enum_member]
 
-@onready var SPF_MOVING_NPC : Dictionary[MovingNPC.AgentType, SpriteFrames] = {
-	MovingNPC.AgentType.FollowerAgent: preload("uid://bqnq6bo7koaey")
+const SPF_MOVING_NPCS : Dictionary[Enum.AgentVariation, SpriteFrames] = {
+	Enum.AgentVariation.xdaforge: preload("uid://b77va3m0sleuv"),
+	Enum.AgentVariation.rabbitek: preload("uid://cxvdww3fec3uh"),
+	Enum.AgentVariation.gertofin: preload("uid://caot3n3mxcshk"),
+	Enum.AgentVariation.Nixie: preload("uid://b785s2t3fewxf")
 }
 
-@onready var CLD_MOVING_NPC := {
-}
+const CLD_PLAYER := preload("uid://bj0u242dgcot1")
 
-func get_agent_collider_info(agent_type: MovingNPC.AgentType, collider: bool):
-	if not agent_type in CLD_MOVING_NPC:
-		push_error(MovingNPC.get_agent_type_name(agent_type) + " is not accessible in the CLD_MOVING_NPC dictionary!")
-		return
-	var value_array = CLD_MOVING_NPC[agent_type]
-	if collider: return value_array[0]
-	return value_array[1]
+func get_agent_collider_info(agent_variation: Enum.AgentVariation) -> Dictionary:
+	var agent_variation_str = MovingNPC.get_agent_variation_as_str(agent_variation)
+	if agent_variation_str in Player.playableCharacters:
+		return {"collider": CLD_PLAYER, "position": Vector2(0, 16)}
+	return {}
+
+const SHD_HIDE_SPRITE := preload("uid://dqmk2fcx6j66e")
+
+const SCR_BASE_ROOM := "uid://cig64ay50648y"

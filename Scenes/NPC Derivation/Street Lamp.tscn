@@ -12,7 +12,6 @@ size = Vector2(24.6667, 10)
 [node name="Layered NPC" parent="." instance=ExtResource("1_yswtr")]
 scale = Vector2(1.5, 1.5)
 npcID = 13
-ignoreDirections = true
 
 [node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
 treeSprite = NodePath("../Sprite")
@@ -25,7 +24,7 @@ shape = SubResource("RectangleShape2D_omavs")
 position = Vector2(2.33333, -18)
 
 [node name="Trigger Zone" parent="Layered NPC" index="1"]
-position = Vector2(0.333332, 34.3333)
+position = Vector2(0.666666, 45)
 
 [node name="Sprite" type="Sprite2D" parent="Layered NPC"]
 texture = ExtResource("1_ma27g")

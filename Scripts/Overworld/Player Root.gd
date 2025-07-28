@@ -1,11 +1,14 @@
 extends Node
 
 @onready var node = $"Player Body"
+@onready var body = node
 @onready var light = $"Player Body/Light"
 @onready var leafNode = $"Player Body/Leaf"
 @onready var camera = $"Player Body/Camera"
 @onready var hp_particle_point = $"Player Body/Health Particle Point"
 @onready var animNode = $"Player Body/Sprite"
+
+const playableCharacters = ["rabbitek", "xdaforge", "gertofin"]
 
 const player_speed := 250
 const fast_movement := 0.75
@@ -32,7 +35,7 @@ var previous_camera_pos = Vector2.ZERO
 
 var initial_camera_offset : Vector2
 
-var footstep_targets : Array = []
+var footsteps : Array[Dictionary] = []
 
 @onready var intended_leaf_pos = leafNode.position
 
@@ -58,20 +61,6 @@ func end_leaf_flashes():
 func enable():
 	node.enable()
 
-func get_shader_material() -> ShaderMaterial:
-	var shader_mat = node.animationNode.material
-	if shader_mat is not ShaderMaterial:
-		push_error("Shader Material not found!")
-	return shader_mat
-
-func set_uniform(parameter, value):
-	var shader_mat = get_shader_material()
-	shader_mat.set_shader_parameter(parameter, float(value))
-
-func get_uniform(parameter):
-	var shader_mat = get_shader_material()
-	return shader_mat.get_shader_parameter(parameter)
-
 func disable():
 	node.disable()
 
@@ -84,15 +73,11 @@ func get_body_pos() -> Vector2:
 func get_newest_dir():
 	return node.basic_direction
 
-func update_animation(suffix):
-	node.animationNode.animation = node.get_general_animation_name(suffix)
-
-func play_general_animation(suffix):
-	await play_animation(node.get_general_animation_name(suffix))
+func update_animation(anim_name):
+	node.animationNode.animation = anim_name
 
 func play_animation(anim_name):
-	var animatedSprite = node.animationNode
-	animatedSprite.play(anim_name)
+	animNode.play(anim_name)
 
 func set_pos(pos: Vector2):
 	node.global_position = pos
@@ -119,7 +104,7 @@ func go_outside_water(ignore_water_rule = false):
 	if (not in_water or is_sinking) and not ignore_water_rule: return
 	leafNode.position = intended_leaf_pos
 	in_water = false
-	set_uniform("sink_progression", 0)
+	Player.set_uniform("hide_progression", 0.0)
 
 func move_camera_to(x, y, duration := 1.0):
 	previous_camera_pos = camera.global_position
@@ -142,3 +127,17 @@ func get_fast_movement_speed():
 	var staminaPercentage = Player.stamina / Player.maxStamina
 	if not LeafMode.enabled(): staminaPercentage = normal_move_fast_multiplier_default
 	return 1 + fast_movement * staminaPercentage
+
+func get_shader_material() -> ShaderMaterial:
+	var shader_mat = animNode.material
+	if shader_mat is not ShaderMaterial:
+		push_error("Shader Material not found!")
+	return shader_mat
+
+func set_uniform(parameter, value):
+	var shader_mat = get_shader_material()
+	shader_mat.set_shader_parameter(parameter, value)
+
+func get_uniform(parameter):
+	var shader_mat = get_shader_material()
+	return shader_mat.get_shader_parameter(parameter)
