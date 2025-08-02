@@ -26,6 +26,9 @@ const SFX_MUSHROOM_PETRIFY := preload("uid://c3ot5d7e3um0h")
 const SFX_START_GAME := SFX_MUSHROOM_PETRIFY
 const SFX_ANTIDOTE_MUSHROOM := preload("uid://do1t2ow1doy85")
 const SFX_CAMPFIRE := preload("uid://bpp7qnbmhttta")
+const SFX_NAIL_SWING := preload("uid://bhkg7d1r5ia7u")
+
+const MSC_SELF_PROCLAIMED_QUEEN = preload("uid://diiie2j47xlta")
 
 enum Footstep {
 	Ground,

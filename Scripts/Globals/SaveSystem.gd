@@ -3,7 +3,6 @@ extends Node
 #region GameData
 var selectedCharacter = "xdaforge"
 var playerName = ""
-var currentLanguage = "english"
 var PlayerInventory := {}
 var PlayTime := 0.0
 var language_chosen = false
@@ -22,21 +21,21 @@ const autosave_path = "user://autosave"
 
 func _ready():
 	load_global_file()
-	Localization.load_language(currentLanguage)
+	Localization.load_language(Localization.current_language)
 
 func _process(delta):
 	PlayTime += delta
 
 func load_global_file():
 	var loadedDictionary = load_dictionary(global_path)
-	currentLanguage = loadedDictionary.get("lang", currentLanguage)
+	Localization.current_language = loadedDictionary.get("lang", Localization.current_language)
 	language_chosen = loadedDictionary.get("lang_chosen", language_chosen)
 	watched_intro_cutscene = loadedDictionary.get("watched_intro", watched_intro_cutscene)
 	seen_leaf = loadedDictionary.get("seen_leaf", seen_leaf)
 
 func save_global_file():
 	var saveData = {
-		"lang": currentLanguage,
+		"lang": Localization.current_language,
 		"lang_chosen": language_chosen,
 		"watched_intro": watched_intro_cutscene,
 		"seen_leaf": seen_leaf

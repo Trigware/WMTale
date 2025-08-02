@@ -15,13 +15,11 @@ const prepare_destination_duration = 0.2
 const move_delay = 0.2
 const final_scale = Vector2(3, 3)
 
-func _ready():
-	rotation_multiplier = initial_rotation_multiplier
-
 func _process(_delta):
 	sprite.rotate(PI/8*rotation_multiplier)
 
 func show_bible():
+	rotation_multiplier = initial_rotation_multiplier
 	global_position = Player.get_body_pos()
 	var sprite_tween = create_tween()
 	sprite_tween.tween_property(sprite, "modulate:a", 1, sprite_show_duration).\

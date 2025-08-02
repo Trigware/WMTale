@@ -61,7 +61,7 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoloa
 		CutsceneManager.let_cutscene_play_out(roomCutscene)
 	
 	latestExitRoom = room
-	if SaveData.load_at_room_center: newPlayerPosition = Vector2.ZERO
+	if autoload and SaveData.load_at_room_center: newPlayerPosition = Vector2.ZERO
 	Player.set_pos(newPlayerPosition)
 	Player.reset_camera_smoothing()
 	MovingNPC.refresh_follower_agents()
@@ -93,7 +93,8 @@ enum Room
 	Weird_CemetaryGate,
 	Weird_SaveIntroRoom,
 	Weird_MushroomTester,
-	Weird_LayeredNPCTester
+	Weird_LayeredNPCTester,
+	Weird_CharacterDialogTester
 }
 
 func get_room_enum(room: Room) -> String:

@@ -14,23 +14,27 @@ func create_simple_moving_npc(agent_type, agent_variation := Enum.AgentVariation
 	add_child(instance)
 	return instance
 
-func initialize_player_agent(instance, x, y, to, final_look_dir, speed):
+func initialize_player_agent(instance, x, y, to, final_look_dir, speed, go_backwards):
 	instance.speed = speed
 	instance.final_look_dir = final_look_dir
+	instance.go_backwards = go_backwards
 	if to: await instance.move_to(x, y)
 	else: await instance.move_by(x, y)
 	instance.queue_free()
 	Player.inputless_movement = false
 
-func move_player(x, y, to, final_look_dir, speed):
+func move_player(x, y, to, final_look_dir, speed, backwards = false):
 	var instance = create_simple_moving_npc(Enum.AgentType.PlayerAgent)
-	initialize_player_agent(instance, x, y, to, final_look_dir, speed)
+	await initialize_player_agent(instance, x, y, to, final_look_dir, speed, backwards)
 
 func move_player_by(x, y = 0, speed = 1, final_look_dir := Vector2.ZERO):
-	move_player(x, y, false, final_look_dir, speed)
+	await move_player(x, y, false, final_look_dir, speed)
+
+func move_player_by_backwards(x, y = 0, speed = 1, final_look_dir := Vector2.ZERO):
+	await move_player(x, y, false, final_look_dir, speed, true)
 
 func move_player_to(x, y, speed = 1, final_look_dir := Vector2.ZERO):
-	move_player(x, y, true, final_look_dir, speed)
+	await move_player(x, y, true, final_look_dir, speed)
 
 func get_agent_type_name(agent_type: Enum.AgentType):
 	return Enum.AgentType.find_key(agent_type)

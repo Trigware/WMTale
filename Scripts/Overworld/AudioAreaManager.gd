@@ -4,6 +4,8 @@ extends Area2D
 @export var maxDistance := 1000
 @export var volume_multiplier := 1.0
 
+var multiplier_before_disable : float
+
 @onready var audioNode = $Audio
 
 var collisionShapes : Array[CollisionShape2D] = []
@@ -18,6 +20,13 @@ func _ready():
 
 func stop_audio():
 	audioNode.stop()
+
+func disable():
+	multiplier_before_disable = volume_multiplier
+	volume_multiplier = 0
+
+func enable():
+	volume_multiplier = multiplier_before_disable
 
 func _process(_delta):
 	var distance = get_audio_area_distance()

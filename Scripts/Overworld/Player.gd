@@ -10,6 +10,8 @@ var latest_speed : float
 var base_follower_zindex = 50
 var layer_npc_areas = 0
 
+var previous_stamina = null
+
 @onready var animationNode = $"Sprite"
 @onready var sprite = animationNode
 @onready var cameraNode = $"Camera"
@@ -48,7 +50,9 @@ func _process(delta):
 	match handle_motion_actions():
 		MovementMode.WALK: stamina_delta = 8
 		MovementMode.RUN: stamina_delta = -20 if LeafMode.enabled() else 0
-	LeafMode.change_stamina(stamina_delta * delta)
+	if previous_stamina != Player.stamina:
+		LeafMode.change_stamina(stamina_delta * delta)
+	previous_stamina = Player.stamina
 
 func handle_motion_actions():
 	basic_direction = Vector2.ZERO

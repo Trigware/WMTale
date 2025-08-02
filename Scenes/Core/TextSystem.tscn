@@ -138,9 +138,9 @@ scroll_active = false
 
 [node name="Wait Leaf" type="TextureRect" parent="CanvasLayer"]
 visible = false
-offset_left = 949.5
-offset_top = 496.0
-offset_right = 981.5
-offset_bottom = 528.0
-scale = Vector2(2.25, 2.25)
+offset_left = 980.0
+offset_top = 513.0
+offset_right = 1012.0
+offset_bottom = 545.0
+scale = Vector2(2.5, 2.5)
 texture = ExtResource("5_k2o14")

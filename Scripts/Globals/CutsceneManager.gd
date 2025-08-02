@@ -12,7 +12,8 @@ enum Cutscene
 	SpawnRoom,
 	Legend,
 	CemetaryGate,
-	Nixie_Introductory
+	Nixie_Introductory,
+	Character_Dialog_Tester
 }
 
 signal cutscene_completed
@@ -37,6 +38,10 @@ func get_base_cutscene_key():
 	var base_key = "Cutscene_" + CutsceneManager.latest_cutscene_name
 	return base_key
 
+func complete_cutscene():
+	await get_tree().process_frame
+	emit_signal("cutscene_completed")
+
 func let_cutscene_play_out(cutscene: Cutscene, cutscene_nodes_override := {}):
 	if is_cutscene_finished(cutscene): return
 	latest_cutscene_name = get_enum_name(cutscene)
@@ -45,16 +50,23 @@ func let_cutscene_play_out(cutscene: Cutscene, cutscene_nodes_override := {}):
 		push_error("Attempted to play the " + latest_cutscene_name + " cutscene which doesn't have an associated function!")
 		return
 	action_lock = true
-	cutscene_nodes = cutscene_nodes_override
+	add_cutscene_nodes(cutscene_nodes_override)
 	call(function_name)
 	await cutscene_completed
 	after_cutscene_finished(cutscene)
+
+func add_cutscene_nodes(cutscene_node_override):
+	cutscene_nodes = {}
+	for node_name in cutscene_node_override.keys():
+		var cutscene_node = cutscene_node_override[node_name]
+		var renamed_node = node_name.to_lower()
+		cutscene_nodes[renamed_node] = cutscene_node
 
 func play_spawnroom_cutscene():
 	Player.update_animation("spawn")
 	await wait(2)
 	Player.update_animation("walk_right")
-	emit_signal("cutscene_completed")
+	complete_cutscene()
 	await Audio.play_sound(UID.SFX_GET_UP)
 	Audio.play_music("Weird Forest", 0.1)
 
@@ -63,23 +75,40 @@ func play_cemetarygate_cutscene():
 	await wait(1)
 	await TextSystem.print_sequence(get_base_cutscene_key(), {}, TextSystem.Preset.OverworldTreeTalk)
 	await Player.return_camera()
-	emit_signal("cutscene_completed")
+	complete_cutscene()
 
 func play_nixie_introductory_cutscene():
 	var nixie = cutscene_nodes["nixie"]
-	nixie_logic_introductory(nixie)
-	await wait(0.5)
-	await TextSystem.print_wait_localization("Cutscene_Nixie_Introductory_TreeSaveDialog", {}, TextSystem.Preset.TreeTextCutoff)
-	emit_signal("cutscene_completed")
+	nixie_introductory_jump(nixie)
+	await wait(0.25)
+	TextSystem.print_wait_localization("Cutscene_Nixie_Introductory_TreeSaveDialog", {}, TextSystem.Preset.TreeTextCutoff)
+	await nixie_fall_finished
+	complete_cutscene()
 
-func nixie_logic_introductory(nixie):
-	nixie.scale_both_axis(1.15)
+func nixie_introductory_jump(nixie):
+	nixie.set_to_default_scale()
 	nixie.set_uniform("moving_speed", 0.3)
 	nixie.hide()
 	nixie.set_anim("walk_left")
 	nixie.set_uniform("hide_progression", 1)
-	await wait(0.3)
+	await wait(0.8)
 	nixie.show()
 	nixie.tween_hide_progression(0, 0.75)
 	await wait(1)
-	nixie.jump_to_point(Player.get_body_pos())
+	var player_pos = Player.get_body_pos()
+	nixie.jump_to_point(Vector2(player_pos.x, player_pos.y - 10))
+	emit_signal("nixie_jumps")
+	await nixie.near_ground
+	TextSystem.clear_text(true)
+	await Player.noticed(0.35)
+	await MovingNPC.move_player_by_backwards(-50)
+	nixie.nail_swing("AttackMessage_MISS")
+	await wait(99999)
+	emit_signal("nixie_fall_finished")
+
+signal nixie_fall_finished
+signal nixie_jumps
+
+func play_character_dialog_tester_cutscene():
+	await TextSystem.print_sequence("Cutscene_Character_Dialog_Tester", {}, TextSystem.Preset.CharacterDialog)
+	complete_cutscene()

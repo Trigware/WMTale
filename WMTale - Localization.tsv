@@ -93,7 +93,7 @@ PurpleTree_SPAWNROOM_outofinteract	The tree doesn't have any time to spare...	St
 BlockTree_SPAWNROOM_1_1	It blocks you a way to something...{0.5} glowing?	Vypadá to, že tento strom ti blokuje cestu k něčemu co modře září...
 BlockTree_SPAWNROOM_1_2	You have a feeling there's a way to get to the other side.	Možná by jsi ho mohl nějak obejít?
 BlockTree_SPAWNROOM_NoLight_1_1	The tree blocked some path...{0.5} but there's no point in going back there.	Tenhle strom blokoval nějakou cestu...{0.5} ale ty už jsi život od ní vzal...
-InteractionPrompt_SPAWNROOM_1_1	(Reminder to press {#2f8026}ENTER or Z{#/} if you see something {#00c9ca}interesting{#/}.)	(Nezapoměň, že když uvidíš něco {#00c9ca}zajímavého{#/}, můžeš se k tomu přiblížit a zmáčknout {#2f8026}ENTER či Z{#/}.)
+InteractionPrompt_SPAWNROOM_1_1	(Reminder to press {#tree_green}ENTER or Z{#/} if you see something {#glow_mushroom}interesting{#/}.)	(Nezapoměň, že když uvidíš něco {#glow_mushroom}zajímavého{#/}, můžeš se k tomu přiblížit a zmáčknout {#tree_green}ENTER či Z{#/}.)
 Pedestal_SPAWN_ENTERANCE_1_1	It's some kind of stone object.{0.5} You look closer and see some text written on it.	Je to nějaký posvátný kamenný objekt.{0.5} Podíváš se na něj pozorněji a vidíš, že je na něm něco napsáno.
 Pedestal_SPAWN_ENTERANCE_1_2	Do you want to read what is written on there?	Chceš si přečíst co se tam píše?
 Pedestal_SPAWN_ENTERANCE_outofinteract	You see that there's something written there. Read it?	Vidíš, že je tam něco napsáno.{0.5} Chceš si to přečíst?
@@ -115,7 +115,7 @@ BrokenSign_SPAWN_ENTERANCE_1_1	It's some kind of navigational sign...{0.5} there
 BrokenSign_SPAWN_ENTERANCE_1_2	There's a feeling that you shouldn't go down there...	Z nějakého důvodu si nemyslíš, že je dobrý nápad tam dolů jít...
 BrokenSign_SPAWN_ENTERANCE_2_1	...but maybe something in you clashes with that feeling...	...tvá zvědavost ale nesouhlasí...
 FallenTree_LILYPADROOM_1_1	A once alive tree...{0.5} has fallen to it's demise.	Tehdá zdravý strom, {0.5} spadl do jeho absolutního konce.
-FallenTree_LILYPADROOM_1_2	When they had the opportunity to do so...{0.5} the {#00c9ca}mushrroms{#/} conquered the tree and banished it's legacy forever.	Když měly {#00c9ca}houby{#/} možnost... {0.5}obsadili strom a zničili jej.
+FallenTree_LILYPADROOM_1_2	When they had the opportunity to do so...{0.5} the {#glow_mushroom}mushrroms{#/} conquered the tree and banished it's legacy forever.	Když měly {#glow_mushroom}houby{#/} možnost... {0.5}obsadili strom a zničili jej.
 FallenTree_LILYPADROOM_1_3	...but if it would be rescued fast enough...{0.5} none of this would happen.	...avšak když by byl rychle zachráněn...{0.5} nic takového by se nestalo.
 FallenTree_LILYPADROOM_2_1	Out of respect... you don't want to interact with the tree no more.	Asi není dobrý nápad nadále interaktovat se zchátralým stromem...
 SmallBranch_LILYPADROOM_1_1	Looks like there is a tree branch that's blocking your way...	Vypadá to, že je tady nějaká větev co tě blokuje cestu...
@@ -126,7 +126,7 @@ BigBranch_LILYPADROOM_outofinteract	This way is blocked by this tree branch.{0.5
 CemetaryGate_GATEROOM_outofinteract	It's locked.	Je to zamčené.
 Cutscene_CemetaryGate_1	Warriors of the Blue terror are buried here.	Vojáci Modrého teroru jsou zde pohřbeni.
 Cutscene_CemetaryGate_2	Many failed rebels lie behind this gate.	Neúspěšní rebelové leží za touto branou.
-Cutscene_CemetaryGate_3	If you wish to get in, you must obtain a key.	Pokud si přeješ jít dát, musíš obdržet klíč.
+Cutscene_CemetaryGate_3	If you wish to get in, you must obtain a key.	Pokud si přeješ jít dál, musíš obdržet klíč.
 Cutscene_CemetaryGate_4	It's in possession of a tricky squirrel.	Nyní jej drží jedna zákeřná veverka.
 Cutscene_CemetaryGate_5	Obtain it and return here once again.	Obdrž klíč a znovu se sem vrať.
 GameOver_Option_Continue	Go Back	Vrať se zpět
@@ -141,20 +141,23 @@ GameOver_Comment_7_1	Another severed connection.	Další přerušené spojení.
 GameOver_Comment_8_1	All gifts meet their ends.	Všechny dary spatří jejich konce.
 GameOver_FirstDeath_1	Your leaf disintegrated.	Tvůj list se rozpadl.
 GameOver_FirstDeath_2	You severed the connection to this world.	Odpojil jsi tvé spojení k tomuto světu.
-GameOver_FirstDeath_3	{1}However, I have found a solution.	{1}Ovšem existuje řešení...
+GameOver_FirstDeath_3	{1}Fortunetly, there exists a solution...	{1}Naštěstí jsem našel řešení...
 GameOver_FirstDeath_4	Your book that I gave you is intact,{0.5} isn't it?	Ta kniha co jsi obdržel nám pomůže.
 GameOver_FirstDeath_5	The place you last prayed to is our anchor.	Vím místo, kde sis naposledy uložil hru.
-GameOver_FirstDeath_6	I can take you back to that point.	Mohu tě zpětně vrátit do tohoto bodu.
+GameOver_FirstDeath_6	I can take you back to that point.	Mohu tě vrátit zpět do tohoto bodu.
 Candle_SAVEINTROROOM_outofinteract	It looks like the candles are used for some kind of a religionous event.	Vypadá to, že ty svíčky se používají k nějaké náboženské události.
 OverworldSaving_SaveGame	Save Game	Ulož Hru
 OverworldSaving_DontSave	Don't Save	Neukládej
 SavePoint_Beehive_1_1	Your eyes skim the pages of your book.{0.5} The scent receptors in your nose provide you with a sweet aroma.	Tvé oči létají přes strany tvé knihy.{0.5} Pachové receptory v tvém nosu tě přináší sladké aroma.
-SavePoint_end_first_time	When you pray to {#69bf2c}the Tree{#/}, your game is saved.{0.5} Do you want to do so?	Když se modlíš ke {#69bf2c}Stromu{#/}, tvá hra je uložena. {0.5} Chceš tak udělat?
+SavePoint_end_first_time	When you pray to {#tree_green}the Tree{#/}, your game is saved.{0.5} Do you want to do so?	Když se modlíš ke {#tree_green}Stromu{#/}, tvá hra je uložena. {0.5} Chceš tak udělat?
 SavePoint_end	Do you wish to save your game?	Přeješ si uložit hru?
 BeehiveRegular_SAVEINTROROOM_1_1	The bees in this beehive are living peacefully.	Včely v tomhle úlu žijí mírumilovně.
-BlueBeehive_SAVEINTROROOM_1_1	The bees in this beehive are playing some  {#3498eb}FIRE{#/} music.	Včely v tomhle úlu si pouští nějakou {#3498eb}FIRE{#/} hudbu.
-BibleInteractPrompt_SAVEINTROROOM_1_1	Maybe it would be a good idea to interact with the {#ebd334}book{#/} first, before going further into the forest.	Myslíš si, že bys nejdříve si měl prohlédnout tu {#ebd334}knihu{#/} než půjdeš dál do lesa.
+BlueBeehive_SAVEINTROROOM_1_1	The bees in this beehive are playing some {#blue_fire}FIRE{#/} music.	Včely v tomhle úlu si pouští nějakou {#blue_fire}FIRE{#/} hudbu.
+BibleInteractPrompt_SAVEINTROROOM_1_1	Maybe it would be a good idea to interact with the {#holy_yellow}book{#/} first, before going further into the forest.	Myslíš si, že bys nejdříve si měl prohlédnout tu {#holy_yellow}knihu{#/} než půjdeš dál do lesa.
 BibleInteractPrompt_SAVEINTROROOM_outofinteract	...{0.5} there's a something that won't let you go.	...{0.5} cítíš se jako tě něco nepovoluje tu knihu přeskočit.
 DetailedTree_SAVEINTROROOM_outofinteract	There's something hiding in the tree...{0.5} unfortunetly you can't tell what.	Něco se skrývá v tomto stromě...{0.5} ale bohužel nedokážeš zjisit co to je.
 OverworldSaving_GameSavedConfirm	GAME WAS SUCCESSFULLY SAVED!	HRA BYLA ÚSPĚŠNĚ ULOŽENA!
-Cutscene_Nixie_Introductory_TreeSaveDialog	Oh.{0.5}It looks like you used the boo	Zajímavé.{0.5} Vypadá to, že jsi už použil tu kni
+Cutscene_Nixie_Introductory_TreeSaveDialog	Very interesting.{1} It looks like you used the book!	Velmi zajímavé.{1} Vypadá to, že jsi už využil tu knihu!
+AttackMessage_MISS	0	0
+Cutscene_Character_Dialog_Tester_1	{$Nixie}Long text that{p} {#red}wraps{#/} through the whole freaking textbox. Also I can say {#purple}{{ }}{#/} now.	{? "YES" "NO"}
+Cutscene_Character_Dialog_Tester_2	Var1: {var1}, Var2: {var2}	Var1: {var1}, Var2: {var2}

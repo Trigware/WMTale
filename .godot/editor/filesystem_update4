@@ -1,67 +1,30 @@
 res://Rooms/Weird/SaveIntroRoom.tscn
 res://Scripts/Text System/TextSystem.gd
+res://Spriteframes/Player/xdaforge.tres
 res://Spriteframes/BibleOverworld.tres
+res://Spriteframes/LeafDisintegration.tres
+res://Label Settings/OutlinedText.tres
+res://Spriteframes/ExplosionEffect.tres
+res://Spriteframes/Player/rabbitek.tres
+res://Spriteframes/Player/gertofin.tres
+res://Spriteframes/Nixie.tres
+res://Shaders/GDSL/HideSprite.gdshader
 res://TileSets/WeirdGround.tres
 res://TileSets/WeirdRiver.tres
 res://TileSets/WeirdEnvironment.tres
 res://TileSets/WeirdTree.tres
 res://Spriteframes/Campfire.tres
-res://Spriteframes/LeafDisintegration.tres
-res://Label Settings/OutlinedText.tres
-res://Spriteframes/ExplosionEffect.tres
-res://Spriteframes/Player/xdaforge.tres
-res://Spriteframes/Player/rabbitek.tres
-res://Spriteframes/Player/gertofin.tres
-res://Spriteframes/Nixie.tres
-res://Shaders/GDSL/HideSprite.gdshader
 res://Scenes/Core/Moving NPC.tscn
-res://Scripts/Overworld/Player.gd
-res://Scripts/Overworld/Moving NPC.gd
-res://Scripts/Globals/Audio.gd
-res://Scripts/Overworld/AudioAreaManager.gd
-res://Scripts/Text System/BaseNPC.gd
-res://Scripts/Overworld/BaseRoom.gd
-res://Scripts/Overworld/Beehive.gd
-res://Scripts/Overworld/BibleAppearenceTrigger.gd
-res://Scripts/Overworld/BibleStand.gd
-res://Scripts/ChooseCharacter/ChooseCharacter.gd
-res://Scripts/Globals/ChooseLanguage.gd
-res://Scripts/Globals/CutsceneManager.gd
-res://Scripts/Overworld/CutsceneTrigger.gd
-res://Scripts/Overworld/DangerousMushroom.gd
-res://Scripts/Overworld/EffectNode.gd
-res://Scripts/Overworld/EffectParticle.gd
-res://Scripts/Globals/Enums.gd
-res://Scripts/Globals/Error Handleler.gd
-res://Scripts/Overworld/ExplosionEffect.gd
-res://Scripts/Globals/FileBox.gd
-res://Scripts/Globals/FileSelect.gd
-res://Scripts/Overworld/Fire.gd
-res://Scripts/Globals/GameOver.gd
-res://Scripts/Overworld/HealthChangeParticle.gd
-res://Scripts/Overworld/LayeredNPC.gd
-res://Scripts/Globals/LeafModeManager.gd
-res://Scripts/Globals/LeafModeTrigger.gd
-res://Scripts/Globals/LilypadFlower.gd
-res://Scripts/Text System/Localization.gd
-res://Scripts/Globals/MovingNPCManager.gd
-res://Scripts/Globals/NPCDataManager.gd
-res://Scripts/Globals/OverlayManager.gd
-res://Scripts/Overworld/OverworldBible.gd
-res://Scripts/Overworld/OverworldBridge.gd
-res://Scripts/Overworld/OverworldManager.gd
-res://Scripts/Overworld/Player Root.gd
-res://Scripts/Globals/PressAnything.gd
-res://Scripts/Globals/QuittingGame.gd
-res://Scripts/Globals/RiverManager.gd
-res://Scripts/Rooms/SaveIntroRoom.gd
-res://Scripts/Overworld/SaveMenu.gd
-res://Scripts/Globals/SaveSystem.gd
-res://Scripts/Legend/SkipLegend.gd
-res://Scripts/Globals/StatusEffectManager.gd
-res://Scripts/ChooseCharacter/SummonedCharacters.gd
-res://Scripts/Overworld/TeleportTree.gd
-res://Scripts/Globals/UIDConstants.gd
-res://Scripts/Overworld/Walkable Lilypad.gd
 res://Scenes/Overworld/Player.tscn
 res://Scenes/Core/Moving NPC Manager.tscn
+res://Scenes/NPC Derivation/Detailed Tree.tscn
+res://Scenes/NPC Derivation/Beehive.tscn
+res://Rooms/Weird/CemetaryGate.tscn
+res://Scenes/Game Mechanics/Status Effect/Effect Particle.tscn
+res://Scenes/Game Mechanics/Health Change Info.tscn
+res://Rooms/Weird/CharacterDialogTester.tscn
+res://Scripts/Globals/Audio.gd
+res://Scripts/Text System/Localization.gd
+res://Scripts/Globals/SaveSystem.gd
+res://Scripts/Globals/ChooseLanguage.gd
+res://Scenes/Core/TextSystem.tscn

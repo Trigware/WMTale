@@ -8,6 +8,7 @@ var diagonal_path_position : Vector2
 var current_target : Vector2
 var final_look_dir := Vector2.ZERO
 var speed := Player.player_speed
+var go_backwards := false
 
 var controlled_body = Player.node
 var stringAnimation : String
@@ -18,11 +19,24 @@ var follower_index := 0
 var base_follower_zindex = 50
 var layer_npc_areas = 0
 
-const default_jump_height = 50
-const default_jump_duaration = 0.65
+var initial_jump := false
+var affected_by_gravity := false
+var horizontal_jump_tween
+var jump_vertical_destination : float
+var near_ground_signal_emitted = false
+
+const jump_height = 200
+const jump_gravity = 8
+const expected_jump_duration = 1.7
+const near_ground_distance = 180
 
 @onready var sprite = $Sprite
 @onready var collider = $Collider
+
+@export var on_ready_animation := ""
+@export var on_ready_default_scale := true
+
+signal near_ground
 
 func _ready():
 	if agent_type == Enum.AgentType.Uninitialized:
@@ -57,13 +71,15 @@ func setup_moving_npc():
 		collider.shape = collider_info["collider"]
 		collider.position = collider_info["position"]
 	controlled_body = self
+	if on_ready_default_scale: set_to_default_scale()
+	if on_ready_animation != "": set_anim(on_ready_animation)
 	
 	if not is_cutscene_agent:
-		set_animation(Player.node.stringAnimation)
+		set_walk_animation(Player.node.stringAnimation)
 
-func set_animation(dir):
+func set_walk_animation(dir):
 	var animation_name = "walk_" + str(dir).to_lower()
-	sprite.animation = animation_name
+	set_anim(animation_name)
 
 func get_appropriate_name():
 	var agent_type_name = MovingNPC.get_agent_type_name(agent_type)
@@ -105,6 +121,7 @@ func set_direction_animation():
 	controlled_body.update_walk_animation_frame()
 
 func get_string_direction(dir: Vector2):
+	if go_backwards: dir = -dir
 	if dir == Vector2.ZERO: return ""
 	if dir.x != 0: return "Left" if dir.x < 0 else "Right"
 	return "Up" if dir.y < 0 else "Down"
@@ -144,7 +161,7 @@ func take_step_towards_player(footstep):
 	var str_dir = get_string_direction(delta)
 	if str_dir != "": stringAnimation = str_dir
 	sprite.play()
-	set_animation(stringAnimation)
+	set_walk_animation(stringAnimation)
 
 func set_uniform(parameter: String, value):
 	var shader_mat = get_shader_material()
@@ -185,7 +202,54 @@ func tween_hide_progression(final, duration):
 	visibility_tween.set_trans(Tween.TRANS_EXPO)
 	await visibility_tween.finished
 
-func jump_to_point(point: Vector2, jump_height := default_jump_height, jump_duration := default_jump_duaration):
-	var start_position = position
-	var heighest_vertical_point = position.y - jump_height
-	
+func jump_to_point(point: Vector2):
+	near_ground_signal_emitted = false
+	jump_vertical_destination = point.y
+	initial_jump = true
+	affected_by_gravity = true
+	horizontal_jump_tween = create_tween()
+	horizontal_jump_tween.tween_property(self, "global_position:x", point.x, expected_jump_duration)
+	horizontal_jump_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+
+func _physics_process(_delta):
+	var notice_vertical_position = jump_vertical_destination - near_ground_distance
+	if not near_ground_signal_emitted and global_position.y > notice_vertical_position:
+		emit_signal("near_ground")
+		near_ground_signal_emitted = true
+	if global_position.y > jump_vertical_destination:
+		velocity = Vector2.ZERO
+		affected_by_gravity = false
+		if horizontal_jump_tween != null: horizontal_jump_tween.kill()
+	if affected_by_gravity:
+		velocity.y += jump_gravity
+	if initial_jump:
+		velocity.y = -jump_height
+		initial_jump = false
+	move_and_slide()
+
+func spawn_damage_label(text, color := Color.WHITE, offset_x := 0.0, offset_y := 0.0):
+	var instance = UID.SCN_HEALTH_CHANGE_INFO.instantiate()
+	Player.hp_particle_point.add_child(instance)
+	instance.global_position = global_position + Vector2(offset_x, offset_y)
+	instance.modulate = color
+	instance.play_anim(text)
+
+func nail_swing(text_key):
+	if agent_variation != Enum.AgentVariation.Nixie:
+		push_error("Nail swing function is reserved for Nixie only!")
+		return
+	play_animation("nail_swing")
+	await wait(0.5)
+	Audio.play_sound(UID.SFX_NAIL_SWING)
+	spawn_damage_label(Localization.get_text(text_key), Color.LIGHT_PINK, -175, -50)
+
+func wait(time: float):
+	await get_tree().create_timer(time).timeout
+
+func set_to_default_scale():
+	var default_both_axis_scale = 1
+	if agent_type in [Enum.AgentType.PlayerAgent, Enum.AgentType.FollowerAgent]:
+		default_both_axis_scale = 3
+	match agent_variation:
+		Enum.AgentVariation.Nixie: default_both_axis_scale = 1.15
+	scale_both_axis(default_both_axis_scale)

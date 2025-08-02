@@ -3,15 +3,20 @@ extends Label
 const particle_x_offset = 35
 const particle_final_y_offset = 100
 const alpha_tween_duration = 0.2
+const scale_divident = 3
 
 func _ready():
 	modulate.a = 0
+	var parent = get_parent()
+	parent.scale = Vector2.ONE / scale_divident
 
 func set_hp_delta(delta):
 	var printed_text = str(delta)
 	if delta > 0: printed_text = "+" + printed_text
-	text = printed_text
-	
+	play_anim(printed_text)
+
+func play_anim(shown_text):
+	text = str(shown_text)
 	var used_particle_x_offset = particle_x_offset
 	var last_player_face_left = Player.node.is_left_last_horizontal_dir
 	if last_player_face_left:

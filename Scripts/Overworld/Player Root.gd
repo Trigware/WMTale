@@ -7,6 +7,7 @@ extends Node
 @onready var camera = $"Player Body/Camera"
 @onready var hp_particle_point = $"Player Body/Health Particle Point"
 @onready var animNode = $"Player Body/Sprite"
+@onready var notice = $"Player Body/Notice"
 
 const playableCharacters = ["rabbitek", "xdaforge", "gertofin"]
 
@@ -40,6 +41,7 @@ var footsteps : Array[Dictionary] = []
 @onready var intended_leaf_pos = leafNode.position
 
 func _ready():
+	notice.hide()
 	disable()
 	var current_flash_final = 1
 	initial_camera_offset = camera.offset
@@ -141,3 +143,11 @@ func set_uniform(parameter, value):
 func get_uniform(parameter):
 	var shader_mat = get_shader_material()
 	return shader_mat.get_shader_parameter(parameter)
+
+func wait(time: float):
+	await get_tree().create_timer(time).timeout
+
+func noticed(wait_time := 0.5):
+	notice.show()
+	await wait(wait_time)
+	notice.hide()

@@ -105,7 +105,7 @@ func finish_choosing_language():
 
 func get_lang_index():
 	if not SaveData.seen_leaf: return 0
-	var current_lang_index = max(0, Localization.language_list.find(SaveData.currentLanguage))
+	var current_lang_index = max(0, Localization.language_list.find(Localization.current_language))
 	for i in range(Localization.language_list.size()):
 		if i != current_lang_index: return i
 	return 0
