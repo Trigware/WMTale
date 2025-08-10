@@ -125,5 +125,3 @@ func get_agent_collider_info(agent_variation: Enum.AgentVariation) -> Dictionary
 	return {}
 
 const SHD_HIDE_SPRITE := preload("uid://dqmk2fcx6j66e")
-
-const SCR_BASE_ROOM := "uid://cig64ay50648y"

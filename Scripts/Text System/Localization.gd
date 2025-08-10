@@ -7,12 +7,15 @@ var language_list := []
 var current_language := "english"
 const control_characters := ["#", "?"]
 
-func get_text(text_key, variables = []) -> String:
+func get_text(text_key, variables = {}) -> String:
 	if not text_exists(text_key) and game_text == {}: load_language(current_language)
-	if not text_exists(text_key): return text_key + " (" + current_language + ")"
+	if not text_exists(text_key): return "<ERROR>: Requested missing text_key " + text_key + " (" + current_language + ")!"
+	if variables is Array and variables.size() > 1:
+		push_error("On " + text_key + " attempted to use an Array for storing mutliple variables. Array variables are deprecated, use a dictionary instead!")
+		return "<ERROR>: Used deprecated Array method for passing in multiple variables at text_key " + text_key + "!"
 	var localized_text = parse_control_text(game_text[text_key], variables, text_key)
 	if localized_text == "":
-		localized_text = "w/o " + current_language + " " + text_key
+		localized_text = "<ERROR>: Missing translation for a text_key " + text_key + " in the " + current_language + " language!"
 	return localized_text
 
 func get_key_suffixed(base_key, suffix) -> String:
@@ -36,13 +39,14 @@ func parse_tsv_file(file_contents):
 	var lines = file_contents.replace("\r", "").split("\n")
 	for i in range(lines.size()):
 		var line = lines[i]
+		if line == "": continue
 		var columns = line.split("\t")
 		if i == 0:
 			if parse_first_csv_line(columns) != 0: return
 			continue
 		var column_count = columns.size()
 		if language_column_index >= column_count or column_count == 0:
-			push_error("Localization file read error at row " + str(i) + "!")
+			push_error("Localization file read error at row " + str(i) + "! (contents: " + line + ")")
 			continue
 		var text_key = columns[0]
 		var text_contents = unespace_string(columns[language_column_index])
@@ -51,7 +55,6 @@ func parse_tsv_file(file_contents):
 func unespace_string(text):
 	text = text.replace("\\n", "\n")
 	text = text.replace("\\t", "\t")
-	text = text.replace("\\\"", "\"")
 	text = text.replace("\\\\", "\\")
 	return text
 
@@ -79,7 +82,7 @@ func parse_control_text(original_text : String, variables, text_key) -> String:
 	
 	for i in original_text.length():
 		var ch = original_text[i]
-		if ch in TextSystem.control_brackets and is_previous_character("\\", i, original_text):
+		if ch in TextParser.control_brackets and is_previous_character("\\", i, original_text):
 			parse_default_character(ch)
 			continue
 		match ch:
@@ -130,18 +133,17 @@ func parse_end_bracket_content(variables, text_key):
 		modified_text += str(dict_cache_var_content)
 		return
 	
-	var variable_index = inserted_variable_dict.size()
-	
-	var does_variable_exist = variable_index < variables.size()
+	var does_variable_exist = variable_count < variables.size()
 	if not does_variable_exist:
 		push_error("Need a variable '" + bracket_content + "' that can be passed into the text! (index: " + str(variable_count) + ", key: " + str(text_key) + ", lang: " + current_language + ")")
 		add_placeholder_text()
 		variable_count += 1
 		return
 	
-	var variable_content = variables[variable_index]
+	var variable_content = variables[variable_count]
 	modified_text += str(variable_content)
 	variable_count += 1
+	inserted_variable_dict[bracket_content] = variable_content
 
 func add_placeholder_text(text = null):
 	if text == null: text = bracket_content

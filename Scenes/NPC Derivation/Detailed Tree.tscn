@@ -25,6 +25,7 @@ scale = Vector2(2, 2)
 collision_mask = 3
 ignoreDirections = true
 override_id_from_parent = true
+set_only_at_start = true
 
 [node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
 treeSprite = NodePath("../../Bottom")

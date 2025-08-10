@@ -11,6 +11,7 @@ size = Vector2(82, 79.5)
 
 [node name="NPC Root" parent="." instance=ExtResource("1_gpgkp")]
 npcID = 17
+set_only_at_start = true
 
 [node name="Sprite" parent="NPC Root" index="0"]
 texture = ExtResource("2_gbuwg")

@@ -19,6 +19,10 @@ boot_splash/image="uid://b5nn32wkdodwr"
 [autoload]
 
 Enum="*res://Scripts/Globals/Enums.gd"
+PresetSystem="*res://Scripts/Text System/PresetSystem.gd"
+TextParser="*res://Scripts/Text System/TextParser.gd"
+TextMethods="*res://Scripts/Text System/TextMethods.gd"
+ChoicerSystem="*res://Scripts/Text System/ChoicerSystem.gd"
 Overlay="*res://Scenes/Core/Overlay.tscn"
 Audio="*res://Scenes/Core/Audio.tscn"
 TextSystem="*res://Scenes/Core/TextSystem.tscn"

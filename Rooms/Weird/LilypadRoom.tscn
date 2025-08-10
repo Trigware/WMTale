@@ -260,6 +260,7 @@ position = Vector2(915, 915)
 rotation = 1.5708
 scale = Vector2(3.4, 3.4)
 npcID = 15
+set_only_at_start = true
 
 [node name="Sprite" parent="Big Branch" index="0"]
 texture = ExtResource("19_wabq0")

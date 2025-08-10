@@ -56,14 +56,14 @@ func _ready():
 	show_game_over()
 
 func first_death():
-	await TextSystem.print_sequence("GameOver_FirstDeath", {"name": SaveData.playerName}, TextSystem.Preset.FirstGameOver)
+	await TextMethods.print_sequence("GameOver_FirstDeath", {"name": SaveData.playerName}, PresetSystem.Preset.FirstGameOver)
 	tween_node(image)
 	show_options()
 
 func show_game_over():
 	tween_node(image)
 	await get_tree().create_timer(1).timeout
-	await TextSystem.print_random_sequence("GameOver_Comment", "", {}, TextSystem.Preset.GameOver)
+	await TextMethods.print_random_sequence("GameOver_Comment", "", {}, PresetSystem.Preset.GameOver)
 	show_options()
 
 func show_options():
@@ -73,7 +73,7 @@ func show_options():
 	can_choose = true
 
 func setup():
-	TextSystem.fallbackPreset = TextSystem.Preset.GameOver
+	PresetSystem.fallback = PresetSystem.Preset.GameOver
 	Overworld.disable()
 	Overlay.set_alpha(0)
 	image.modulate.a = 0

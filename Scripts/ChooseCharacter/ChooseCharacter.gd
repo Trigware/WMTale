@@ -39,7 +39,7 @@ func _ready():
 	moveReminder.text = Localization.get_text("choosecharacter_notice_moveleaf")
 	
 	SaveData.selectedCharacter = ""
-	TextSystem.fallbackPreset = TextSystem.Preset.ChooseCharacter
+	PresetSystem.fallback = PresetSystem.Preset.ChooseCharacter
 	var empty_style = StyleBoxEmpty.new()
 	nameInput.add_theme_stylebox_override("focus", empty_style)
 	nameInput.connect("text_submitted", Callable(self, "on_name_submitted"))
@@ -58,7 +58,7 @@ func summon_leaf():
 	var tween = create_tween()
 	tween.tween_property(leafTexture, "position:y", 250, 2.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-	TextSystem.print_localization("choosecharacter_prechoose_gift")
+	TextMethods.print_localization("choosecharacter_prechoose_gift")
 	SaveData.seen_leaf = true
 	SaveData.save_global_file()
 	await TextSystem.text_finished
@@ -69,7 +69,7 @@ func summon_leaf():
 	await TextSystem.want_next_text
 	create_tween().tween_property(textReminder, "modulate:a", 0, 0.5)
 	continuedToNextText = true
-	await TextSystem.print_sequence_no_variables([
+	await TextMethods.print_group([
 		"choosecharacter_prechoose_changeworld",
 		"choosecharacter_prechoose_nochance"
 	])
@@ -107,8 +107,10 @@ func handle_character_selection():
 	var previousChosenCharacter = chosenCharacter
 	
 	if Input.is_action_just_pressed("move_left") and chosenCharacter != PlayableCharacter.Rabbitek:
+		@warning_ignore("int_as_enum_without_cast")
 		chosenCharacter -= 1
 	if Input.is_action_just_pressed("move_right") and chosenCharacter != PlayableCharacter.Gertofin:
+		@warning_ignore("int_as_enum_without_cast")
 		chosenCharacter += 1
 	if Input.is_action_just_pressed("continue"):
 		select_character()
@@ -134,7 +136,7 @@ func select_character():
 	set_ease(Tween.EASE_IN_OUT)
 	SaveData.selectedCharacter = Player.playableCharacters[chosenCharacter - 1]
 	await tween.finished
-	TextSystem.print_localization("choosecharacter_choose_name")
+	TextMethods.print_localization("choosecharacter_choose_name")
 	create_tween().tween_property(nameInput, "modulate:a", 1, 1)
 	nameInput.grab_focus()
 
@@ -143,24 +145,25 @@ func on_name_submitted(text):
 	var checkedName = text.to_lower()
 	var invalidName = false
 	TextSystem.overwriteSkippable = true
+	
 	if checkedName in Player.playableCharacters:
 		if SaveData.selectedCharacter.to_lower() == checkedName:
 			TextSystem.overwriteSkippable = false
-			await TextSystem.print_wait_localization("choosecharacter_namereaction_canonname")
+			await TextMethods.print_wait_localization("choosecharacter_namereaction_canonname")
 		else:
-			TextSystem.print_localization("choosecharacter_namereaction_confusing")
+			TextMethods.print_localization("choosecharacter_namereaction_confusing")
 			invalidName = true
 	elif checkedName == "angryhonzik" or checkedName == "trigware":
 		TextSystem.overwriteSkippable = false
-		await TextSystem.print_wait_localization("choosecharacter_namereaction_programmer")
+		await TextMethods.print_wait_localization("choosecharacter_namereaction_programmer")
 	elif checkedName == "wmt" || checkedName == "wise mystical tree":
-		TextSystem.print_localization("choosecharacter_namereaction_god")
+		TextMethods.print_localization("choosecharacter_namereaction_god")
 		invalidName = true
 	elif text.strip_edges() == "":
-		TextSystem.print_localization("choosecharacter_namereaction_novisiblesymbols")
+		TextMethods.print_localization("choosecharacter_namereaction_novisiblesymbols")
 		invalidName = true
 	elif text.find("{") != -1 or text.find("}") != -1 or text.find("[") != -1 or text.find("]") != -1:
-		TextSystem.print_localization("choosecharacter_namereaction_brackets")
+		TextMethods.print_localization("choosecharacter_namereaction_brackets")
 		invalidName = true
 	
 	if invalidName:
@@ -177,11 +180,11 @@ func on_player_named():
 	create_tween().tween_property(characterAnimations, "modulate:a", 0, 1)
 	var tween = create_tween().tween_property(leafTexture, "position", finalLeafRescalePosition, 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-	await TextSystem.print_wait_localization("choosecharacter_postchoose_sayname", [SaveData.playerName])
+	await TextMethods.print_wait_localization("choosecharacter_postchoose_sayname", [SaveData.playerName])
 	show_bible()
 
 func show_bible():
-	await TextSystem.print_wait_localization("choosecharacter_postchoose_onemorething")
+	await TextMethods.print_wait_localization("choosecharacter_postchoose_onemorething")
 	music_tween(-80, 0.5)
 	Audio.play_sound(UID.SFX_RELIGIOUS_SPAWN)
 	create_tween().tween_property(lightTexture, "modulate:a", 1, 1)
@@ -191,7 +194,7 @@ func show_bible():
 	finish_scene()
 
 func finish_scene():
-	await TextSystem.print_sequence_no_variables([
+	await TextMethods.print_group([
 		"choosecharacter_postchoose_givebook",
 		"choosecharacter_finish_goodbad",
 		"choosecharacter_finish_terror",

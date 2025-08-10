@@ -26,7 +26,7 @@ script = ExtResource("2_4pa6r")
 [node name="Layered NPC" parent="." instance=ExtResource("1_av6ga")]
 ignoreDirections = true
 override_id_from_parent = true
-interactionCountForeverOne = true
+set_only_at_start = true
 
 [node name="Layered Manager" parent="Layered NPC" index="0" node_paths=PackedStringArray("treeSprite")]
 treeSprite = NodePath("../..")

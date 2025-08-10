@@ -32,7 +32,8 @@ enum Field
 	InteractionCount,
 	Deleted,
 	Suffix,
-	Deactivated
+	Deactivated,
+	OnlyInteraction
 }
 
 var data := {}
@@ -67,8 +68,9 @@ func get_default_field_value(field: Field):
 	match field:
 		Field.InteractionCount: return 0
 		Field.Deleted: return false
-		Field.Suffix: return ""
+		Field.Suffix: return null
 		Field.Deactivated: return false
+		Field.OnlyInteraction: return false
 
 func get_enum_from_str(wanted_enum_name: String) -> ID:
 	return ID[wanted_enum_name]
@@ -82,3 +84,13 @@ func convert_string_to_id(strID: String):
 		push_error(strID + " is not a valid NPC identifier!")
 		return
 	return ID[strID]
+
+func end_npc_dialog(npcID: NPCData.ID, npc, deleteAfterTalk := false):
+	if deleteAfterTalk:
+		NPCData.set_data(npcID, NPCData.Field.Deleted, true)
+		npc.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	TextSystem.canInteract = true
+	NPCData.set_data(NPCData.ID.InteractionPrompt_SPAWNROOM, NPCData.Field.Deactivated, true)

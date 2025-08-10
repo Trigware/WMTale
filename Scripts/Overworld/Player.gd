@@ -11,6 +11,7 @@ var base_follower_zindex = 50
 var layer_npc_areas = 0
 
 var previous_stamina = null
+var previous_position : Vector2
 
 @onready var animationNode = $"Sprite"
 @onready var sprite = animationNode
@@ -34,7 +35,7 @@ func enable():
 	var player_agent_variation = MovingNPC.convert_str_to_agent_variation(SaveData.selectedCharacter)
 	animationNode.sprite_frames = UID.SPF_MOVING_NPCS[player_agent_variation]
 	disableFootsteps = false
-	TextSystem.fallbackPreset = TextSystem.Preset.RegularDialog
+	PresetSystem.fallback = PresetSystem.Preset.RegularDialog
 	animationNode.frame = 0
 	cameraNode.enabled = true
 	Player.show()
@@ -82,10 +83,10 @@ func handle_motion_actions():
 		speedMultiplier = Player.get_fast_movement_speed()
 		movementMode = MovementMode.RUN
 	
-	var previousPosition = position
+	previous_position = position
 	latest_speed = speedMultiplier * Player.player_speed
 	take_step(direction, latest_speed)
-	if direction == Vector2.ZERO or previousPosition == position: return MovementMode.STILL
+	if direction == Vector2.ZERO or previous_position == position: return MovementMode.STILL
 	return movementMode
 
 func take_step(dir, speed):
@@ -98,13 +99,13 @@ func take_step(dir, speed):
 
 func update_animations():
 	update_walk_animation_frame()
-	if get_slide_collision_count() > 0: animationNode.stop()
-	if velocity == Vector2.ZERO: return
+	if velocity == Vector2.ZERO:
+		animationNode.stop()
+		return
 	add_to_footstep_targets()
 	Player.time_spend_not_walking = 0.0
 	on_footstep()
 	animationNode.speed_scale = speedMultiplier
-	Player.play_animation(get_walk_animation_name())
 
 func get_walk_animation_name() -> String: return "walk_" + stringAnimation.to_lower()
 
@@ -123,6 +124,7 @@ func play_footstep():
 	if Player.in_water: footstep_type = UID.Footstep.Water
 	if Player.in_leaves: footstep_type = UID.Footstep.Leaves
 	Audio.play_sound(UID.SFX_FOOTSTEPS[footstep_type], 0.3, -5)
+	Player.play_animation(get_walk_animation_name())
 
 func add_to_footstep_targets():
 	var footstep = {

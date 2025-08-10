@@ -48,7 +48,7 @@ func change_scene(scene : PackedScene, hideDuration = 1, showDuration = 1, betwe
 	await finished
 	if betweenSceneWait > 0:
 		await get_tree().create_timer(betweenSceneWait).timeout
-	TextSystem.clear_text()
+	TextMethods.clear_text()
 	if SaveData.allow_game_load:
 		load_post_legend_scene()
 	else:

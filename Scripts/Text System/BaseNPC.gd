@@ -12,16 +12,12 @@ extends Area2D
 @export var deactivated_at_start := false
 @export var save_menu := false
 @export var override_id_from_parent := false
-@export var interactionCountForeverOne := false
+@export var set_only_at_start := false
 
 @onready var triggerZone = $"Trigger Zone"
 
 var interactionCount := 0
 var textID := ""
-var placeholderInteraction : String
-var placeholderExists : bool
-var first_text : String
-var first_text_exists : bool
 
 var padestalTexts := [NPCData.ID.Pedestal_SPAWN_ENTERANCE]
 
@@ -38,14 +34,11 @@ func _ready():
 	textID = NPCData.get_id_name(npcID)
 	var isNPCDeleted = NPCData.get_data(npcID, NPCData.Field.Deleted)
 	if isNPCDeleted: queue_free()
+	if set_only_at_start:
+		NPCData.set_data(npcID, NPCData.Field.OnlyInteraction, true)
 	
 	remove_static_body()
-	first_text = get_current_text(1, true)
-	first_text_exists = Localization.text_exists(first_text)
-	placeholderInteraction = textID + "_outofinteract"
-	placeholderExists = Localization.text_exists(placeholderInteraction)
-	if not placeholderExists and not first_text_exists:
-		push_error("No text key with NPC ID exists (" + textID + ")!")
+	get_suffix(1)
 
 func override_id_from_parent_fn():
 	var parent = get_parent()
@@ -81,46 +74,52 @@ func _process(_delta):
 func interact_with_npc():
 	var deactivated = NPCData.get_data(npcID, NPCData.Field.Deactivated)
 	if deactivated: return
-	if TextSystem.lockAction or SaveMenu.menu_openned or Player.inputless_movement: return
+	if TextSystem.lockAction or SaveMenu.menu_openned or Player.inputless_movement or CutsceneManager.action_lock: return
 	if not is_player_looking_towards_npc(): return
 	
 	if autoTrigger:
 		NPCData.set_data(npcID, NPCData.Field.Deactivated, true)
 	
 	interactionCount = NPCData.get_incremented_data(npcID, NPCData.Field.InteractionCount)
-	if interactionCountForeverOne: interactionCount = 1
 	TextSystem.canInteract = false
 	
-	if not placeholderExists and not disable_placeholder_interactions:
-		placeholderInteraction = "npc_outofinteract"
+	var base_key = textID
+	var suffix = get_suffix(interactionCount)
 	
-	first_text = get_current_text(interactionCount, true)
-	first_text_exists = Localization.text_exists(first_text)
-	if not first_text_exists:
-		await TextSystem.print_wait_localization(placeholderInteraction)
-	else: await print_regular_npc_text()
+	if suffix != null: await TextMethods.print_sequence(base_key, {}, PresetSystem.Preset.Fallback, suffix)
+	else: await TextMethods.print_wait_localization("npc_outofinteract", {}, PresetSystem.Preset.Fallback)
 	
 	if item != Inventory.Item.NONE:
-		await TextSystem.optional_get_item(Inventory.Item.GLOWING_MUSHROOM, itemCount, self, npcID, itemColor)
+		await Inventory.ask_to_get_item(Inventory.Item.GLOWING_MUSHROOM, itemCount, self, npcID, itemColor)
 	
 	await after_base_dialog_complete()
-	TextSystem.end_npc_dialog(npcID, self, deleteAfterTalk)
+	NPCData.end_npc_dialog(npcID, self, deleteAfterTalk)
 	if save_menu:
 		SaveMenu.on_menu_open()
 
-func print_regular_npc_text():
-	var i = 1
-	var currentText = get_current_text(1)
-	while Localization.text_exists(currentText):
-		await TextSystem.print_wait_localization(currentText)
-		i += 1
-		currentText = get_current_text(i)
+func get_suffix(interaction_count):
+	var base_key = textID
+	var suffix = str(interaction_count)
+	var npc_only_property = NPCData.get_data(npcID, NPCData.Field.OnlyInteraction)
+	var npc_suffix_property = NPCData.get_data(npcID, NPCData.Field.Suffix)
+	if npc_only_property or npc_suffix_property != null:
+		suffix = npc_suffix_property if npc_suffix_property != null else "only"
+		var only_suffix_text_key = TextMethods.add_suffix_to_key(base_key, suffix)
+		if not suffixed_key_exists(only_suffix_text_key): push_error("NPC with id " + textID + " requests a missing the '" + suffix + "' suffix!")
+		return suffix
+	
+	var first_text = TextMethods.get_indexed_key(base_key, suffix)
+	var first_text_exists = Localization.text_exists(first_text)
+	if first_text_exists: return suffix
+	suffix = "outofinteract"
+	
+	var placeholder_text = TextMethods.add_suffix_to_key(base_key, suffix)
+	if suffixed_key_exists(placeholder_text): return suffix
+	if interactionCount == 1:
+		push_error("An associated start text key on npc with id " + textID + " doesn't exist! (first_text: " + first_text + ", placeholder_text: " + placeholder_text + ")")
 
-func get_current_text(index, interact_override = false, interact_override_value = 1):
-	var used_interaction_count = interactionCount
-	if interact_override: used_interaction_count = interact_override_value
-	var suffix = NPCData.get_data(npcID, NPCData.Field.Suffix)
-	return textID + "_" + suffix + str(used_interaction_count) + "_" + str(index)
+func suffixed_key_exists(suffixed_key):
+	return Localization.text_exists(suffixed_key) or Localization.text_exists(suffixed_key + "_1")
 
 func is_player_looking_towards_npc() -> bool:
 	if autoTrigger or removeStaticBody or ignoreDirections: return true
@@ -136,13 +135,13 @@ func is_player_looking_towards_npc() -> bool:
 
 func after_base_dialog_complete():
 	if npcID in padestalTexts:
-		await TextSystem.give_basic_choice()
-		if TextSystem.lastChoiceText == "choicer_decline": return
-		await TextSystem.print_wait_localization("PedestalText_intro", [SaveData.playerName])
-		var textPrefix = "PedestalText_" + SaveData.selectedCharacter + "_"
-		await TextSystem.print_sequence_no_variables(
-			[textPrefix + "1",
-			textPrefix + "2",
+		await ChoicerSystem.give_basic_choice()
+		if ChoicerSystem.is_player_choice("decline"): return
+		await TextMethods.print_wait_localization("PedestalText_intro", [SaveData.playerName])
+		var text_template_part = "PedestalText_" + SaveData.selectedCharacter + "_"
+		await TextMethods.print_group(
+			[text_template_part + "1",
+			text_template_part + "2",
 			"PedestalText_end"]
 		)
 		return
@@ -150,7 +149,7 @@ func after_base_dialog_complete():
 		var final_text_key = "SavePoint_end"
 		if not SaveData.save_choice_seen:
 			final_text_key = "SavePoint_end_first_time"
-		await TextSystem.print_wait_localization(final_text_key)
+		await TextMethods.print_wait_localization(final_text_key)
 		return
 	if npcID == NPCData.ID.BibleInteractPrompt_SAVEINTROROOM:
 		await MovingNPC.move_player_by(-100)

@@ -21,7 +21,7 @@ npcID = 17
 ignoreDirections = true
 save_menu = true
 override_id_from_parent = true
-interactionCountForeverOne = true
+set_only_at_start = true
 
 [node name="Sprite" parent="NPC Root" index="0"]
 texture = ExtResource("2_adnen")

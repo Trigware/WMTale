@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1754140487
+::res://::1754417333
 ::res://Audio/::1753716075
 ::res://Audio/Music/::1753772881
 A Choice.mp3::AudioStreamMP3/AudioStreamMP3::7760497685571425714::1753716069::1753716069::1::::<><><>0<>0<>3d8d50f265ce73948e42c6ed747ce019<>res://.godot/imported/A Choice.mp3-c88cd8e79505d832e6aa22ebc818eb7f.mp3str::
@@ -53,39 +53,39 @@ Player.tres::RectangleShape2D/RectangleShape2D::3070993841608941544::1753716075:
 export_presets.cfg::TextFile/TextFile::-1::1753716075::0::1::::<><><>0<>0<><>::
 ::res://Fonts/::1753716075
 Undertale Font.ttf::FontFile/FontFile::8509644165211204384::1753716075::1753716075::1::::<><><>0<>0<>f919c5e5c7c5c941127374ec74b507cf<>res://.godot/imported/Undertale Font.ttf-5aa3a1f5fcf368c3b3e211b4d38e39ab.fontdata::
-::res://Label Settings/::1754116848
-OutlinedText.tres::LabelSettings::893846066634937755::1754116848::0::1::::<><><>0<>0<><>::uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf
+::res://Label Settings/::1754376988
+OutlinedText.tres::LabelSettings::893846066634937755::1754376988::0::1::::<><><>0<>0<><>::uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf
 ::res://Rooms/::1753716075
 ErrorHandler.tscn::PackedScene/PackedScene::631338181821643229::1753716075::0::1::::<><><>0<>0<><>::uid://8an28sx0gaer::::res://Scripts/Globals/Error Handleler.gd<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf
-::res://Rooms/Weird/::1754128812
-CemetaryGate.tscn::PackedScene::1715172681254719550::1754128332::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://dmvg61n8chab8::::res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn<>uid://djw2th4ecscvn::::res://Scenes/Triggers/Leaf Mode Trigger.tscn<>uid://cfnd25cgsmifd::::res://Scenes/NPC Derivation/Street Lamp.tscn<>uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn<>uid://dgy6f0l0lxw8p::::res://Textures/Weird Forest/Cemetary Gate.png<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://cmvsdcoe7bsn::::res://Scenes/Triggers/Cutscene Trigger.tscn<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn
-CharacterDialogTester.tscn::PackedScene::3765112588509005792::1754128332::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://cmvsdcoe7bsn::::res://Scenes/Triggers/Cutscene Trigger.tscn<>uid://cpc5fcj5uokxi::::res://Scenes/Core/Moving NPC.tscn
+::res://Rooms/Weird/::1754378967
+CemetaryGate.tscn::PackedScene::1715172681254719550::1754378966::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://dmvg61n8chab8::::res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn<>uid://djw2th4ecscvn::::res://Scenes/Triggers/Leaf Mode Trigger.tscn<>uid://cfnd25cgsmifd::::res://Scenes/NPC Derivation/Street Lamp.tscn<>uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn<>uid://dgy6f0l0lxw8p::::res://Textures/Weird Forest/Cemetary Gate.png<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://cmvsdcoe7bsn::::res://Scenes/Triggers/Cutscene Trigger.tscn<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn
+CharacterDialogTester.tscn::PackedScene::3765112588509005792::1754378966::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://cmvsdcoe7bsn::::res://Scenes/Triggers/Cutscene Trigger.tscn<>uid://cpc5fcj5uokxi::::res://Scenes/Core/Moving NPC.tscn
 CutsceneMovementTester.tscn::PackedScene/PackedScene::5077966192882478652::1753716076::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://cmvsdcoe7bsn::::res://Scenes/Triggers/Cutscene Trigger.tscn
 LayeredNPCTester.tscn::PackedScene/PackedScene::5430671043988773838::1753716076::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://l1iqqd118wj6::::res://Scenes/NPC Derivation/Beehive.tscn<>uid://biyswys7vhg4i::::res://Scenes/NPC Derivation/Campfire.tscn<>uid://cfnd25cgsmifd::::res://Scenes/NPC Derivation/Street Lamp.tscn<>uid://dui2es0gsdo51::::res://Scenes/NPC Derivation/Fallen Tree.tscn
-LilypadRoom.tscn::PackedScene::6519758522434678225::1754120171::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://btchb3jks74uf::::res://TileSets/WeirdRiver.tres<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://djw2th4ecscvn::::res://Scenes/Triggers/Leaf Mode Trigger.tscn<>uid://c01w1divptedy::::res://Scenes/Areas/Audio Area.tscn<>uid://b11o6u8lh7tj3::::res://Audio/SFX/Water/River.mp3<>uid://ulgpxw30vyvb::::res://Scenes/Game Mechanics/Lilypad Mechanic/River.tscn<>uid://dui2es0gsdo51::::res://Scenes/NPC Derivation/Fallen Tree.tscn<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://d2bfqx05xqdnb::::res://Textures/Weird Forest/Small Branch.png<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn<>uid://d2w8k8x261hhs::::res://Scenes/NPC Derivation/Lilypad Flower.tscn<>uid://do8xa234u6nyw::::res://Scenes/Game Mechanics/Lilypad Mechanic/Lilypads LilypadRoom.tscn<>uid://dmvg61n8chab8::::res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn<>uid://cfnd25cgsmifd::::res://Scenes/NPC Derivation/Street Lamp.tscn<>uid://f1nfwd20hus3::::res://Textures/Weird Forest/Big Branch.png
+LilypadRoom.tscn::PackedScene::6519758522434678225::1754378967::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://btchb3jks74uf::::res://TileSets/WeirdRiver.tres<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://djw2th4ecscvn::::res://Scenes/Triggers/Leaf Mode Trigger.tscn<>uid://c01w1divptedy::::res://Scenes/Areas/Audio Area.tscn<>uid://b11o6u8lh7tj3::::res://Audio/SFX/Water/River.mp3<>uid://ulgpxw30vyvb::::res://Scenes/Game Mechanics/Lilypad Mechanic/River.tscn<>uid://dui2es0gsdo51::::res://Scenes/NPC Derivation/Fallen Tree.tscn<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://d2bfqx05xqdnb::::res://Textures/Weird Forest/Small Branch.png<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn<>uid://d2w8k8x261hhs::::res://Scenes/NPC Derivation/Lilypad Flower.tscn<>uid://do8xa234u6nyw::::res://Scenes/Game Mechanics/Lilypad Mechanic/Lilypads LilypadRoom.tscn<>uid://dmvg61n8chab8::::res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn<>uid://cfnd25cgsmifd::::res://Scenes/NPC Derivation/Street Lamp.tscn<>uid://f1nfwd20hus3::::res://Textures/Weird Forest/Big Branch.png
 MushroomTester.tscn::PackedScene/PackedScene::1666505858753245083::1753716076::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://dmvg61n8chab8::::res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn<>uid://btchb3jks74uf::::res://TileSets/WeirdRiver.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://c01w1divptedy::::res://Scenes/Areas/Audio Area.tscn<>uid://ulgpxw30vyvb::::res://Scenes/Game Mechanics/Lilypad Mechanic/River.tscn<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn<>uid://djw2th4ecscvn::::res://Scenes/Triggers/Leaf Mode Trigger.tscn
-SaveIntroRoom.tscn::PackedScene::92862868036685950::1754128812::0::1::::<><><>0<>0<><>::uid://cig64ay50648y::::res://Scripts/Rooms/SaveIntroRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://btchb3jks74uf::::res://TileSets/WeirdRiver.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://c01w1divptedy::::res://Scenes/Areas/Audio Area.tscn<>uid://b11o6u8lh7tj3::::res://Audio/SFX/Water/River.mp3<>uid://dm0myytrgks1d::::res://Scenes/NPC Derivation/Candle.tscn<>uid://bkjgemqvemy3q::::res://Scenes/Triggers/Bible Appearence Trigger.tscn<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn<>uid://6eldu03w7jx6::::res://Scenes/NPC Derivation/Save Point.tscn<>uid://l1iqqd118wj6::::res://Scenes/NPC Derivation/Beehive.tscn<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://60q0gsegnffn::::res://Scenes/NPC Derivation/Detailed Tree.tscn<>uid://cpc5fcj5uokxi::::res://Scenes/Core/Moving NPC.tscn
-SpawnRoom.tscn::PackedScene/PackedScene::5170113580886972663::1753716076::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://cha16hdgd7d58::::res://TileSets/WeirdBushes.tres<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://5oa134207dka::::res://Scenes/NPC Derivation/Weird Tree.tscn
-SpawnRoomEnterance.tscn::PackedScene/PackedScene::4242836033597713728::1753716076::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://btchb3jks74uf::::res://TileSets/WeirdRiver.tres<>uid://cha16hdgd7d58::::res://TileSets/WeirdBushes.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://b2rt8qg6kdupf::::res://Textures/Weird Forest/Pedestal.png<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://c01w1divptedy::::res://Scenes/Areas/Audio Area.tscn<>uid://dobdv3gugmyvu::::res://Textures/Weird Forest/Teleport Room Sign.png<>uid://b11o6u8lh7tj3::::res://Audio/SFX/Water/River.mp3<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn
+SaveIntroRoom.tscn::PackedScene::92862868036685950::1754378965::0::1::::<><><>0<>0<><>::uid://cig64ay50648y::::res://Scripts/Rooms/SaveIntroRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://btchb3jks74uf::::res://TileSets/WeirdRiver.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://c01w1divptedy::::res://Scenes/Areas/Audio Area.tscn<>uid://b11o6u8lh7tj3::::res://Audio/SFX/Water/River.mp3<>uid://dm0myytrgks1d::::res://Scenes/NPC Derivation/Candle.tscn<>uid://bkjgemqvemy3q::::res://Scenes/Triggers/Bible Appearence Trigger.tscn<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn<>uid://6eldu03w7jx6::::res://Scenes/NPC Derivation/Save Point.tscn<>uid://l1iqqd118wj6::::res://Scenes/NPC Derivation/Beehive.tscn<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://60q0gsegnffn::::res://Scenes/NPC Derivation/Detailed Tree.tscn<>uid://cpc5fcj5uokxi::::res://Scenes/Core/Moving NPC.tscn
+SpawnRoom.tscn::PackedScene::5170113580886972663::1754378966::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://cha16hdgd7d58::::res://TileSets/WeirdBushes.tres<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://5oa134207dka::::res://Scenes/NPC Derivation/Weird Tree.tscn
+SpawnRoomEnterance.tscn::PackedScene::4242836033597713728::1754378967::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://btchb3jks74uf::::res://TileSets/WeirdRiver.tres<>uid://cha16hdgd7d58::::res://TileSets/WeirdBushes.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://b2rt8qg6kdupf::::res://Textures/Weird Forest/Pedestal.png<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://c01w1divptedy::::res://Scenes/Areas/Audio Area.tscn<>uid://dobdv3gugmyvu::::res://Textures/Weird Forest/Teleport Room Sign.png<>uid://b11o6u8lh7tj3::::res://Audio/SFX/Water/River.mp3<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn
 TeleportRoom.tscn::PackedScene/PackedScene::8261947355097681533::1753716076::0::1::::<><><>0<>0<><>::uid://dj3qdrjjlq6jw::::res://Scripts/Overworld/BaseRoom.gd<>uid://j4ql01hhxi04::::res://TileSets/WeirdGround.tres<>uid://b6j4xcs3tqgoq::::res://TileSets/WeirdEnvironment.tres<>uid://4jtg4hfhy0k0::::res://Scenes/Triggers/RoomTrigger.tscn<>uid://cha16hdgd7d58::::res://TileSets/WeirdBushes.tres<>uid://c7onj6ie7n7k0::::res://TileSets/WeirdTree.tres<>uid://dqccob3n8f7rq::::res://Scenes/NPC Derivation/Teleport Tree.tscn<>uid://4e83j1w3ridu::::res://Scenes/Areas/Leaves Area.tscn<>uid://biyswys7vhg4i::::res://Scenes/NPC Derivation/Campfire.tscn
 ::res://Scenes/::1753716089
 ::res://Scenes/Areas/::1753716082
 Audio Area.tscn::PackedScene/PackedScene::6582618655328381622::1753716082::0::1::::<><><>0<>0<><>::uid://bnh1wwd6x20ri::::res://Scripts/Overworld/AudioAreaManager.gd
 Leaves Area.tscn::PackedScene/PackedScene::2045788153422549026::1753716082::0::1::::<><><>0<>0<><>::uid://dedqe06pq5ok6::::res://Scripts/Overworld/Leaves Area.gd
-::res://Scenes/Core/::1754128331
+::res://Scenes/Core/::1754378967
 Audio.tscn::PackedScene/PackedScene::6124882522068798988::1753716082::0::1::::<><><>0<>0<><>::uid://c5r0wv0oyve61::::res://Scripts/Globals/Audio.gd
 Localization.tscn::PackedScene/PackedScene::1892098317243104488::1753716082::0::1::::<><><>0<>0<><>::uid://c6bhnil7gscsb::::res://Scripts/Text System/Localization.gd
-Moving NPC Manager.tscn::PackedScene::5503482681002846525::1754128331::0::1::::<><><>0<>0<><>::uid://r0x8d7qkluky::::res://Scripts/Globals/MovingNPCManager.gd
-Moving NPC.tscn::PackedScene::5831633336557617902::1754128331::0::1::::<><><>0<>0<><>::uid://vh5736q11lkm::::res://Scripts/Overworld/Moving NPC.gd
+Moving NPC Manager.tscn::PackedScene::5503482681002846525::1754378965::0::1::::<><><>0<>0<><>::uid://r0x8d7qkluky::::res://Scripts/Globals/MovingNPCManager.gd
+Moving NPC.tscn::PackedScene::5831633336557617902::1754378965::0::1::::<><><>0<>0<><>::uid://vh5736q11lkm::::res://Scripts/Overworld/Moving NPC.gd
 NPCData.tscn::PackedScene/PackedScene::1846032230528251525::1753716083::0::1::::<><><>0<>0<><>::uid://dc2rqqmctff4y::::res://Scripts/Globals/NPCDataManager.gd
 Overlay.tscn::PackedScene/PackedScene::2374773934853564271::1753716083::0::1::::<><><>0<>0<><>::uid://c1lggfxral233::::res://Scripts/Globals/OverlayManager.gd
 QuittingNotice.tscn::PackedScene/PackedScene::6970985333228872049::1753716083::0::1::::<><><>0<>0<><>::uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://pfjme5fyu656::::res://Scripts/Globals/QuittingGame.gd
-Save Menu.tscn::PackedScene/PackedScene::7537663514086841540::1753716083::0::1::::<><><>0<>0<><>::uid://r3p08x5fthby::::res://Scripts/Overworld/SaveMenu.gd<>uid://c8b7e4tyv4f8x::::res://Scenes/Non-Overworld/Filebox.tscn<>uid://dqed4nfgn4io6::::res://Textures/Other/TextBox.png<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf
+Save Menu.tscn::PackedScene::7537663514086841540::1754378967::0::1::::<><><>0<>0<><>::uid://r3p08x5fthby::::res://Scripts/Overworld/SaveMenu.gd<>uid://c8b7e4tyv4f8x::::res://Scenes/Non-Overworld/Filebox.tscn<>uid://dqed4nfgn4io6::::res://Textures/Other/TextBox.png<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf
 SaveSystem.tscn::PackedScene/PackedScene::8146771414888803240::1753716083::0::1::::<><><>0<>0<><>::uid://k0oinaf718n0::::res://Scripts/Globals/SaveSystem.gd
-TextSystem.tscn::PackedScene/PackedScene::8614698691534642415::1753716084::0::1::::<><><>0<>0<><>::uid://b5tin5y0hevrv::::res://Scripts/Text System/TextSystem.gd<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://dqed4nfgn4io6::::res://Textures/Other/TextBox.png<>uid://d0fymc1ye236d::::res://Textures/Other/Leaf.png<>uid://dmkeoo4nyj0lh::::res://Textures/Other/TextLeaf.png
+TextSystem.tscn::PackedScene::8614698691534642415::1754378966::0::1::::<><><>0<>0<><>::uid://b5tin5y0hevrv::::res://Scripts/Text System/TextSystem.gd<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://dqed4nfgn4io6::::res://Textures/Other/TextBox.png<>uid://d0fymc1ye236d::::res://Textures/Other/Leaf.png<>uid://dmkeoo4nyj0lh::::res://Textures/Other/TextLeaf.png
 UID.tscn::PackedScene/PackedScene::8402599430923076115::1753716084::0::1::::<><><>0<>0<><>::uid://c6oe0im8tiio4::::res://Scripts/Globals/UIDConstants.gd
-::res://Scenes/Game Mechanics/::1754128332
-Health Change Info.tscn::PackedScene::2955631453020147930::1754128332::0::1::::<><><>0<>0<><>::uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://bfp081fjpdk8x::::res://Scripts/Overworld/HealthChangeParticle.gd<>uid://my8rqlfwkpgd::::res://Label Settings/OutlinedText.tres
+::res://Scenes/Game Mechanics/::1754378966
+Health Change Info.tscn::PackedScene::2955631453020147930::1754378966::0::1::::<><><>0<>0<><>::uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://bfp081fjpdk8x::::res://Scripts/Overworld/HealthChangeParticle.gd<>uid://my8rqlfwkpgd::::res://Label Settings/OutlinedText.tres
 Inventory.tscn::PackedScene/PackedScene::6457376592745844149::1753716084::0::1::::<><><>0<>0<><>::uid://dfiyj0y5u5ah6::::res://Scripts/Inventory System/Inventory Manager.gd
 Leaf Mode.tscn::PackedScene/PackedScene::6452506013059515328::1753716084::0::1::::<><><>0<>0<><>::uid://clwe776280qye::::res://Scripts/Globals/LeafModeManager.gd<>uid://m4rh5pa1onh0::::res://Textures/Other/Light Full.png<>uid://cnfoamkv265co::::res://Textures/Other/PlayerUI.png<>uid://d15r5g8dioc2e::::res://Textures/Other/Red Health.png<>uid://wvl06ttxk4yv::::res://Textures/Other/Damage Bar.png<>uid://clghy0nexo2ie::::res://Textures/Other/Green Health.png<>uid://ef4h61uim3u7::::res://Textures/Other/Red Stamina Circle.png<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://m63dede3et6j::::res://Textures/Other/Green Stamina Circle.png<>uid://btj0x8b24i6ah::::res://Textures/Other/Red Stamina Rect.png<>uid://c02768m7mwys5::::res://Textures/Other/Green Stamina Rect.png<>uid://d0fymc1ye236d::::res://Textures/Other/Leaf.png
 ::res://Scenes/Game Mechanics/Lilypad Mechanic/::1753716084
@@ -96,37 +96,37 @@ Walkable Lilypad.tscn::PackedScene/PackedScene::5977272557535153330::1753716084:
 Dangerous Mushroom.tscn::PackedScene/PackedScene::8045301156330475643::1753716084::0::1::::<><><>0<>0<><>::uid://re7jdc1b2cug::::res://Spritesheets/Mushrooms.png<>uid://0ags3h18nsjl::::res://Scripts/Overworld/DangerousMushroom.gd<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://c14x3rqt38ua5::::res://Scenes/Game Mechanics/Mushrooms/Fire.tscn<>uid://bum7iub0ya3uv::::res://Scenes/Game Mechanics/Status Effect/Effect Particle.tscn
 Explosion.tscn::PackedScene/PackedScene::49561600144952643::1753716084::0::1::::<><><>0<>0<><>::uid://ccu4p3qif4esb::::res://Spriteframes/ExplosionEffect.tres<>uid://ljmxchjokbdh::::res://Scripts/Overworld/ExplosionEffect.gd
 Fire.tscn::PackedScene/PackedScene::6659065668421577110::1753716084::0::1::::<><><>0<>0<><>::uid://bnh1wwd6x20ri::::res://Scripts/Overworld/AudioAreaManager.gd<>uid://dryr1hp5b66n3::::res://Spriteframes/Campfire.tres<>uid://cacm2ltni8uid::::res://Scripts/Overworld/Fire.gd<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://bpp7qnbmhttta::::res://Audio/SFX/General Gameplay/Campfire.mp3<>uid://v57kgnejodot::::res://Scripts/Overworld/LayeredNPC.gd
-::res://Scenes/Game Mechanics/Status Effect/::1754128332
-Effect Particle.tscn::PackedScene::3816928372802030093::1754128332::0::1::::<><><>0<>0<><>::uid://swvmop76ek4r::::res://Scripts/Overworld/EffectParticle.gd
+::res://Scenes/Game Mechanics/Status Effect/::1754378966
+Effect Particle.tscn::PackedScene::3816928372802030093::1754378966::0::1::::<><><>0<>0<><>::uid://swvmop76ek4r::::res://Scripts/Overworld/EffectParticle.gd
 Status Effect.tscn::PackedScene/PackedScene::3885256488618464272::1753716085::0::1::::<><><>0<>0<><>::uid://c4rh4f2uhulak::::res://Textures/Effects/Background.png<>uid://c5uutvx5vwm0k::::res://Scripts/Overworld/EffectNode.gd<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf
-::res://Scenes/Non-Overworld/::1753716087
+::res://Scenes/Non-Overworld/::1754320915
 Choose Language.tscn::PackedScene/PackedScene::7682561286666658013::1753716087::0::1::::<><><>0<>0<><>::uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://csf2wshrxdo3p::::res://Scripts/Globals/ChooseLanguage.gd<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://cfysxnymr7w2t::::res://Textures/Other/PreLeafSelector.png<>uid://ds6vhe1ppfh5q::::res://Textures/Flags/czech.png
 ChooseCharacter.tscn::PackedScene/PackedScene::1977263590813529505::1753716087::0::1::::<><><>0<>0<><>::uid://b1h7vlrppa84n::::res://Scripts/ChooseCharacter/ChooseCharacter.gd<>uid://dbft6f7nqstnx::::res://Textures/ChooseCharacter/Light.png<>uid://cwmbyeadxhulb::::res://Audio/SFX/Choose Character/Blowing Wind.mp3<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://ditii7diqwiis::::res://Audio/Music/A Choice.mp3<>uid://luh66e8a6me4::::res://Scripts/ChooseCharacter/SummonedCharacters.gd<>uid://dpq2xtds5fhtx::::res://Spritesheets/SummonSpritesheet.png<>uid://iiglhujhd41x::::res://Textures/ChooseCharacter/Bible.png<>uid://d0fymc1ye236d::::res://Textures/Other/Leaf.png
 Empty Scene.tscn::PackedScene/PackedScene::7381142569753250293::1753716087::0::1::::<><><>0<>0<><>::
 File Select.tscn::PackedScene/PackedScene::1238561180368266364::1753716087::0::1::::<><><>0<>0<><>::uid://c5o3ktqqocccj::::res://Scripts/Globals/FileSelect.gd<>uid://2fe0rc6ils2::::res://Textures/Weird Forest/File Select Weird Forest.png<>uid://c8b7e4tyv4f8x::::res://Scenes/Non-Overworld/Filebox.tscn<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf
 Filebox.tscn::PackedScene/PackedScene::7093089225787575045::1753716087::0::1::::<><><>0<>0<><>::uid://bi77wd1ao2ect::::res://Scripts/Globals/FileBox.gd<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://dqed4nfgn4io6::::res://Textures/Other/TextBox.png
 Game Over.tscn::PackedScene/PackedScene::6160696749316332580::1753716087::0::1::::<><><>0<>0<><>::uid://blrsaq88fhru3::::res://Scripts/Globals/GameOver.gd<>uid://dtxtm5aypllnv::::res://Spriteframes/LeafDisintegration.tres<>uid://baak5gxkhkwwj::::res://Textures/Other/GameOver.png<>uid://816ne26yw738::::res://Textures/Other/GameOverSelector.png<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://my8rqlfwkpgd::::res://Label Settings/OutlinedText.tres
-Legend.tscn::PackedScene/PackedScene::4097947439630249782::1753716087::0::1::::<><><>0<>0<><>::uid://dyk1ffd6qy7hj::::res://Scripts/Legend/LegendText.gd<>uid://bu7vkdigihtmd::::res://Audio/Music/A Tale.mp3<>uid://600boddbuu55::::res://Scripts/Legend/FadeMusic.gd<>uid://dv2xemchmymuk::::res://Textures/Legend/Panels/panel2.png<>uid://cwm6b7fpagkqs::::res://Scripts/Legend/PanelManager.gd<>uid://clcbtgbgxwcqa::::res://Textures/Legend/Panels/panel1.png<>uid://cfm8habdu572n::::res://Textures/Legend/Panels/panel3.png<>uid://dwe3poad8g347::::res://Textures/Legend/Panels/panel4.png<>uid://j1ywodt0w2w6::::res://Textures/Legend/Panels/panel5.png<>uid://c8hs71udc7yov::::res://Textures/Legend/Panels/panel6.png<>uid://bdyvmfiwlxjxg::::res://Textures/Legend/Panels/panel7.png<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://bl5hvtakn7qo2::::res://Textures/Legend/Panels/panel8.png<>uid://cc67sdv2m7dwb::::res://Scripts/Legend/HeroPanels.gd<>uid://b3w6731ofeplk::::res://Textures/Legend/Protagonists/Rabbitek.png<>uid://bctqvxvju7j2s::::res://Textures/Legend/Protagonists/xDaForge.png<>uid://bfgs44146wlvi::::res://Textures/Legend/Protagonists/Gertofin.png<>uid://py7sm441hyjr::::res://Scripts/Legend/SkipLegend.gd
+Legend.tscn::PackedScene/PackedScene::4097947439630249782::1754320915::0::1::::<><><>0<>0<><>::uid://dyk1ffd6qy7hj::::res://Scripts/Legend/LegendText.gd<>uid://bu7vkdigihtmd::::res://Audio/Music/A Tale.mp3<>uid://600boddbuu55::::res://Scripts/Legend/FadeMusic.gd<>uid://dv2xemchmymuk::::res://Textures/Legend/Panels/panel2.png<>uid://cwm6b7fpagkqs::::res://Scripts/Legend/PanelManager.gd<>uid://clcbtgbgxwcqa::::res://Textures/Legend/Panels/panel1.png<>uid://cfm8habdu572n::::res://Textures/Legend/Panels/panel3.png<>uid://dwe3poad8g347::::res://Textures/Legend/Panels/panel4.png<>uid://j1ywodt0w2w6::::res://Textures/Legend/Panels/panel5.png<>uid://c8hs71udc7yov::::res://Textures/Legend/Panels/panel6.png<>uid://bdyvmfiwlxjxg::::res://Textures/Legend/Panels/panel7.png<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf<>uid://bl5hvtakn7qo2::::res://Textures/Legend/Panels/panel8.png<>uid://cc67sdv2m7dwb::::res://Scripts/Legend/HeroPanels.gd<>uid://b3w6731ofeplk::::res://Textures/Legend/Protagonists/Rabbitek.png<>uid://bctqvxvju7j2s::::res://Textures/Legend/Protagonists/xDaForge.png<>uid://bfgs44146wlvi::::res://Textures/Legend/Protagonists/Gertofin.png<>uid://py7sm441hyjr::::res://Scripts/Legend/SkipLegend.gd
 Logo.tscn::PackedScene/PackedScene::2650352471568465087::1753716087::0::1::::<><><>0<>0<><>::uid://bkfs0q8pvwdhe::::res://Textures/Other/Logo.png<>uid://2dp6sn8wto16::::res://Scripts/Globals/PressAnything.gd<>uid://dtieujefikmhs::::res://Fonts/Undertale Font.ttf
-::res://Scenes/NPC Derivation/::1754128332
-Beehive.tscn::PackedScene::826266256493924561::1754128332::0::1::::<><><>0<>0<><>::uid://c7su1pa2gydwm::::res://Spritesheets/Beehive.png<>uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn<>uid://dw1kxr1vf0iaw::::res://Scripts/Overworld/Beehive.gd<>uid://c01w1divptedy::::res://Scenes/Areas/Audio Area.tscn<>uid://b2js4ontkxpul::::res://Audio/Music/Blue.mp3
+::res://Scenes/NPC Derivation/::1754378967
+Beehive.tscn::PackedScene::826266256493924561::1754378965::0::1::::<><><>0<>0<><>::uid://c7su1pa2gydwm::::res://Spritesheets/Beehive.png<>uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn<>uid://dw1kxr1vf0iaw::::res://Scripts/Overworld/Beehive.gd<>uid://c01w1divptedy::::res://Scenes/Areas/Audio Area.tscn<>uid://b2js4ontkxpul::::res://Audio/Music/Blue.mp3
 Campfire.tscn::PackedScene/PackedScene::2998609982079661442::1753716085::0::1::::<><><>0<>0<><>::uid://ccoxhj8vgsvc7::::res://Textures/Weird Forest/Campfire.png<>uid://c14x3rqt38ua5::::res://Scenes/Game Mechanics/Mushrooms/Fire.tscn<>uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn
-Candle.tscn::PackedScene/PackedScene::8053910372246623567::1753716085::0::1::::<><><>0<>0<><>::uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://cirwg587t17v0::::res://Textures/Weird Forest/Candle.png<>uid://c14x3rqt38ua5::::res://Scenes/Game Mechanics/Mushrooms/Fire.tscn
-Detailed Tree.tscn::PackedScene::2228480056499241107::1754128331::0::1::::<><><>0<>0<><>::uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn<>uid://cdkdhca5qbj0o::::res://Textures/Weird Forest/Detailed Tree Bottom.png<>uid://b4l4avqpc3i4h::::res://Textures/Weird Forest/Falling Leaf.png<>uid://bx7rqmypxi7un::::res://Textures/Weird Forest/Detailed Tree Upper.png
+Candle.tscn::PackedScene::8053910372246623567::1754378967::0::1::::<><><>0<>0<><>::uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://cirwg587t17v0::::res://Textures/Weird Forest/Candle.png<>uid://c14x3rqt38ua5::::res://Scenes/Game Mechanics/Mushrooms/Fire.tscn
+Detailed Tree.tscn::PackedScene::2228480056499241107::1754378965::0::1::::<><><>0<>0<><>::uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn<>uid://cdkdhca5qbj0o::::res://Textures/Weird Forest/Detailed Tree Bottom.png<>uid://b4l4avqpc3i4h::::res://Textures/Weird Forest/Falling Leaf.png<>uid://bx7rqmypxi7un::::res://Textures/Weird Forest/Detailed Tree Upper.png
 Fallen Tree.tscn::PackedScene/PackedScene::8581201432189957894::1753716085::0::1::::<><><>0<>0<><>::uid://dxfk2u3m5ihwg::::res://Textures/Weird Forest/Fallen Tree.png<>uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn
 Layered NPC.tscn::PackedScene/PackedScene::8749879766423982980::1753716085::0::1::::<><><>0<>0<><>::uid://v57kgnejodot::::res://Scripts/Overworld/LayeredNPC.gd<>uid://gio061ico1sg::::res://Scripts/Text System/BaseNPC.gd
-Lilypad Flower.tscn::PackedScene/PackedScene::9101800428666104316::1753716085::0::1::::<><><>0<>0<><>::uid://dil4pp2wi3ha8::::res://Scripts/Globals/LilypadFlower.gd<>uid://bb3sfufat5yx3::::res://Textures/Weird Forest/Lilypad Flower Down.png<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn
-NPC.tscn::PackedScene/PackedScene::2191322300127351506::1753716085::0::1::::<><><>0<>0<><>::uid://gio061ico1sg::::res://Scripts/Text System/BaseNPC.gd<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png
-Save Point.tscn::PackedScene/PackedScene::2184785998487362289::1753716086::0::1::::<><><>0<>0<><>::uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://dblieweqfbc5j::::res://Scripts/Overworld/BibleStand.gd<>uid://024n1fhlka2l::::res://Textures/Weird Forest/Book Stand.png
-Street Lamp.tscn::PackedScene/PackedScene::5150854442880133517::1753716086::0::1::::<><><>0<>0<><>::uid://6ksiaidsbxpx::::res://Textures/Weird Forest/Street Lamp.png<>uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png
+Lilypad Flower.tscn::PackedScene::9101800428666104316::1754378967::0::1::::<><><>0<>0<><>::uid://dil4pp2wi3ha8::::res://Scripts/Globals/LilypadFlower.gd<>uid://bb3sfufat5yx3::::res://Textures/Weird Forest/Lilypad Flower Down.png<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn
+NPC.tscn::PackedScene/PackedScene::2191322300127351506::1754295128::0::1::::<><><>0<>0<><>::uid://gio061ico1sg::::res://Scripts/Text System/BaseNPC.gd<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png
+Save Point.tscn::PackedScene::2184785998487362289::1754378966::0::1::::<><><>0<>0<><>::uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn<>uid://dblieweqfbc5j::::res://Scripts/Overworld/BibleStand.gd<>uid://024n1fhlka2l::::res://Textures/Weird Forest/Book Stand.png
+Street Lamp.tscn::PackedScene::5150854442880133517::1754378967::0::1::::<><><>0<>0<><>::uid://6ksiaidsbxpx::::res://Textures/Weird Forest/Street Lamp.png<>uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png
 Teleport Tree.tscn::PackedScene/PackedScene::8286558836309009834::1753716086::0::1::::<><><>0<>0<><>::uid://pwvglvedvxrr::::res://Spritesheets/Teleport Tree.png<>uid://dyok8olxg2uk1::::res://Scripts/Overworld/TeleportTree.gd<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://v57kgnejodot::::res://Scripts/Overworld/LayeredNPC.gd<>uid://cwmbyeadxhulb::::res://Audio/SFX/Choose Character/Blowing Wind.mp3<>uid://6hq01nojje0y::::res://Scenes/NPC Derivation/NPC.tscn
 Weird Tree.tscn::PackedScene/PackedScene::2134614545053894160::1753716087::0::1::::<><><>0<>0<><>::uid://dwwrihbghedg3::::res://Scenes/NPC Derivation/Layered NPC.tscn<>uid://bp0v5kr2ilye2::::res://Spriteframes/Tree.tres
-::res://Scenes/Overworld/::1754128331
+::res://Scenes/Overworld/::1754378965
 Bible Overworld.tscn::PackedScene/PackedScene::5984470738699189680::1753716088::0::1::::<><><>0<>0<><>::uid://baqkdfbd13mpw::::res://Scripts/Overworld/OverworldBible.gd<>uid://cobpronifr18q::::res://Spriteframes/BibleOverworld.tres<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png
 CutsceneManager.tscn::PackedScene/PackedScene::1462277889176759826::1753716088::0::1::::<><><>0<>0<><>::uid://cb4j4fv2dilaj::::res://Scripts/Globals/CutsceneManager.gd
 Overworld.tscn::PackedScene/PackedScene::7133021735142620646::1753716088::0::1::::<><><>0<>0<><>::uid://cafhvkcucnk6e::::res://Scripts/Overworld/OverworldManager.gd
 OverworldBridge.tscn::PackedScene/PackedScene::2853335951737910964::1753716088::0::1::::<><><>0<>0<><>::uid://dxk1e0vj60ye0::::res://Scripts/Overworld/OverworldBridge.gd
-Player.tscn::PackedScene::221492332046933780::1754128331::0::1::::<><><>0<>0<><>::uid://35ebop2fx7cc::::res://Scripts/Overworld/Player Root.gd<>uid://bfo312wgsexbh::::res://Scripts/Overworld/Player.gd<>uid://b77va3m0sleuv::::res://Spriteframes/Player/xdaforge.tres<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://dnfug1tug8dq2::::res://Textures/Other/Notice.png
+Player.tscn::PackedScene::221492332046933780::1754378965::0::1::::<><><>0<>0<><>::uid://35ebop2fx7cc::::res://Scripts/Overworld/Player Root.gd<>uid://bfo312wgsexbh::::res://Scripts/Overworld/Player.gd<>uid://b77va3m0sleuv::::res://Spriteframes/Player/xdaforge.tres<>uid://drnva60a84gml::::res://Textures/Other/Light Circle.png<>uid://dnfug1tug8dq2::::res://Textures/Other/Notice.png
 Room.tscn::PackedScene/PackedScene::8233444389444069591::1753716088::0::1::::<><><>0<>0<><>::uid://c3kpctsve05o::::res://Scripts/Overworld/BaseRoom.gd
 Status Effect Manager.tscn::PackedScene/PackedScene::7823424204963262644::1753716089::0::1::::<><><>0<>0<><>::uid://cm8so60e6wxpd::::res://Scripts/Globals/StatusEffectManager.gd
 ::res://Scenes/Triggers/::1753716089
@@ -135,45 +135,45 @@ Cutscene Trigger.tscn::PackedScene/PackedScene::166457582765526005::1753716089::
 Leaf Mode Trigger.tscn::PackedScene/PackedScene::7838051655947701199::1753716089::0::1::::<><><>0<>0<><>::uid://bfncaui5ac6uk::::res://Scripts/Globals/LeafModeTrigger.gd
 RoomTrigger.tscn::PackedScene/PackedScene::2055221737143758433::1753716089::0::1::::<><><>0<>0<><>::uid://crwma5vxuc78k::::res://Scripts/Overworld/RoomTrigger.gd<>uid://bt1cev0o1dw5d::::res://Textures/Other/Light Rect.png
 ::res://Scripts/::1753716098
-::res://Scripts/ChooseCharacter/::1753716089
-ChooseCharacter.gd::GDScript/GDScript::4227762312721033339::1753716089::0::1::::<>Control<><>0<>0<><>::
+::res://Scripts/ChooseCharacter/::1754337942
+ChooseCharacter.gd::GDScript/GDScript::4227762312721033339::1754337942::0::1::::<>Control<><>0<>0<><>::
 SummonedCharacters.gd::GDScript/GDScript::813846849563642349::1753716089::0::1::::<>Control<><>0<>0<><>::
-::res://Scripts/Globals/::1754127403
-Audio.gd::GDScript/GDScript::6915159452910721648::1753716089::0::1::::<>Node<><>0<>0<><>::
-ChooseLanguage.gd::GDScript/GDScript::6048242044948892647::1753716089::0::1::::<>Control<><>0<>0<><>::
-CutsceneManager.gd::GDScript::4903495703138844229::1754127403::0::1::::<>Node<><>0<>0<><>::
-Enums.gd::GDScript/GDScript::950022677784673710::1753716090::0::1::::<>Node<><>0<>0<><>::
+::res://Scripts/Globals/::1754339240
+Audio.gd::GDScript/GDScript::6915159452910721648::1754142406::0::1::::<>Node<><>0<>0<><>::
+ChooseLanguage.gd::GDScript/GDScript::6048242044948892647::1754144043::0::1::::<>Control<><>0<>0<><>::
+CutsceneManager.gd::GDScript/GDScript::4903495703138844229::1754337114::0::1::::<>Node<><>0<>0<><>::
+Enums.gd::GDScript/GDScript::950022677784673710::1754297597::0::1::::<>Node<><>0<>0<><>::
 Error Handleler.gd::GDScript/GDScript::2317071139552158265::1753716090::0::1::::<>Node<><>0<>0<><>::
 FileBox.gd::GDScript/GDScript::3015973949916447391::1753716090::0::1::::<>Control<><>0<>0<><>::
 FileSelect.gd::GDScript/GDScript::6909126922226800325::1753716090::0::1::::<>Control<><>0<>0<><>::
-GameOver.gd::GDScript/GDScript::3194686184258764016::1753716091::0::1::::<>CanvasLayer<><>0<>0<><>::
-LeafModeManager.gd::GDScript::5590636701277894892::1754126264::0::1::::<>Node2D<><>0<>0<><>::
+GameOver.gd::GDScript/GDScript::3194686184258764016::1754336324::0::1::::<>CanvasLayer<><>0<>0<><>::
+LeafModeManager.gd::GDScript/GDScript::5590636701277894892::1754126264::0::1::::<>Node2D<><>0<>0<><>::
 LeafModeTrigger.gd::GDScript/GDScript::2764324310860189054::1753716091::0::1::::<>Area2D<><>0<>0<><>::
 LilypadFlower.gd::GDScript/GDScript::7745269365748370717::1753716091::0::1::::<>Node2D<><>0<>0<><>::
-MovingNPCManager.gd::GDScript::1246275415475112884::1754124192::0::1::::<>Node<><>0<>0<><>::
-NPCDataManager.gd::GDScript/GDScript::7356439558322209950::1753716091::0::1::::<>Node<><>0<>0<><>::
-OverlayManager.gd::GDScript/GDScript::6620834772909848824::1753716092::0::1::::<>Control<><>0<>0<><>::
+MovingNPCManager.gd::GDScript/GDScript::1246275415475112884::1754211553::0::1::::<>Node<><>0<>0<><>::
+NPCDataManager.gd::GDScript/GDScript::7356439558322209950::1754339240::0::1::::<>Node<><>0<>0<><>::
+OverlayManager.gd::GDScript/GDScript::6620834772909848824::1754338237::0::1::::<>Control<><>0<>0<><>::
 PressAnything.gd::GDScript/GDScript::1902258993023894691::1753716092::0::1::::<>Control<><>0<>0<><>::
 QuittingGame.gd::GDScript/GDScript::1063722682500146775::1753716092::0::1::::<>Control<><>0<>0<><>::
 RiverManager.gd::GDScript/GDScript::8197330221857414280::1753716092::0::1::::<>Area2D<><>0<>0<><>::
-SaveSystem.gd::GDScript/GDScript::754362887556340167::1753716092::0::1::::<>Node<><>0<>0<><>::
+SaveSystem.gd::GDScript/GDScript::754362887556340167::1754144043::0::1::::<>Node<><>0<>0<><>::
 StatusEffectManager.gd::GDScript/GDScript::5684351530979052989::1753716093::0::1::::<>Node<><>0<>0<><>::
-UIDConstants.gd::GDScript/GDScript::6977884761790268841::1754068385::0::1::::<>Node<><>0<>0<><>::
-::res://Scripts/Inventory System/::1753716093
-Inventory Manager.gd::GDScript/GDScript::7528195922823510909::1753716093::0::1::::<>Node<><>0<>0<><>::
-::res://Scripts/Legend/::1753716094
+UIDConstants.gd::GDScript/GDScript::6977884761790268841::1754297220::0::1::::<>Node<><>0<>0<><>::
+::res://Scripts/Inventory System/::1754377421
+Inventory Manager.gd::GDScript::7528195922823510909::1754377421::0::1::::<>Node<><>0<>0<><>::
+::res://Scripts/Legend/::1754338309
 FadeMusic.gd::GDScript/GDScript::2228984047343332922::1753716093::0::1::::<>AudioStreamPlayer<><>0<>0<><>::
 HeroPanels.gd::GDScript/GDScript::4979190044351932505::1753716093::0::1::::<>Node<><>0<>0<><>::
-LegendText.gd::GDScript/GDScript::8866025915396154711::1753716093::0::1::::<>Control<><>0<>0<><>::
-PanelManager.gd::GDScript/GDScript::6343654162194303146::1753716094::0::1::::<>Node<><>0<>0<><>::
+LegendText.gd::GDScript/GDScript::8866025915396154711::1754338309::0::1::::<>Control<><>0<>0<><>::
+PanelManager.gd::GDScript/GDScript::6343654162194303146::1754319750::0::1::::<>Node<><>0<>0<><>::
 SkipLegend.gd::GDScript/GDScript::1104353485158940379::1753716094::0::1::::<>Label<><>0<>0<><>::
-::res://Scripts/Overworld/::1754126501
+::res://Scripts/Overworld/::1754377506
 AudioAreaManager.gd::GDScript/GDScript::3314945386132217238::1753727379::0::1::::<>Area2D<><>0<>0<><>::
 BaseRoom.gd::GDScript/GDScript::7849741957425722196::1753716094::0::1::::<>Node2D<><>0<>0<><>::
 Beehive.gd::GDScript/GDScript::8757739609932731758::1753727488::0::1::::<>Sprite2D<><>0<>0<><>::
 BibleAppearenceTrigger.gd::GDScript/GDScript::2541337830311029595::1753716094::0::1::::<>Area2D<><>0<>0<><>::
-BibleStand.gd::GDScript/GDScript::7252653091556356325::1753716095::0::1::::<>Node2D<><>0<>0<><>::
-CutsceneTrigger.gd::GDScript::3316274306743969765::1754118773::0::1::::<>Area2D<><>0<>0<><>::
+BibleStand.gd::GDScript::7252653091556356325::1754377506::0::1::::<>Node2D<><>0<>0<><>::
+CutsceneTrigger.gd::GDScript/GDScript::3316274306743969765::1754118773::0::1::::<>Area2D<><>0<>0<><>::
 DangerousMushroom.gd::GDScript/GDScript::1755119019891083645::1753716095::0::1::::<>Area2D<><>0<>0<><>::
 EffectNode.gd::GDScript/GDScript::6921043641460751244::1753716095::0::1::::<>CanvasLayer<><>0<>0<><>::
 EffectParticle.gd::GDScript/GDScript::1310112742443350499::1753716095::0::1::::<>CPUParticles2D<><>0<>0<><>::
@@ -182,39 +182,43 @@ Fire.gd::GDScript/GDScript::4777747550953758539::1753716095::0::1::::<>AnimatedS
 HealthChangeParticle.gd::GDScript/GDScript::2769908797972403081::1754073556::0::1::::<>Label<><>0<>0<><>::
 LayeredNPC.gd::GDScript/GDScript::1537858186144930363::1753716096::0::1::::<>Node2D<><>0<>0<><>::
 Leaves Area.gd::GDScript/GDScript::7447190535630293947::1753716096::0::1::::<>Node<><>0<>0<><>::
-Moving NPC.gd::GDScript::1490296535170536508::1754124214::0::1::::<>CharacterBody2D<><>0<>0<><>::
+Moving NPC.gd::GDScript/GDScript::1490296535170536508::1754294431::0::1::::<>CharacterBody2D<><>0<>0<><>::
 OverworldBible.gd::GDScript/GDScript::2420063519401157860::1753773477::0::1::::<>Node2D<><>0<>0<><>::
 OverworldBridge.gd::GDScript/GDScript::8795836363258195481::1753716096::0::1::::<>Node<><>0<>0<><>::
-OverworldManager.gd::GDScript::4783626306012884050::1754116971::0::1::::<>Node2D<><>0<>0<><>::
-Player Root.gd::GDScript::2027464367985018222::1754122396::0::1::::<>Node<><>0<>0<><>::
-Player.gd::GDScript::2768014149292089605::1754126501::0::1::::<>CharacterBody2D<><>0<>0<><>::
+OverworldManager.gd::GDScript/GDScript::4783626306012884050::1754116971::0::1::::<>Node2D<><>0<>0<><>::
+Player Root.gd::GDScript/GDScript::2027464367985018222::1754331719::0::1::::<>Node<><>0<>0<><>::
+Player.gd::GDScript/GDScript::2768014149292089605::1754338631::0::1::::<>CharacterBody2D<><>0<>0<><>::
 RoomTrigger.gd::GDScript/GDScript::6012198232948520540::1753716097::0::1::::<>Area2D<><>0<>0<><>::
-SaveMenu.gd::GDScript/GDScript::1251970088870899262::1753716097::0::1::::<>CanvasLayer<><>0<>0<><>::
+SaveMenu.gd::GDScript::1251970088870899262::1754377381::0::1::::<>CanvasLayer<><>0<>0<><>::
 TeleportTree.gd::GDScript/GDScript::8873362441449311510::1753716097::0::1::::<>Node<><>0<>0<><>::
 Walkable Lilypad.gd::GDScript/GDScript::6762658699157524788::1753716098::0::1::::<>Area2D<><>0<>0<><>::
 ::res://Scripts/Rooms/::1754118185
 SaveIntroRoom.gd::GDScript/GDScript::5348672436286852406::1754060681::0::1::::<>Node2D<><>0<>0<><>::
-::res://Scripts/Text System/::1754128812
-BaseNPC.gd::GDScript/GDScript::438544435362531682::1753716098::0::1::::<>Area2D<><>0<>0<><>::
-Localization.gd::GDScript::6951208570831706397::1754127161::0::1::::<>Node<><>0<>0<><>::
-TextSystem.gd::GDScript::4531819735345336027::1754128812::0::1::::<>Control<><>0<>0<><>::
+::res://Scripts/Text System/::1754378965
+BaseNPC.gd::GDScript::438544435362531682::1754378510::0::1::::<>Area2D<><>0<>0<><>::
+ChoicerSystem.gd::GDScript/GDScript::8072215408215551808::1754338250::0::1::::<>Node<><>0<>0<><>::
+Localization.gd::GDScript/GDScript::6951208570831706397::1754330000::0::1::::<>Node<><>0<>0<><>::
+PresetSystem.gd::GDScript/GDScript::4447950974903986846::1754335808::0::1::::<>Node<><>0<>0<><>::
+TextMethods.gd::GDScript::5628664134630225674::1754378965::0::1::::<>Node<><>0<>0<><>::
+TextParser.gd::GDScript/GDScript::1090967650063661573::1754330032::0::1::::<>Node<><>0<>0<><>::
+TextSystem.gd::GDScript::4531819735345336027::1754378965::0::1::::<>Control<><>0<>0<><>::
 ::res://Shaders/::1753716098
-::res://Shaders/GDSL/::1754128812
-HideSprite.gdshader::Shader::5690667413738088038::1754128812::0::1::::<><><>0<>0<><>::
+::res://Shaders/GDSL/::1754378967
+HideSprite.gdshader::Shader::5690667413738088038::1754378967::0::1::::<><><>0<>0<><>::
 ::res://Shaders/Shader Materials/::1753716098
 HideSprite.tres::ShaderMaterial/ShaderMaterial::8307711735492826806::1753716098::0::1::::<><><>0<>0<><>::uid://cncupw1ymiu2a::::res://Shaders/GDSL/HideSprite.gdshader
-::res://Spriteframes/::1754116848
-BibleOverworld.tres::SpriteFrames::5758491425240819314::1754116848::0::1::::<><><>0<>0<><>::uid://cfp8iw8ji3q7m::::res://Spritesheets/BibleForming.png
-Campfire.tres::SpriteFrames::8403096470743016538::1754116848::0::1::::<><><>0<>0<><>::uid://pfaps3wgo201::::res://Spritesheets/FireSpritesheet.png
-ExplosionEffect.tres::SpriteFrames::4956295685184248109::1754116848::0::1::::<><><>0<>0<><>::uid://bu1tr2mdmm4vt::::res://Spritesheets/ExplosionEffect.png
-LeafDisintegration.tres::SpriteFrames::8541507397746159939::1754116848::0::1::::<><><>0<>0<><>::uid://chquj6ig4cd1c::::res://Spritesheets/LeafDisintegrate.png
-Nixie.tres::SpriteFrames::4702443248828186779::1754116848::0::1::::<><><>0<>0<><>::uid://dm1xv0toy7s2u::::res://Spritesheets/NixieEyes.png<>uid://daewvog5i8h17::::res://Spritesheets/Nixie.png<>uid://cedhmard2ar7b::::res://Spritesheets/NixieNailSwing.png
+::res://Spriteframes/::1754376988
+BibleOverworld.tres::SpriteFrames::5758491425240819314::1754376988::0::1::::<><><>0<>0<><>::uid://cfp8iw8ji3q7m::::res://Spritesheets/BibleForming.png
+Campfire.tres::SpriteFrames::8403096470743016538::1754376988::0::1::::<><><>0<>0<><>::uid://pfaps3wgo201::::res://Spritesheets/FireSpritesheet.png
+ExplosionEffect.tres::SpriteFrames::4956295685184248109::1754376988::0::1::::<><><>0<>0<><>::uid://bu1tr2mdmm4vt::::res://Spritesheets/ExplosionEffect.png
+LeafDisintegration.tres::SpriteFrames::8541507397746159939::1754376988::0::1::::<><><>0<>0<><>::uid://chquj6ig4cd1c::::res://Spritesheets/LeafDisintegrate.png
+Nixie.tres::SpriteFrames::4702443248828186779::1754376988::0::1::::<><><>0<>0<><>::uid://dm1xv0toy7s2u::::res://Spritesheets/NixieEyes.png<>uid://daewvog5i8h17::::res://Spritesheets/Nixie.png<>uid://cedhmard2ar7b::::res://Spritesheets/NixieNailSwing.png
 Player.tres::SpriteFrames/SpriteFrames::3537305999818170800::1753716099::0::1::::<><><>0<>0<><>::uid://c6inxs7amrhxu::::res://Spritesheets/PlayerSpritesheet.png<>uid://ckxh01rprf8rn::::res://Spritesheets/PlayerLookDown.png
-Tree.tres::SpriteFrames/SpriteFrames::3492191965513407739::1753716099::0::1::::<><><>0<>0<><>::uid://cd04lsrxu5yi2::::res://Spritesheets/Mystery Tree.png
-::res://Spriteframes/Player/::1754116848
-gertofin.tres::SpriteFrames::4802947007669074880::1754116848::0::1::::<><><>0<>0<><>::uid://y4eas86sas2b::::res://Spritesheets/PlayerPraying.png<>uid://ckxh01rprf8rn::::res://Spritesheets/PlayerLookDown.png<>uid://c6inxs7amrhxu::::res://Spritesheets/PlayerSpritesheet.png
-rabbitek.tres::SpriteFrames::6430759341341270287::1754116848::0::1::::<><><>0<>0<><>::uid://y4eas86sas2b::::res://Spritesheets/PlayerPraying.png<>uid://ckxh01rprf8rn::::res://Spritesheets/PlayerLookDown.png<>uid://c6inxs7amrhxu::::res://Spritesheets/PlayerSpritesheet.png
-xdaforge.tres::SpriteFrames::4699800315439980261::1754116848::0::1::::<><><>0<>0<><>::uid://y4eas86sas2b::::res://Spritesheets/PlayerPraying.png<>uid://ckxh01rprf8rn::::res://Spritesheets/PlayerLookDown.png<>uid://c6inxs7amrhxu::::res://Spritesheets/PlayerSpritesheet.png
+Tree.tres::SpriteFrames::3492191965513407739::1754376988::0::1::::<><><>0<>0<><>::uid://cd04lsrxu5yi2::::res://Spritesheets/Mystery Tree.png
+::res://Spriteframes/Player/::1754376988
+gertofin.tres::SpriteFrames::4802947007669074880::1754376988::0::1::::<><><>0<>0<><>::uid://y4eas86sas2b::::res://Spritesheets/PlayerPraying.png<>uid://ckxh01rprf8rn::::res://Spritesheets/PlayerLookDown.png<>uid://c6inxs7amrhxu::::res://Spritesheets/PlayerSpritesheet.png
+rabbitek.tres::SpriteFrames::6430759341341270287::1754376988::0::1::::<><><>0<>0<><>::uid://y4eas86sas2b::::res://Spritesheets/PlayerPraying.png<>uid://ckxh01rprf8rn::::res://Spritesheets/PlayerLookDown.png<>uid://c6inxs7amrhxu::::res://Spritesheets/PlayerSpritesheet.png
+xdaforge.tres::SpriteFrames::4699800315439980261::1754376988::0::1::::<><><>0<>0<><>::uid://y4eas86sas2b::::res://Spritesheets/PlayerPraying.png<>uid://ckxh01rprf8rn::::res://Spritesheets/PlayerLookDown.png<>uid://c6inxs7amrhxu::::res://Spritesheets/PlayerSpritesheet.png
 ::res://Spritesheets/::1754119530
 Beehive.png::CompressedTexture2D/CompressedTexture2D::7057304722959145092::1753716099::1753716099::1::::<><><>0<>0<>231ba80ff4c1991f647cb19abbe79221<>res://.godot/imported/Beehive.png-d65df344e8dd39783eb651d09493ee05.ctex::
 BibleForming.png::CompressedTexture2D/CompressedTexture2D::5156770405912771660::1753716099::1753716099::1::::<><><>0<>0<>1a4e32a73ee4b19ac824fff2fcac90a7<>res://.godot/imported/BibleForming.png-cff1a43bf0f379724845333134223860.ctex::
@@ -311,9 +315,9 @@ Pedestal.png::CompressedTexture2D/CompressedTexture2D::4317827288864847851::1753
 Small Branch.png::CompressedTexture2D/CompressedTexture2D::9056758612778142903::1753716107::1753716107::1::::<><><>0<>0<>5c428fc9ff2d7f8a4185dcbb65dabec3<>res://.godot/imported/Small Branch.png-9ea92041c84378f1aa30415d9d01694a.ctex::
 Street Lamp.png::CompressedTexture2D/CompressedTexture2D::2197605135059499257::1753716107::1753716107::1::::<><><>0<>0<>e6478b54f693ab2690ac6f1db137acc0<>res://.godot/imported/Street Lamp.png-4c5b1389c6c2b78ac2b1b042eb073888.ctex::
 Teleport Room Sign.png::CompressedTexture2D/CompressedTexture2D::8144191373255975678::1753716107::1753716108::1::::<><><>0<>0<>ba591ea73cbf2ad3ea06a37bf0f153a6<>res://.godot/imported/Teleport Room Sign.png-233b4424e4adda2d47f16e1d0ff5ff8d.ctex::
-::res://TileSets/::1754116848
-WeirdBushes.tres::TileSet/TileSet::5265797646851156697::1753716108::0::1::::<><><>0<>0<><>::uid://clgdssk5g6y17::::res://Spritesheets/weirdbush.png
-WeirdEnvironment.tres::TileSet::4582656236460081332::1754116848::0::1::::<><><>0<>0<><>::uid://cgd8jhy2gg306::::res://Spritesheets/WeirdEnvironment.png
-WeirdGround.tres::TileSet::692559016804227095::1754116848::0::1::::<><><>0<>0<><>::uid://bkp38qminby3n::::res://Spritesheets/weirdforest.png
-WeirdRiver.tres::TileSet::3724565758103850049::1754116848::0::1::::<><><>0<>0<><>::uid://d54nijiklmct::::res://Spritesheets/WeirdRiver.png
-WeirdTree.tres::TileSet::7048592686218525909::1754116848::0::1::::<><><>0<>0<><>::uid://cmid5i5m87vhy::::res://Spritesheets/SmallTreeSpritesheet.png
+::res://TileSets/::1754376988
+WeirdBushes.tres::TileSet::5265797646851156697::1754376988::0::1::::<><><>0<>0<><>::uid://clgdssk5g6y17::::res://Spritesheets/weirdbush.png
+WeirdEnvironment.tres::TileSet::4582656236460081332::1754376988::0::1::::<><><>0<>0<><>::uid://cgd8jhy2gg306::::res://Spritesheets/WeirdEnvironment.png
+WeirdGround.tres::TileSet::692559016804227095::1754376988::0::1::::<><><>0<>0<><>::uid://bkp38qminby3n::::res://Spritesheets/weirdforest.png
+WeirdRiver.tres::TileSet::3724565758103850049::1754376988::0::1::::<><><>0<>0<><>::uid://d54nijiklmct::::res://Spritesheets/WeirdRiver.png
+WeirdTree.tres::TileSet::7048592686218525909::1754376988::0::1::::<><><>0<>0<><>::uid://cmid5i5m87vhy::::res://Spritesheets/SmallTreeSpritesheet.png

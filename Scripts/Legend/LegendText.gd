@@ -53,7 +53,7 @@ var currentPrintedTextIndex = -1
 const lastTextBeforeBigPanel = 8
 
 func _ready():
-	TextSystem.fallbackPreset = TextSystem.Preset.LegendSmallPanel
+	PresetSystem.fallback = PresetSystem.Preset.LegendSmallPanel
 
 	eventsTimer.timeout.connect(print_next_text)
 	TextSystem.text_finished.connect(on_text_finished)
@@ -73,11 +73,11 @@ func print_next_text():
 	if currentText == "next panel":
 		$Panels.transparency_tween(0, 0.5, true)
 		return
-	TextSystem.print_preset(currentText)
+	PresetSystem.print_preset(currentText)
 
 func on_text_finished():
 	if not (eventsTimer and eventsTimer.is_inside_tree()): return
 	eventsTimer.start()
 	$Protagonists.show_hero_panel(currentPrintedTextIndex)
 	if currentPrintedTextIndex >= lastTextBeforeBigPanel:
-		TextSystem.fallbackPreset = TextSystem.Preset.LegendBigPanel
+		PresetSystem.fallback = PresetSystem.Preset.LegendBigPanel

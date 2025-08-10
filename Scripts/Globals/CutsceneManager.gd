@@ -33,6 +33,8 @@ func is_cutscene_finished(cutscene: Cutscene):
 func after_cutscene_finished(cutscene: Cutscene):
 	action_lock = false
 	add_finished_cutscene_flag(cutscene)
+	if cutscene == Cutscene.Nixie_Introductory:
+		NPCData.set_data(NPCData.ID.BibleInteractPrompt_SAVEINTROROOM, NPCData.Field.Deactivated, true)
 
 func get_base_cutscene_key():
 	var base_key = "Cutscene_" + CutsceneManager.latest_cutscene_name
@@ -73,7 +75,7 @@ func play_spawnroom_cutscene():
 func play_cemetarygate_cutscene():
 	await Player.move_camera_to(465, -850)
 	await wait(1)
-	await TextSystem.print_sequence(get_base_cutscene_key(), {}, TextSystem.Preset.OverworldTreeTalk)
+	await TextMethods.print_sequence(get_base_cutscene_key(), {}, PresetSystem.Preset.OverworldTreeTalk)
 	await Player.return_camera()
 	complete_cutscene()
 
@@ -81,7 +83,7 @@ func play_nixie_introductory_cutscene():
 	var nixie = cutscene_nodes["nixie"]
 	nixie_introductory_jump(nixie)
 	await wait(0.25)
-	TextSystem.print_wait_localization("Cutscene_Nixie_Introductory_TreeSaveDialog", {}, TextSystem.Preset.TreeTextCutoff)
+	TextMethods.print_wait_localization("Cutscene_Nixie_Introductory_TreeSaveDialog", {}, PresetSystem.Preset.TreeTextCutoff)
 	await nixie_fall_finished
 	complete_cutscene()
 
@@ -110,5 +112,5 @@ signal nixie_fall_finished
 signal nixie_jumps
 
 func play_character_dialog_tester_cutscene():
-	await TextSystem.print_sequence("Cutscene_Character_Dialog_Tester", {}, TextSystem.Preset.CharacterDialog)
+	await TextMethods.print_sequence("Cutscene_Character_Dialog_Tester", {}, PresetSystem.Preset.CharacterDialog)
 	complete_cutscene()

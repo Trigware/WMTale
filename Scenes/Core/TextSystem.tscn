@@ -47,9 +47,9 @@ texture = ExtResource("4_o07hf")
 
 [node name="Choice A" type="RichTextLabel" parent="CanvasLayer/Textbox/Choicer"]
 layout_mode = 0
-offset_left = 34.0
+offset_left = 33.5
 offset_top = 18.0
-offset_right = 301.0
+offset_right = 300.5
 offset_bottom = 194.0
 scale = Vector2(0.221, 0.221)
 theme_override_fonts/normal_font = ExtResource("2_7t2e0")
@@ -80,9 +80,9 @@ vertical_alignment = 1
 [node name="Choice C" type="RichTextLabel" parent="CanvasLayer/Textbox/Choicer"]
 layout_mode = 0
 offset_left = 18.0
-offset_top = 17.0
+offset_top = 18.0
 offset_right = 878.0
-offset_bottom = 65.0
+offset_bottom = 66.0
 scale = Vector2(0.221, 0.221)
 theme_override_fonts/normal_font = ExtResource("2_7t2e0")
 theme_override_font_sizes/normal_font_size = 48
@@ -96,9 +96,9 @@ vertical_alignment = 1
 [node name="Choice D" type="RichTextLabel" parent="CanvasLayer/Textbox/Choicer"]
 layout_mode = 0
 offset_left = 18.0
-offset_top = 46.0
+offset_top = 45.0
 offset_right = 878.0
-offset_bottom = 94.0
+offset_bottom = 93.0
 scale = Vector2(0.221, 0.221)
 theme_override_fonts/normal_font = ExtResource("2_7t2e0")
 theme_override_font_sizes/normal_font_size = 48

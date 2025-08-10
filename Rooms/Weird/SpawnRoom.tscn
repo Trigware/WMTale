@@ -52,18 +52,8 @@ tile_set = ExtResource("5_brkrn")
 [node name="Spawn Object" parent="." instance=ExtResource("5_mk6pb")]
 position = Vector2(1, 22)
 npcID = 5
-item = 0
-itemCount = 1
-itemColor = Color(1, 1, 0, 1)
 removeStaticBody = true
-autoTrigger = false
-deleteAfterTalk = false
-ignoreDirections = false
-disable_placeholder_interactions = false
-deactivated_at_start = false
-save_menu = false
-override_id_from_parent = false
-interactionCountForeverOne = false
+set_only_at_start = true
 
 [node name="Trigger Zone" parent="Spawn Object" index="3"]
 position = Vector2(-0.5, 10.5)
@@ -72,17 +62,8 @@ position = Vector2(-0.5, 10.5)
 position = Vector2(-65, -324)
 npcID = 1
 item = 1
-itemCount = 1
 itemColor = Color(0, 0.788235, 0.792157, 1)
-removeStaticBody = false
-autoTrigger = false
-deleteAfterTalk = false
 ignoreDirections = true
-disable_placeholder_interactions = false
-deactivated_at_start = false
-save_menu = false
-override_id_from_parent = false
-interactionCountForeverOne = false
 
 [node name="Light" parent="Mushroom" index="1"]
 visible = true
@@ -110,18 +91,9 @@ scale = Vector2(1.25976, 2.80469)
 [node name="Interact Reminder" parent="." instance=ExtResource("5_mk6pb")]
 position = Vector2(384, 25)
 npcID = 4
-item = 0
-itemCount = 1
-itemColor = Color(1, 1, 0, 1)
 removeStaticBody = true
 autoTrigger = true
 deleteAfterTalk = true
-ignoreDirections = false
-disable_placeholder_interactions = false
-deactivated_at_start = false
-save_menu = false
-override_id_from_parent = false
-interactionCountForeverOne = false
 
 [node name="Trigger Zone" parent="Interact Reminder" index="3"]
 shape = SubResource("RectangleShape2D_07ehf")

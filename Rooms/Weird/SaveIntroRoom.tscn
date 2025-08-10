@@ -160,18 +160,8 @@ beehive_type = 2
 [node name="Bible Interact Prompt" parent="." instance=ExtResource("15_jt5hw")]
 position = Vector2(909, 75)
 npcID = 21
-item = 0
-itemCount = 1
-itemColor = Color(1, 1, 0, 1)
 removeStaticBody = true
 autoTrigger = true
-deleteAfterTalk = false
-ignoreDirections = false
-disable_placeholder_interactions = false
-deactivated_at_start = false
-save_menu = false
-override_id_from_parent = false
-interactionCountForeverOne = false
 
 [node name="Static Body" parent="Bible Interact Prompt" index="2"]
 visible = false

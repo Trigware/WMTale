@@ -13,7 +13,7 @@ const playableCharacters = ["rabbitek", "xdaforge", "gertofin"]
 
 const player_speed := 250
 const fast_movement := 0.75
-const normal_move_fast_multiplier_default := 0.6
+const normal_move_fast_multiplier_default := 0.35
 
 var playerMaxHealth = 138
 var playerHealth = playerMaxHealth

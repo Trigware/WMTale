@@ -14,6 +14,8 @@ res://TileSets/WeirdRiver.tres
 res://TileSets/WeirdEnvironment.tres
 res://TileSets/WeirdTree.tres
 res://Spriteframes/Campfire.tres
+res://TileSets/WeirdBushes.tres
+res://Spriteframes/Tree.tres
 res://Scenes/Core/Moving NPC.tscn
 res://Scenes/Overworld/Player.tscn
 res://Scenes/Core/Moving NPC Manager.tscn
@@ -23,8 +25,16 @@ res://Rooms/Weird/CemetaryGate.tscn
 res://Scenes/Game Mechanics/Status Effect/Effect Particle.tscn
 res://Scenes/Game Mechanics/Health Change Info.tscn
 res://Rooms/Weird/CharacterDialogTester.tscn
-res://Scripts/Globals/Audio.gd
-res://Scripts/Text System/Localization.gd
-res://Scripts/Globals/SaveSystem.gd
-res://Scripts/Globals/ChooseLanguage.gd
 res://Scenes/Core/TextSystem.tscn
+res://Rooms/Weird/SpawnRoom.tscn
+res://Scenes/NPC Derivation/Save Point.tscn
+res://Rooms/Weird/SpawnRoomEnterance.tscn
+res://Rooms/Weird/LilypadRoom.tscn
+res://Scenes/NPC Derivation/Lilypad Flower.tscn
+res://Scenes/NPC Derivation/Street Lamp.tscn
+res://Scenes/NPC Derivation/Candle.tscn
+res://Scenes/Core/Save Menu.tscn
+res://Scripts/Text System/TextMethods.gd
+res://Scripts/Globals/NPCDataManager.gd
+res://Scripts/Text System/BaseNPC.gd
+res://Scripts/Text System/Localization.gd

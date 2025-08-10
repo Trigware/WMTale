@@ -3,6 +3,9 @@ extends Node
 var follower_agents := {}
 const follower_distance = 35
 
+@warning_ignore("unused_signal")
+signal near_ground
+
 func _process(_delta):
 	update_followers_zindex()
 

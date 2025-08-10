@@ -10,6 +10,7 @@ script = ExtResource("1_b2scs")
 [node name="NPC Root" parent="." instance=ExtResource("2_xjsfn")]
 scale = Vector2(2, 2)
 npcID = 12
+set_only_at_start = true
 
 [node name="Sprite" parent="NPC Root" index="0"]
 light_mask = 0

@@ -19,7 +19,6 @@ func _ready():
 
 func on_menu_open():
 	if menu_openned: return
-	NPCData.set_data(NPCData.ID.BibleInteractPrompt_SAVEINTROROOM, NPCData.Field.Deactivated, true)
 	current_file.labels.modulate = Color.WHITE
 	menu_openned = true
 	TextSystem.lockAction = true
@@ -33,7 +32,7 @@ func on_menu_open():
 	var playTime = SaveData.access_loaded_autosave_data("PlayTime")
 	current_file.set_playtime(convert_to_time_format(playTime, true))
 	Player.end_leaf_flashes()
-	await TextSystem.give_choice("OverworldSaving_SaveGame", "OverworldSaving_DontSave")
+	await ChoicerSystem.give_localized_choice(["OverworldSaving_SaveGame", "OverworldSaving_DontSave"])
 	await after_choice_behavior()
 	on_menu_close()
 
@@ -42,7 +41,10 @@ func current_file_tween(final):
 
 func after_choice_behavior():
 	SaveData.save_choice_seen = true
-	if TextSystem.lastChoiceText == "OverworldSaving_DontSave": return
+	if ChoicerSystem.is_player_choice("OverworldSaving_DontSave"):
+		NPCData.set_data(NPCData.ID.BibleInteractPrompt_SAVEINTROROOM, NPCData.Field.Suffix, "Save_Refused")
+		NPCData.set_data(NPCData.ID.BibleInteractPrompt_SAVEINTROROOM, NPCData.Field.OnlyInteraction, true)
+		return
 	SaveData.game_saved_times += 1
 	SaveData.save_game()
 	emit_signal("game_saved")
@@ -81,7 +83,9 @@ func convert_to_time_format(seconds, ignore_empty = false):
 		return "0:00" if ignore_empty else ""
 	var sec = str(int(seconds) % 60)
 	if sec.length() == 1: sec = "0" + sec
+	@warning_ignore("integer_division")
 	var minutes = str((int(seconds) / 60) % 60) + ":"
+	@warning_ignore("integer_division")
 	var hours = str(int(seconds) / 3600) + ":"
 	if hours == "0:": hours = ""
 	elif minutes.length() == 2: minutes = "0" + minutes[0] + ":"
