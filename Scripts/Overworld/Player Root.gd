@@ -30,6 +30,7 @@ var on_lilypad = false
 var is_sinking = false
 var inputless_movement = false
 var sinked_times = 0
+var whilst_showing_room = false
 
 var lilypad_overlaps = 0
 var previous_camera_pos = Vector2.ZERO

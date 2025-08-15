@@ -4,4 +4,6 @@
 
 [resource]
 shader = ExtResource("1_4qdpn")
-shader_parameter/sink_progression = 0.0
+shader_parameter/image_pixel_height = 100.0
+shader_parameter/hide_progression = 0.0
+shader_parameter/moving_speed = 1.0

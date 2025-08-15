@@ -9,8 +9,10 @@
 script = ExtResource("1_v40te")
 
 [node name="Current File" parent="." instance=ExtResource("2_s85uc")]
-offset_left = 241.0
-offset_right = 281.0
+offset_left = 190.0
+offset_top = -1.0
+offset_right = 230.0
+offset_bottom = 39.0
 texture = ExtResource("3_ra1m5")
 
 [node name="Save Confirm" type="Label" parent="."]

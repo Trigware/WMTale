@@ -50,9 +50,8 @@ func _process(delta):
 	var stamina_delta = 4 + (Player.maxStamina - Player.stamina) * Player.time_spend_not_walking / 2
 	match handle_motion_actions():
 		MovementMode.WALK: stamina_delta = 8
-		MovementMode.RUN: stamina_delta = -20 if LeafMode.enabled() else 0
-	if previous_stamina != Player.stamina:
-		LeafMode.change_stamina(stamina_delta * delta)
+		MovementMode.RUN: stamina_delta = -22 if LeafMode.enabled() else 0
+	if stamina_delta != 0: LeafMode.change_stamina(stamina_delta * delta)
 	previous_stamina = Player.stamina
 
 func handle_motion_actions():

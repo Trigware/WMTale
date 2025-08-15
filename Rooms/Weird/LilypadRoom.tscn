@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://f1nfwd20hus3" path="res://Textures/Weird Forest/Big Branch.png" id="19_wabq0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kq6n7"]
-size = Vector2(101.813, 1346)
+size = Vector2(223, 1346)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8rtlq"]
 size = Vector2(1026, 1303.5)
@@ -106,24 +106,24 @@ new_position = Vector2(528, 64)
 y_player_dependent = true
 
 [node name="Trigger Shape" parent="Enterance Trigger" index="0"]
-position = Vector2(-57.625, 40)
+position = Vector2(-147.5, 40)
 
 [node name="Obstruction" parent="Enterance Trigger" index="1"]
 position = Vector2(5.8104, 501.886)
 rotation = 3.14159
 scale = Vector2(1.12221, 6.21305)
 
-[node name="Statue Trigger2" parent="." instance=ExtResource("6_qsrkk")]
+[node name="Gate Trigger2" parent="." instance=ExtResource("6_qsrkk")]
 position = Vector2(803, -757)
 rotation = 1.5708
 roomDestination = 4
 x_player_dependent = true
 
-[node name="Trigger Shape" parent="Statue Trigger2" index="0"]
-position = Vector2(-38.9051, 335)
+[node name="Trigger Shape" parent="Gate Trigger2" index="0"]
+position = Vector2(-99.4986, 335)
 shape = SubResource("RectangleShape2D_kq6n7")
 
-[node name="Obstruction" parent="Statue Trigger2" index="1"]
+[node name="Obstruction" parent="Gate Trigger2" index="1"]
 position = Vector2(41.5285, 328.15)
 rotation = 3.14159
 scale = Vector2(1.1553, 6.8917)
@@ -282,7 +282,7 @@ position = Vector2(-0.588226, 1.02939)
 shape = SubResource("RectangleShape2D_a5g8n")
 
 [editable path="Enterance Trigger"]
-[editable path="Statue Trigger2"]
+[editable path="Gate Trigger2"]
 [editable path="River Logic"]
 [editable path="Small Branch"]
 [editable path="Lilypad Interactibles/LilypadFlower2"]

@@ -8,13 +8,15 @@ const control_brackets := ["{", "}"]
 var left_bracket_index : int
 var contains_text_options : bool
 var after_choicer_text_error_pushed : bool
+var suffix_instruction_appeared : bool
+var latest_suffix_instruction = ""
 
 func record_control_text(text: String) -> String:
 	setup_control_text_parsing()
 	if not text.contains("{") and not text.contains("}"): return text
 	for i in range(text.length()):
 		var letter = text[i]
-		if letter in control_brackets and Localization.is_previous_character("\\", i, text):
+		if letter in control_brackets and LocalizationTimeParser.is_previous_character("\\", i, text):
 			parse_regular_character(letter, i, text)
 			continue
 		match letter:
@@ -55,6 +57,7 @@ func setup_control_text_parsing():
 	resulting_text = ""
 	contains_text_options = false
 	after_choicer_text_error_pushed = false
+	suffix_instruction_appeared = false
 	ChoicerSystem.choicer_options = {}
 
 func parse_control_bracket_end():
@@ -73,6 +76,12 @@ func parse_control_bracket_end():
 		ChoicerSystem.parse_control_option()
 		return
 	
+	if bracket_content.begins_with("|"):
+		if suffix_instruction_appeared: push_error("Attempted to use multiple suffix instructions per text key!")
+		suffix_instruction_appeared = true
+		latest_suffix_instruction = remove_instruction_char(bracket_content)
+		return
+	
 	var placeholder_variable = "{" + bracket_content + "}"
 	resulting_text += placeholder_variable
 	parsed_ch_index += placeholder_variable.length()
@@ -82,7 +91,7 @@ func set_character_color(character_color):
 	TextSystem.character_colors.set(parsed_ch_index, character_color)
 
 func substitute_for_named_color(named_color: String):
-	var color_name = named_color.substr(1).to_lower()
+	var color_name = remove_instruction_char(named_color).to_lower()
 	if color_name == "/" or color_name == "": return TextSystem.init_color
 	
 	var used_color = Color.from_string(color_name, invalid_color)
@@ -104,3 +113,6 @@ const invalid_color = Color(0.123, 0.456, 0.789) # placeholder color used in cas
 
 func color_to_hex(color: Color):
 	return color.to_html(false).to_upper()
+
+func remove_instruction_char(original_str, instruction_length = 1):
+	return original_str.substr(instruction_length)

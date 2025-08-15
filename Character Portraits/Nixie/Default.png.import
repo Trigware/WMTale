@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8ao60yotc3p5"
-path="res://.godot/imported/Nixie.png-9e0dcdf2d1decfe633341661d95e63b9.ctex"
+uid="uid://dm3si5rmc5anj"
+path="res://.godot/imported/Default.png-89a6a99fad8392002c7e125aa2bbfc08.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Spritesheets/Character Portraits/Nixie.png"
-dest_files=["res://.godot/imported/Nixie.png-9e0dcdf2d1decfe633341661d95e63b9.ctex"]
+source_file="res://Character Portraits/Nixie/Default.png"
+dest_files=["res://.godot/imported/Default.png-89a6a99fad8392002c7e125aa2bbfc08.ctex"]
 
 [params]
 

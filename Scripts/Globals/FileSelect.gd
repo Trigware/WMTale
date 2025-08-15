@@ -204,9 +204,14 @@ func get_file_mode_name(mode: FileModes):
 func resize_leaf(final, duration):
 	create_tween().tween_property(leaf, "scale", Vector2(final, final), duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
+const original_x_position = 315
+const x_boolean_choice_gap = 200
+const base_y_position = 170
+
 func boolean_choice_move(duration):
 	disable_actions = true
-	var final_position = Vector2(348 + 200 * booleanChoice, 170 * current_selected_file - leaf_y_offset)
+	var final_position = Vector2(original_x_position + x_boolean_choice_gap * booleanChoice,
+		base_y_position * current_selected_file - leaf_y_offset)
 	var move_tween = create_tween().tween_property(leaf, "position", final_position, duration)\
 		.set_trans(Tween.TRANS_SINE)\
 		.set_ease(Tween.EASE_IN_OUT)

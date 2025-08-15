@@ -14,7 +14,7 @@
 size = Vector2(158, 135)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nusi1"]
-size = Vector2(20, 350)
+size = Vector2(133.375, 350)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_07ehf"]
 size = Vector2(30, 315)
@@ -81,7 +81,7 @@ new_position = Vector2(-256, 0)
 y_player_dependent = true
 
 [node name="Trigger Shape" parent="Enterance Trigger" index="0"]
-position = Vector2(472.625, 20)
+position = Vector2(529.313, 20)
 shape = SubResource("RectangleShape2D_nusi1")
 
 [node name="Obstruction" parent="Enterance Trigger" index="1"]
