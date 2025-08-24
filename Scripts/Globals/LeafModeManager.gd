@@ -149,9 +149,9 @@ func modify_hp_with_label(by, sound : AudioStream = null):
 	await create_tween().tween_property(Player.animNode, "modulate", previous_player_modulate, invincibility_duration/2).finished
 	invincibility = false
 
-func screen_shake_multiple(count):
+func screen_shake_multiple(count, cam = Player.camera, cam_offset = screen_shake_offset):
 	for i in range(count):
-		await screen_shake(float(count-i)/count)
+		await screen_shake(float(count-i)/count, cam, cam_offset)
 
 func modify_hp_with_id(id: HPChangeID):
 	var health_change = 0
@@ -161,16 +161,16 @@ func modify_hp_with_id(id: HPChangeID):
 		HPChangeID.PinkMushroom: health_change = 15
 	modify_hp_with_label(health_change)
 
-func screen_shake(power = 1):
-	var original_camera_offset = Player.camera.offset
-	var used_offset = screen_shake_offset * power
+func screen_shake(power = 1, cam = Player.camera, cam_offset = screen_shake_offset):
+	var original_camera_offset = cam.offset
+	var used_offset = cam_offset * power
 	var screen_shake_final = Vector2(original_camera_offset.x + used_offset, original_camera_offset.y + used_offset)
 	var shake_tween = create_tween()
-	await shake_tween.tween_property(Player.camera, "offset",\
+	await shake_tween.tween_property(cam, "offset",\
 		screen_shake_final, screen_shake_duration/2).\
 		set_trans(Tween.TRANS_SINE).\
 		set_ease(Tween.EASE_IN_OUT).finished
-	await create_tween().tween_property(Player.camera, "offset", original_camera_offset, screen_shake_duration/2).finished
+	await create_tween().tween_property(cam, "offset", original_camera_offset, screen_shake_duration/2).finished
 	await get_tree().create_timer(screen_shake_duration/2).timeout
 
 func health_ui_tween(final, duration):
@@ -211,7 +211,7 @@ func post_river_fail(marker):
 	await get_tree().process_frame
 	var scene = UID.SCN_LILYPAD_MECHANIC[Overworld.currentRoom].instantiate()
 	scene.name = "Walkable Lilypads"
-	MovingNPC.refresh_follower_agents()
+	MovingNPC.create_follower_agents()
 	Overworld.activeRoom.add_child(scene)
 	
 	Player.go_outside_water(true)

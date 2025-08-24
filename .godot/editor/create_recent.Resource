@@ -1,1 +1,3 @@
+FontFile
+VisualShader
 SpriteFrames

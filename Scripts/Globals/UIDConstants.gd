@@ -7,7 +7,9 @@ const SFX_SHALLOW_WATER_SPLASH := preload("uid://cvm38aljsoa55")
 const SFX_DEEP_WATER_SPLASH := preload("uid://b3p620csvwmov")
 const SFX_LEAF_MODE_ENTER = preload("uid://b7fftayvh5ay5")
 const SFX_FILE_SELECT_COPY = SFX_LEAF_MODE_ENTER
+const SFX_LEAF_APPEAR := SFX_LEAF_MODE_ENTER
 const SFX_MENU_CANCEL = preload("uid://bw4i3h1xntksn")
+const SFX_CONFIRM_CHOICE = SFX_MENU_CANCEL
 const SFX_GET_UP := SFX_MENU_CANCEL
 const SFX_PLAYER_HIT := SFX_MENU_CANCEL
 const SFX_SIT := preload("uid://we2j25k6lspy")
@@ -27,6 +29,13 @@ const SFX_START_GAME := SFX_MUSHROOM_PETRIFY
 const SFX_ANTIDOTE_MUSHROOM := preload("uid://do1t2ow1doy85")
 const SFX_CAMPFIRE := preload("uid://bpp7qnbmhttta")
 const SFX_NAIL_SWING := preload("uid://bhkg7d1r5ia7u")
+const SFX_SWOOSH := preload("uid://xdjk8e08glhe")
+const SFX_MUSHROOM_FALL := preload("uid://dxckvwhbveeeu")
+const SFX_CROWBAR := preload("uid://mbxu5hjhv3td")
+const SFX_MAGNET := preload("uid://brdb7aweelctt")
+const SFX_ROCKS_FALL := preload("uid://dbadvl1vii5qp")
+const SFX_DNA_APPEAR := preload("uid://c1hbcnlwv8svd")
+const SFX_MAIN_MENU_CHOICE_CHANGE := preload("uid://3taqr51tfc0y")
 
 const MSC_SELF_PROCLAIMED_QUEEN = preload("uid://diiie2j47xlta")
 
@@ -57,6 +66,8 @@ const SCN_GAME_OVER := preload("uid://ct1j1mlh01gam")
 const SCN_HEALTH_CHANGE_INFO := preload("uid://bidy22336eykw")
 const SCN_EXPLOSION := preload("uid://yaji2aem6v4")
 const SCN_MOVINGNPC := preload("uid://cpc5fcj5uokxi")
+const SCN_LANGUAGE_LABEL := preload("uid://liebhejx35kc")
+const SCN_FILE_INFO := preload("uid://crnbdskhtichk")
 
 const SCN_LILYPAD_MECHANIC : Dictionary[Overworld.Room, PackedScene] = {
 	Overworld.Room.Weird_LilypadRoom: preload("uid://do8xa234u6nyw")
@@ -96,6 +107,14 @@ const IMG_FLAG : Dictionary[ValidLanguages, Texture2D] = {
 
 const IMG_LEAF := preload("uid://d0fymc1ye236d")
 const IMG_NOLEAF_SELECTOR := preload("uid://cfysxnymr7w2t")
+
+const IMG_MAIN_MENU_BG := preload("uid://dyw06wm2nnvr1")
+
+const IMG_CHAPTER_BACKGROUNDS : Dictionary[Enum.Chapter, Texture2D] = {
+	Enum.Chapter.WeirdForest: preload("uid://edxrqj6gbhia"),
+	Enum.Chapter.BaseOfOperations: preload("uid://edxrqj6gbhia"),
+	Enum.Chapter.Uprising: preload("uid://edxrqj6gbhia")
+}
 
 func get_ui_head_with_string(head: String):
 	return get_enum_member_with_string(head, LeafModeCharacters, IMG_UIHEAD)

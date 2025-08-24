@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bt1cev0o1dw5d" path="res://Textures/Other/Light Rect.png" id="1_ghubt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fqrvk"]
-size = Vector2(33.25, 112)
+size = Vector2(213, 112)
 
 [node name="Room Trigger" type="Area2D"]
 script = ExtResource("1_fqrvk")
@@ -17,4 +17,4 @@ blend_mode = 1
 range_item_cull_mask = 3
 texture = ExtResource("1_ghubt")
 
-[connection signal="body_entered" from="." to="." method="on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

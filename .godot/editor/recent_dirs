@@ -1,9 +1,15 @@
+res://Fonts
+res://Scripts/Title Screen
+res://Scripts/Globals
+res://Scenes/Non-Overworld
+res://Textures/Title Screen
+res://Spriteframes
+res://Shaders/Shader Materials
+res://Spritesheets
+C:/Users/Honzík/Downloads/WMTale 0.4.1
 res://Scripts/Text System
 res://Scripts/Rooms
-res://Spritesheets
 res://Scripts/Overworld
-res://Scripts/Globals
-res://Spriteframes
 res://Label Settings
 res://Spriteframes/Player
 res://Colliders
@@ -12,11 +18,5 @@ res://Scenes/Overworld
 res://Scenes
 res://Textures/Other
 res://Textures/ChooseCharacter
-C:/Users/Honzík/Downloads
-res://Shaders/Shader Materials
 res://Shaders/GDSL
 res://Textures/Weird Forest
-res://TileSets
-res://Rooms
-res://
-C:/Users/Honzík/Downloads/WMTale

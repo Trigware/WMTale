@@ -32,3 +32,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="FPS Label" type="Label" parent="Front Layer"]
+modulate = Color(1, 1, 0, 1)
+offset_top = 600.0
+offset_right = 108.0
+offset_bottom = 648.0
+theme_override_fonts/font = ExtResource("1_m7txx")
+theme_override_font_sizes/font_size = 48
+text = "FPS: 60"
+vertical_alignment = 2

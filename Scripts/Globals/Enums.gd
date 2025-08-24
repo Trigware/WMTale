@@ -14,3 +14,9 @@ enum AgentVariation {
 	gertofin,
 	Nixie
 }
+
+enum Chapter {
+	WeirdForest,
+	BaseOfOperations,
+	Uprising
+}

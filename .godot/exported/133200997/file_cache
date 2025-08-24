@@ -1,32 +1,83 @@
-res://Scenes/Audio.tscn::3656e821d3b6fbd257670b2d5186296e::1749410058::res://.godot/exported/133200997/export-5821239ff6a26061f24d03be4d57aca1-Audio.scn
-res://Scenes/ChooseCharacter.tscn::0fb4ff4d73dc9cb505eecd495ac54ae7::1750685456::res://.godot/exported/133200997/export-fe124a0bf6989eb771ed5041d738ba92-ChooseCharacter.scn
-res://Scenes/Legend.tscn::82b5056a1e4f46e9a2548986c1fec134::1749410058::res://.godot/exported/133200997/export-325196204413291370cc746b0b28adbc-Legend.scn
-res://Scenes/Logo.tscn::c768f13aa3f878335e49adadb5a05cf2::1750273899::res://.godot/exported/133200997/export-bce0e0c075ed03667133990e88fdf103-Logo.scn
-res://Scenes/Overlay.tscn::6033952a34d590510ec55f609f127627::1749622097::res://.godot/exported/133200997/export-291685b2ed1bd5a89327f1db3696d82a-Overlay.scn
-res://Scenes/TextSystem.tscn::259f8719d76516bd060aef44a1cd56a0::1750609975::res://.godot/exported/133200997/export-0e6b4d74788a8252572314f33f434005-TextSystem.scn
-res://Scenes/Overworld.tscn::d99b37819e90667f9d91c1e7f192a837::1750828525::res://.godot/exported/133200997/export-61301a49d8280e605508318ebd53bf30-Overworld.scn
-res://Scenes/SaveSystem.tscn::6f7031c0c28f7de2c81b47da8ca9cc1a::1749732877::res://.godot/exported/133200997/export-7f52040d6ee85e3c950835ac9aa2d31a-SaveSystem.scn
-res://Scenes/Localization.tscn::8ed5ea4530d648edcb9779137a873271::1749410059::res://.godot/exported/133200997/export-dfba0163e3f8fe556b627b3c72df8d38-Localization.scn
-res://Scenes/Inventory.tscn::6f1a5ac474c7d5f726c128319cf30079::1749732877::res://.godot/exported/133200997/export-8526ff927035c62c927ee221d5c09efa-Inventory.scn
-res://Scenes/NPC.tscn::e36a22edcfa9d867ac28f46a492faaec::1750609974::res://.godot/exported/133200997/export-099fa6921a2525e1b7513516bc41a2ce-NPC.scn
-res://Scenes/Player.tscn::697c6cd916bd40d38f13112cd749c4ca::1750273845::res://.godot/exported/133200997/export-a7209d3b864edc0146622aad500fa2c1-Player.scn
-res://Scenes/QuittingNotice.tscn::e8ff78ce5bab09c11c60b268f1193d79::1749732877::res://.godot/exported/133200997/export-5d977e9ce74f54699a24bb438393b8c3-QuittingNotice.scn
-res://Scenes/Tree.tscn::59c8335cacb9482d3a1cd27ea61be753::1750609974::res://.godot/exported/133200997/export-ada3d1e9a33ca1370729320fd5fb9dd9-Tree.scn
-res://Spriteframes/Player.tres::5e0bb44c0cf79b4c16357b814a4e8f66::1750828524::res://.godot/exported/133200997/export-fb3093b09b8fa40c9a004b762ce6e060-Player.res
-res://Rooms/Weird/SpawnRoom.tscn::410c7a055f7abeec5976f0a597a6d6d4::1750828525::res://.godot/exported/133200997/export-139761d4093524d9535d11c5ff0d7ece-SpawnRoom.scn
-res://Rooms/ErrorHandler.tscn::d65ce85f56793923af5e4952ea4c917f::1750609975::res://.godot/exported/133200997/export-13320196be58c35d9374aa730b282f95-ErrorHandler.scn
-res://Scenes/NPCData.tscn::5d00b816bf42b1b92e9b31e9162e3007::1750609975::res://.godot/exported/133200997/export-7725b84100eebf797862822264cc53c9-NPCData.scn
-res://Scenes/OverworldBridge.tscn::fca879b1c2c8057026dfc9a90a9cf42f::1749732877::res://.godot/exported/133200997/export-92dc5b3dcccd44f62a672df028f1e1b3-OverworldBridge.scn
-res://Scenes/RoomTrigger.tscn::8635ad4857252e952a84b3cf6b7cfb3d::1750828541::res://.godot/exported/133200997/export-bf6c0b722fcdb24a80b8eccdabe4b5d0-RoomTrigger.scn
-res://Scenes/CutsceneManager.tscn::2f974c276d91327d18ff7253fe07df80::1750273845::res://.godot/exported/133200997/export-e1c3ef73c1b151074ba2e33e85b4f20c-CutsceneManager.scn
-res://TileSets/WeirdBushes.tres::3e278bc48160beee79c3a5c37d62cf59::1750828525::res://.godot/exported/133200997/export-3aeb66472691f2da77bc909127f8af3c-WeirdBushes.res
-res://TileSets/WeirdEnvironment.tres::c7bec8ff0a9817cf7ed359f737ad07fa::1750828525::res://.godot/exported/133200997/export-f76f040c2b919c887fa33833019a4cd2-WeirdEnvironment.res
-res://TileSets/WeirdGround.tres::483f9f1a4ce6eef2dd8f7cde59174565::1750828525::res://.godot/exported/133200997/export-903b3d1aeff8337f79eaea0703e32d69-WeirdGround.res
-res://Rooms/Weird/RiverBridge.tscn::c94f0ee80abc885ac7b7af55e4bae6ee::1750828524::res://.godot/exported/133200997/export-a29f2ae54bd61dc819476811f4f0b518-RiverBridge.scn
-res://Rooms/Weird/SpawnRoomEnterance.tscn::a4d6e9af0f2b5abb111f54c818cfca32::1750828525::res://.godot/exported/133200997/export-0205ad4ffdec495ba7f14927b4f6d405-SpawnRoomEnterance.scn
-res://Rooms/Weird/TeleportRoom.tscn::f4cb03370edb88b4842c109561434bd0::1750828525::res://.godot/exported/133200997/export-45a9d1558cd1407dc8e96a919b9febab-TeleportRoom.scn
-res://Scenes/Audio Area.tscn::acdfe3b770e2f8524d82326d152bf0dd::1750828525::res://.godot/exported/133200997/export-1dc1ba0931a58f58dc6f5b6c92cac48c-Audio Area.scn
-res://Scenes/Room.tscn::b20c491d9c1e654efcbce6e2f868ac06::1750275089::res://.godot/exported/133200997/export-7c31d2772cdc11eef0f80fa43a26c696-Room.scn
-res://Scenes/Teleport Tree.tscn::315819bed108a33a63146dbb950cbe49::1750767086::res://.godot/exported/133200997/export-bf1c5a0e0d23e0e3c11737457c0b87ec-Teleport Tree.scn
-res://TileSets/WeirdRiver.tres::55937f94ea1489795d2d2987111ebb54::1750828525::res://.godot/exported/133200997/export-6f51c9c81294f28ea2ffc41ebed50359-WeirdRiver.res
-res://TileSets/WeirdTree.tres::964f2afb315516a8ae9c7287ad49dd76::1750828525::res://.godot/exported/133200997/export-4ac31f0cea96cd62d6350e2e9bfcc16e-WeirdTree.res
+res://Spriteframes/Player.tres::a646417ca41f7e43c2c9682c51823e46::1755279533::res://.godot/exported/133200997/export-fb3093b09b8fa40c9a004b762ce6e060-Player.res
+res://Rooms/Weird/SpawnRoom.tscn::2fdd0fddbdc2f0e7e2359c97c7ac7589::1755279519::res://.godot/exported/133200997/export-139761d4093524d9535d11c5ff0d7ece-SpawnRoom.scn
+res://Rooms/ErrorHandler.tscn::109f3458496ec015175a30eb296fa802::1755279519::res://.godot/exported/133200997/export-13320196be58c35d9374aa730b282f95-ErrorHandler.scn
+res://TileSets/WeirdBushes.tres::728ff3388287574e8d353fad69220fc9::1755346672::res://.godot/exported/133200997/export-3aeb66472691f2da77bc909127f8af3c-WeirdBushes.res
+res://TileSets/WeirdEnvironment.tres::38ee1b979b9ba5fb7bf400323d9c403a::1755346672::res://.godot/exported/133200997/export-f76f040c2b919c887fa33833019a4cd2-WeirdEnvironment.res
+res://TileSets/WeirdGround.tres::ecdb7851ce11e333bf7cdca6a811edcb::1755346672::res://.godot/exported/133200997/export-903b3d1aeff8337f79eaea0703e32d69-WeirdGround.res
+res://Rooms/Weird/SpawnRoomEnterance.tscn::8df236fb6fea879b3ab08f14acbca268::1755349740::res://.godot/exported/133200997/export-0205ad4ffdec495ba7f14927b4f6d405-SpawnRoomEnterance.scn
+res://Rooms/Weird/TeleportRoom.tscn::f232a84ec72ba08f070b6ecd9dc58afe::1755349740::res://.godot/exported/133200997/export-45a9d1558cd1407dc8e96a919b9febab-TeleportRoom.scn
+res://TileSets/WeirdRiver.tres::6a29f865dcbd57c505a5f66905492755::1755346672::res://.godot/exported/133200997/export-6f51c9c81294f28ea2ffc41ebed50359-WeirdRiver.res
+res://TileSets/WeirdTree.tres::964f2afb315516a8ae9c7287ad49dd76::1755346672::res://.godot/exported/133200997/export-4ac31f0cea96cd62d6350e2e9bfcc16e-WeirdTree.res
+res://Colliders/Player.tres::91fce9b6da6e24a4fd81f8df3d801ec4::1755279519::res://.godot/exported/133200997/export-484605cf3f9fb195d91259c8cad4a457-Player.res
+res://Label Settings/OutlinedText.tres::66eb3affba799d6f9194d476dc623188::1755346672::res://.godot/exported/133200997/export-2f34950bfabba4bf4a4b5b6054157cf6-OutlinedText.res
+res://Rooms/Weird/CemetaryGate.tscn::017866d773808197bd034ac59b9a6190::1755279519::res://.godot/exported/133200997/export-5af33e7bf3f6d7ee6e865947fddf32f4-CemetaryGate.scn
+res://Rooms/Weird/CharacterDialogTester.tscn::7c24733f2e978e65c70c15eac696df3f::1755349739::res://.godot/exported/133200997/export-f51bb0930b9340dc2b60597e0d6c3804-CharacterDialogTester.scn
+res://Rooms/Weird/LayeredNPCTester.tscn::b53db1b6e5cf570f30a8e88f55e8b6d5::1755279519::res://.godot/exported/133200997/export-d84ee45a112f592d2bfda04796040234-LayeredNPCTester.scn
+res://Rooms/Weird/LilypadRoom.tscn::a3b35804d751e4191b1697371d0d101c::1755279519::res://.godot/exported/133200997/export-20bf06ef735e26f2d6ea3d06ac10724d-LilypadRoom.scn
+res://Rooms/Weird/MushroomTester.tscn::105754f070c431094aff75e3b2126199::1755279519::res://.godot/exported/133200997/export-44d9da7645c9178895e69508433b8814-MushroomTester.scn
+res://Rooms/Weird/SaveIntroRoom.tscn::ed8eb277792ae7d19068b937f0aae744::1755349741::res://.godot/exported/133200997/export-bd2da6636ffda820843d096017addff9-SaveIntroRoom.scn
+res://Scenes/Areas/Audio Area.tscn::118891f4bce5efcc4a329b78cc3dcea3::1755279522::res://.godot/exported/133200997/export-3a53d3d6d08893f9bff45e3d861ac91e-Audio Area.scn
+res://Scenes/Areas/Leaves Area.tscn::c80082123e27dc39d5d51facec94ffcd::1755279522::res://.godot/exported/133200997/export-b75a3f08e0e14cd89902574a9e09b31d-Leaves Area.scn
+res://Scenes/Core/Audio.tscn::3656e821d3b6fbd257670b2d5186296e::1755279522::res://.godot/exported/133200997/export-16dc67ede63cb41001a7242a283141bd-Audio.scn
+res://Scenes/Core/Localization.tscn::8ed5ea4530d648edcb9779137a873271::1755279522::res://.godot/exported/133200997/export-8eb5a6f43649dc0dbc22d2906c004a1a-Localization.scn
+res://Scenes/Core/Moving NPC Manager.tscn::2702c450f69bd6b3a60f7d051593b55b::1755279522::res://.godot/exported/133200997/export-fccc5f3f0fb3c900043805a2c737eb49-Moving NPC Manager.scn
+res://Scenes/Core/Moving NPC.tscn::0372cc23ed7f9b13821336098e98fab6::1755279522::res://.godot/exported/133200997/export-676ad1d2ca11f6ffb2d385276af3f5b2-Moving NPC.scn
+res://Scenes/Core/NPCData.tscn::5d00b816bf42b1b92e9b31e9162e3007::1755279523::res://.godot/exported/133200997/export-85150a761185a5eaa871ac260ca45ac5-NPCData.scn
+res://Scenes/Core/Overlay.tscn::6033952a34d590510ec55f609f127627::1755279523::res://.godot/exported/133200997/export-0d5f67902f57d70561ef3fad2dc5a8b4-Overlay.scn
+res://Scenes/Core/QuittingNotice.tscn::3b49847ddafa39d99d1ce46de9eba462::1755349741::res://.godot/exported/133200997/export-92c11c9a0eaecfd9f2fa9762ee67c495-QuittingNotice.scn
+res://Scenes/Core/Save Menu.tscn::b4ad4ee48a039693170a3c48fb135b22::1755349740::res://.godot/exported/133200997/export-11f12e613057545503c32bb0ff1cb773-Save Menu.scn
+res://Scenes/Core/SaveSystem.tscn::6f7031c0c28f7de2c81b47da8ca9cc1a::1755349740::res://.godot/exported/133200997/export-349cf3ce8377fbf8ba71a3c3b433d409-SaveSystem.scn
+res://Scenes/Core/TextSystem.tscn::dbb82cc1d3ea78562db609b34d8e9e84::1755349739::res://.godot/exported/133200997/export-4ccf8424fd1583fed7f06bbbd897e058-TextSystem.scn
+res://Scenes/Core/UID.tscn::6ce28d383a2147ea4abcb5bc78603cec::1755279523::res://.godot/exported/133200997/export-735f71d814bdefcaaf873a77125605bc-UID.scn
+res://Scenes/Game Mechanics/Lilypad Mechanic/Lilypads LilypadRoom.tscn::18846fc2d651197b4d95435c301fc8c1::1755279523::res://.godot/exported/133200997/export-3c3376b72bb5c2d88a7fbe11b40f2454-Lilypads LilypadRoom.scn
+res://Scenes/Game Mechanics/Lilypad Mechanic/River.tscn::ea33c1672dab861b374fe6b29e457ad2::1755279523::res://.godot/exported/133200997/export-aba1008e69ec27bdcbbeac8c29edec13-River.scn
+res://Scenes/Game Mechanics/Lilypad Mechanic/Walkable Lilypad.tscn::0070e9d2cccab73d07874b32ba1d53df::1755279523::res://.godot/exported/133200997/export-63e6862655fbc141f872f0277989fabe-Walkable Lilypad.scn
+res://Scenes/Game Mechanics/Mushrooms/Dangerous Mushroom.tscn::4392f2a682271083524e2e21d14148ac::1755279523::res://.godot/exported/133200997/export-ea34442f51f745b24b01040db80aa75a-Dangerous Mushroom.scn
+res://Scenes/Game Mechanics/Mushrooms/Explosion.tscn::e23eb0d94ef6e6748a840dd67494b19e::1755279523::res://.godot/exported/133200997/export-9982368b68c8c604c3e42f4fd195c1b6-Explosion.scn
+res://Scenes/Game Mechanics/Mushrooms/Fire.tscn::3c968da6c974c6c34fe0a2f1fdf79f3e::1755279523::res://.godot/exported/133200997/export-3667bc714870f4ebebc6350941438b80-Fire.scn
+res://Scenes/Game Mechanics/Status Effect/Effect Particle.tscn::4437a28f31aff329dd03f4455466b7a7::1755279524::res://.godot/exported/133200997/export-4035d204813411b8d069850dea071853-Effect Particle.scn
+res://Scenes/Game Mechanics/Status Effect/Status Effect.tscn::600b00df824b09a78917ebf762b58e10::1755279524::res://.godot/exported/133200997/export-08f08a87d6524bfbc6839ee7fa0eb8a5-Status Effect.scn
+res://Scenes/Game Mechanics/Health Change Info.tscn::7fb9fc8e8be522845f6439952e7bdff5::1755279523::res://.godot/exported/133200997/export-2dc81705007fcde78852a5184708e4e6-Health Change Info.scn
+res://Scenes/Game Mechanics/Inventory.tscn::6f1a5ac474c7d5f726c128319cf30079::1755279523::res://.godot/exported/133200997/export-f19454e822c45ceed7549b0358f3fd9b-Inventory.scn
+res://Scenes/Game Mechanics/Leaf Mode.tscn::80cf4edd32f5758a866f480ed2eb57c1::1755279523::res://.godot/exported/133200997/export-0e999cf4a157ae298b22ba78502683a8-Leaf Mode.scn
+res://Scenes/Non-Overworld/Choose Language.tscn::4a1cd5155c148cf82a4e6c589e578c5f::1755279524::res://.godot/exported/133200997/export-7adf57a896d63b599a39a023b45db56f-Choose Language.scn
+res://Scenes/Non-Overworld/ChooseCharacter.tscn::a242d81de620d2f085a6e5ce8d4f5896::1755279524::res://.godot/exported/133200997/export-06ed636ca939627b7e967d08ebc90d31-ChooseCharacter.scn
+res://Scenes/Non-Overworld/Empty Scene.tscn::bf6812dd71dfbdba370abb202e4a7eb8::1755279524::res://.godot/exported/133200997/export-4977171526647d012a23c02381affe96-Empty Scene.scn
+res://Scenes/Non-Overworld/File Select.tscn::6e1c32d51a237fd696e5640cc7f89b58::1755279524::res://.godot/exported/133200997/export-096b8f4f55c113d93c3bcf654c3bcb5d-File Select.scn
+res://Scenes/Non-Overworld/Filebox.tscn::f039c8f02e512060f4b0b590f7684b07::1755349740::res://.godot/exported/133200997/export-16172d212f3eee7780c8b61f905e8cae-Filebox.scn
+res://Scenes/Non-Overworld/Game Over.tscn::4dd524cf12ae76898f2d92a7095f077d::1755279525::res://.godot/exported/133200997/export-a45e034c68c38b7e1c7564b00fc46978-Game Over.scn
+res://Scenes/Non-Overworld/Legend.tscn::2fd8a5d813e5f25de546a8f7bb54fceb::1755279525::res://.godot/exported/133200997/export-4c9626fba381563906ed86d59cf949cf-Legend.scn
+res://Scenes/Non-Overworld/Logo.tscn::c768f13aa3f878335e49adadb5a05cf2::1755279525::res://.godot/exported/133200997/export-28ca346ce108394688609176227360de-Logo.scn
+res://Scenes/NPC Derivation/Beehive.tscn::dee8c5d3360363293949f1671534d933::1755279524::res://.godot/exported/133200997/export-ca6054b43e6aefa5c54b1ce528279a5b-Beehive.scn
+res://Scenes/NPC Derivation/Campfire.tscn::0828d95518e52eddbb07ca1aa251ed7a::1755279524::res://.godot/exported/133200997/export-c7d63d7e6e3c8ed0f93f390d9f187628-Campfire.scn
+res://Scenes/NPC Derivation/Candle.tscn::f82d61563a3938f3df4b079a88c75479::1755279524::res://.godot/exported/133200997/export-346e1a9dcf093611a696612513c5fc52-Candle.scn
+res://Scenes/NPC Derivation/Detailed Tree.tscn::328386580e80a2925d0a8208c60469b2::1755279524::res://.godot/exported/133200997/export-5191e04459ca32397b3d7a5dd9241091-Detailed Tree.scn
+res://Scenes/NPC Derivation/Fallen Tree.tscn::14fde730f28b12b7be2264f37e75822e::1755279524::res://.godot/exported/133200997/export-177d924e4248cd4d07267f0469bdcb56-Fallen Tree.scn
+res://Scenes/NPC Derivation/Layered NPC.tscn::63aeabcae0b7c98eaef82dcc79471100::1755279524::res://.godot/exported/133200997/export-9c7ca8f3cdd66ca6262bfdad4dad9091-Layered NPC.scn
+res://Scenes/NPC Derivation/Lilypad Flower.tscn::a70b700308a69eda6a9fe7018e905a47::1755279524::res://.godot/exported/133200997/export-02cdbf2b69b0a9032a103e4071637d45-Lilypad Flower.scn
+res://Scenes/NPC Derivation/NPC.tscn::ff95a65a7242f9aabe87153429edfc89::1755279524::res://.godot/exported/133200997/export-73be89873b4ac978e80ff9502ba82559-NPC.scn
+res://Scenes/NPC Derivation/Save Point.tscn::5bb92e2b850f12262ce379eaa34ab754::1755349740::res://.godot/exported/133200997/export-23bca3ff5e1a6eeaf34337862bb3ebf4-Save Point.scn
+res://Scenes/NPC Derivation/Street Lamp.tscn::802125eb728bddfaddacd9bc1b4718a1::1755279524::res://.godot/exported/133200997/export-45f3da9f0737c5b5e4604f39316dea2c-Street Lamp.scn
+res://Scenes/NPC Derivation/Teleport Tree.tscn::327e863e5f5170c7558437622de84c34::1755279524::res://.godot/exported/133200997/export-ba057598c102b76e26f9dcd98a6ecc30-Teleport Tree.scn
+res://Scenes/NPC Derivation/Weird Tree.tscn::fde47761771d063bb78fc588169cc344::1755279524::res://.godot/exported/133200997/export-fbd53b08979e87cef4615a38597c5909-Weird Tree.scn
+res://Scenes/Overworld/Bible Overworld.tscn::4e2278329b25877e6f55a15928412b91::1755279525::res://.godot/exported/133200997/export-bf23ee9ac9b1d8a063ecaa84552404ff-Bible Overworld.scn
+res://Scenes/Overworld/CutsceneManager.tscn::2f974c276d91327d18ff7253fe07df80::1755279525::res://.godot/exported/133200997/export-af36307d39ef6e93922a7b13c63f7daa-CutsceneManager.scn
+res://Scenes/Overworld/Overworld.tscn::5b78ac6c0999de875497f919e73f68cf::1755279525::res://.godot/exported/133200997/export-c39a8d15e0169d22d21252a3c3ed1682-Overworld.scn
+res://Scenes/Overworld/OverworldBridge.tscn::fca879b1c2c8057026dfc9a90a9cf42f::1755279525::res://.godot/exported/133200997/export-5f1b104e62f3eb3429b70c8b2679b487-OverworldBridge.scn
+res://Scenes/Overworld/Player.tscn::ddb2117b0a9ba3449e7e96be986c6ecb::1755279525::res://.godot/exported/133200997/export-f4a0354e79feb174aada583cfddc0ce4-Player.scn
+res://Scenes/Overworld/Room.tscn::b20c491d9c1e654efcbce6e2f868ac06::1755279525::res://.godot/exported/133200997/export-33fa0c466004cd76a084b279f82313dd-Room.scn
+res://Scenes/Overworld/Status Effect Manager.tscn::d8bcd0072a33e9a302544b407141727d::1755279525::res://.godot/exported/133200997/export-918646fd643e6c82f573c99e0ecbc03c-Status Effect Manager.scn
+res://Scenes/Triggers/Bible Appearence Trigger.tscn::d60e3afb4a38951db079e4f8f1c09637::1755279525::res://.godot/exported/133200997/export-c014c598d4ad407db15de4cb35b16f19-Bible Appearence Trigger.scn
+res://Scenes/Triggers/Cutscene Trigger.tscn::6a8e781025277324fa7753a77fd12a6f::1755279525::res://.godot/exported/133200997/export-f09655d3a8d6c94a3209de379e2dd391-Cutscene Trigger.scn
+res://Scenes/Triggers/Leaf Mode Trigger.tscn::af596835bdf5ef536b1c68b3f58a72eb::1755279525::res://.godot/exported/133200997/export-136ea685e1dc928217f87b0851029174-Leaf Mode Trigger.scn
+res://Scenes/Triggers/RoomTrigger.tscn::30fcce083161ef2d1048a7f7708bd3b5::1755279525::res://.godot/exported/133200997/export-b8eeecd624f506b719f934427562970c-RoomTrigger.scn
+res://Shaders/Shader Materials/HideSprite.tres::c102fd58a9955110696eedf144b6f7aa::1755279532::res://.godot/exported/133200997/export-c0cac2420812fde36ff61bae5af3b830-HideSprite.res
+res://Spriteframes/Player/gertofin.tres::273d963000cc0fbae34282d2fae87696::1755346672::res://.godot/exported/133200997/export-b433b03b592abb93bc219878c6d32ae2-gertofin.res
+res://Spriteframes/Player/rabbitek.tres::05946af9cc79fc808960b62871cd3020::1755346672::res://.godot/exported/133200997/export-941d5cda77026bbe6483a02257e7ee6e-rabbitek.res
+res://Spriteframes/Player/xdaforge.tres::665d1bc1c6c6ee2f9b21abc44fbed015::1755346672::res://.godot/exported/133200997/export-7c82a5008dd382a0d2618cc78c02fcb1-xdaforge.res
+res://Spriteframes/BibleOverworld.tres::d30497bc771c31b68bc75cb01da5fe5b::1755346672::res://.godot/exported/133200997/export-e4c623330fd34e53ccc083469a786e0e-BibleOverworld.res
+res://Spriteframes/Campfire.tres::753f17c8b967e01ea2629f59b148e331::1755346672::res://.godot/exported/133200997/export-819768c8dbd08b5ab3444cff2d125903-Campfire.res
+res://Spriteframes/ExplosionEffect.tres::6cf1a98dd3c46c3727f0dac676ae0fee::1755346672::res://.godot/exported/133200997/export-60714bd893637d0482af37af03ec71a7-ExplosionEffect.res
+res://Spriteframes/LeafDisintegration.tres::383c7f2980246bda20513f93f4f4e8d4::1755346672::res://.godot/exported/133200997/export-639b90ccf05e894a02915dc31521426b-LeafDisintegration.res
+res://Spriteframes/Nixie.tres::df3afedb6c9e0c52d97559b314777bf7::1755346672::res://.godot/exported/133200997/export-ca53a7de932f539da6052f09ed4b2cff-Nixie.res
+res://Spriteframes/Tree.tres::f9edd33fe1b54232caf1ee0322b441bd::1755279533::res://.godot/exported/133200997/export-f324f168450c217585256019d9826ec0-Tree.res

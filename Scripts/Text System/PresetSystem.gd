@@ -12,8 +12,7 @@ enum Preset
 	OverworldTreeTalk,
 	GameOver,
 	FirstGameOver,
-	TreeTextCutoff,
-	CharacterDialog
+	TreeTextCutoff
 }
 
 enum Property
@@ -58,13 +57,11 @@ enum Property
 		Property.PitchRange: 0.15,
 		Property.FontSize: 44,
 		Property.Textbox: true,
-		Property.PositionX: 150,
-		Property.PositionY: 405,
-		Property.LineLength: 850
+		Property.PositionX: 105,
+		Property.PositionY: 465,
+		Property.LineLength: 950
 	}
 }
-
-const character_dialog_text_offset = 150
 
 func preset_variations():
 	add_variation(Preset.OverworldTreeTalk, Preset.ChooseCharacter, {
@@ -85,10 +82,6 @@ func preset_variations():
 	})
 	add_variation(Preset.TreeTextCutoff, Preset.OverworldTreeTalk, {
 		Property.EndExternally: true
-	})
-	add_variation(Preset.CharacterDialog, Preset.RegularDialog, {
-		Property.PositionX: get_preset_property(Preset.RegularDialog, Property.PositionX) + character_dialog_text_offset,
-		Property.LineLength: get_preset_property(Preset.RegularDialog, Property.LineLength) - character_dialog_text_offset
 	})
 
 func add_variation(stored_as: Preset, from: Preset, deltas: Dictionary):

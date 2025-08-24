@@ -104,8 +104,8 @@ func get_suffix(interaction_count):
 	var npc_suffix_property = NPCData.get_data(npcID, NPCData.Field.Suffix)
 	if npc_only_property or npc_suffix_property != null:
 		suffix = npc_suffix_property if npc_suffix_property != null else "only"
-		var only_suffix_text_key = TextMethods.add_suffix_to_key(base_key, suffix)
-		if not suffixed_key_exists(only_suffix_text_key): push_error("NPC with id " + textID + " requests a missing the '" + suffix + "' suffix!")
+		var suffixed_text_key = TextMethods.add_suffix_to_key(base_key, suffix)
+		if not Localization.does_suffixed_key_exist(suffixed_text_key): push_error("NPC with id " + textID + " requests a missing the '" + suffix + "' suffix!")
 		return suffix
 	
 	var first_text = TextMethods.get_indexed_key(base_key, suffix)
@@ -119,7 +119,7 @@ func get_suffix(interaction_count):
 		push_error("An associated start text key on npc with id " + textID + " doesn't exist! (first_text: " + first_text + ", placeholder_text: " + placeholder_text + ")")
 
 func suffixed_key_exists(suffixed_key):
-	return Localization.text_exists(suffixed_key) or Localization.text_exists(suffixed_key + "_1")
+	return Localization.text_exists(suffixed_key) or Localization.text_exists(suffixed_key + TextMethods.suffix_seperator_character + "1")
 
 func is_player_looking_towards_npc() -> bool:
 	if autoTrigger or removeStaticBody or ignoreDirections: return true
@@ -138,7 +138,7 @@ func after_base_dialog_complete():
 		await ChoicerSystem.give_basic_choice()
 		if ChoicerSystem.is_player_choice("decline"): return
 		await TextMethods.print_wait_localization("PedestalText_intro", [SaveData.playerName])
-		var text_template_part = "PedestalText_" + SaveData.selectedCharacter + "_"
+		var text_template_part = "PedestalText__" + SaveData.selectedCharacter + "#"
 		await TextMethods.print_group(
 			[text_template_part + "1",
 			text_template_part + "2",

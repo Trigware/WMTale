@@ -2,7 +2,7 @@ extends Node
 
 const option_offset_x = 50
 const option_offset_y = 10
-const default_leaf_position := Vector2(105, 29)
+var default_leaf_position : Vector2
 const choice_directions := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 const choicer_input_duration = 0.5
 
@@ -15,14 +15,21 @@ var disable_choicer_inputs = false
 
 signal submitted_choice
 
+func _ready():
+	await get_tree().process_frame
+	default_leaf_position = TextSystem.choicer_leaf.position
+
 func give_choice():
-	TextSystem.waitLeaf.hide()
+	TextSystem.waitLeaf.modulate.a = 0
 	last_choicer_direction = Vector2.ZERO
 	TextSystem.lockAction = true
 	in_choicer = true
 	TextSystem.textboxNode.show()
 	TextSystem.choicerNode.show()
 	TextSystem.choicer_leaf.position = default_leaf_position
+	TextSystem.hide_portrait()
+	if TextSystem.wait_leaf_alpha_tween != null: TextSystem.wait_leaf_alpha_tween.kill()
+	TextSystem.waitLeaf.modulate.a = 0
 	
 	choice_suffix_dict = {}
 	for direction in choice_directions:

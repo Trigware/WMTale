@@ -2,19 +2,30 @@ extends Node
 
 var game_text : Dictionary = {}
 const localization_key_path = "res://WMTale - Localization.tsv"
+var is_latest_textkey_empty : bool
 var language_column_index = 0
 var language_list := []
 var current_language := "english"
-const control_characters := ["#", "?"]
 
-func get_text(text_key, variables = {}) -> String:
+func get_text(text_key: String, variables = {}) -> String:
 	if not text_exists(text_key) and game_text == {}: load_language(current_language)
-	if not text_exists(text_key): return "<ERROR>: Requested missing text_key " + text_key + " (" + current_language + ")!"
+	if not text_exists(text_key):
+		var error_message = "<ERROR>: Attempting to access not-existent text key " + text_key + "!"
+		push_error(error_message)
+		return error_message
+	
 	if variables is Array and variables.size() > 1:
-		push_error("On " + text_key + " attempted to use an Array for storing mutliple variables. Array variables are deprecated, use a dictionary instead!")
-		return "<ERROR>: Used deprecated Array method for passing in multiple variables at text_key " + text_key + "!"
-	var localized_text = parse_control_text(game_text[text_key], variables, text_key)
-	if localized_text == "":
+		push_error("On " + text_key + " attempted to use an Array for storing variables. Array variables are deprecated, use a dictionary instead!")
+		return "<ERROR>: Used deprecated Array method for passing in variables at text_key " + text_key + "!"
+	
+	is_latest_textkey_empty = false
+	var unsubstituted_text = game_text[text_key]
+	if unsubstituted_text == "{}":
+		is_latest_textkey_empty = true
+		return ""
+	
+	var localized_text = LocalizationTimeParser.parse(unsubstituted_text, variables)
+	if unsubstituted_text == "": 
 		localized_text = "<ERROR>: Missing translation for a text_key " + text_key + " in the " + current_language + " language!"
 	return localized_text
 
@@ -23,6 +34,15 @@ func get_key_suffixed(base_key, suffix) -> String:
 
 func text_exists(text_key) -> bool:
 	return text_key in game_text
+
+func does_suffixed_key_exist(suffixed_key) -> bool:
+	for text_key: String in game_text:
+		if suffixed_key == text_key: return true
+		var hashtag_char_index = text_key.rfind("#")
+		if hashtag_char_index == -1: continue
+		var key_without_index = text_key.substr(0, hashtag_char_index)
+		if key_without_index == suffixed_key: return true
+	return false
 
 func load_language(newLanguage):
 	current_language = newLanguage
@@ -68,104 +88,3 @@ func parse_first_csv_line(columns):
 		return 0
 	load_language("english")
 	return 1
-
-var modified_text : String
-var in_bracket : bool
-var bracket_content : String
-var inserted_variable_dict : Dictionary
-var variable_count : int
-
-func parse_control_text(original_text : String, variables, text_key) -> String:
-	if not original_text.contains("{") and not original_text.contains("}"):
-		return original_text
-	parse_segment_setup(variables)
-	
-	for i in original_text.length():
-		var ch = original_text[i]
-		if ch in TextParser.control_brackets and is_previous_character("\\", i, original_text):
-			parse_default_character(ch)
-			continue
-		match ch:
-			"{":
-				in_bracket = true
-				bracket_content = ""
-			"}":
-				parse_end_bracket_content(variables, text_key)
-			_:
-				parse_default_character(ch)
-	
-	if in_bracket:
-		push_error("An openning bracket doesn't have an associated closing one!")
-	return modified_text
-
-func is_previous_character(ch, index, text):
-	if index <= 0: return false
-	var previous_character = text[index - 1]
-	return previous_character == ch
-
-func parse_default_character(ch):
-	if in_bracket:
-		bracket_content += ch
-		return
-	modified_text += ch
-
-func parse_segment_setup(variables):
-	modified_text = ""
-	in_bracket = false
-	bracket_content = ""
-	inserted_variable_dict = {}
-	variable_count = 0
-	if variables is Dictionary:
-		inserted_variable_dict = variables
-
-func parse_end_bracket_content(variables, text_key):
-	if not in_bracket:
-		push_error("Found closing bracket which doesn't have an associated opening one!")
-		return
-	in_bracket = false
-	var bracket_control_type = is_bracket_content_control_segment()
-	if bracket_control_type != BracketControlOptions.Variable:
-		if bracket_control_type == BracketControlOptions.Placeholder: add_placeholder_text()
-		return
-	
-	if bracket_content in inserted_variable_dict:
-		var dict_cache_var_content = inserted_variable_dict[bracket_content]
-		modified_text += str(dict_cache_var_content)
-		return
-	
-	var does_variable_exist = variable_count < variables.size()
-	if not does_variable_exist:
-		push_error("Need a variable '" + bracket_content + "' that can be passed into the text! (index: " + str(variable_count) + ", key: " + str(text_key) + ", lang: " + current_language + ")")
-		add_placeholder_text()
-		variable_count += 1
-		return
-	
-	var variable_content = variables[variable_count]
-	modified_text += str(variable_content)
-	variable_count += 1
-	inserted_variable_dict[bracket_content] = variable_content
-
-func add_placeholder_text(text = null):
-	if text == null: text = bracket_content
-	var placeholder_text = '{' + text + '}'
-	modified_text += placeholder_text
-
-func is_bracket_content_control_segment() -> BracketControlOptions:
-	if bracket_content == "p":
-		add_placeholder_text(str(TextSystem.default_pause_duration))
-		return BracketControlOptions.Replaced
-	
-	if bracket_content.is_valid_float(): return BracketControlOptions.Placeholder
-	if bracket_content.length() == 0: return BracketControlOptions.Placeholder
-	
-	var control_symbol = bracket_content[0]
-	var is_control_segment = control_symbol in control_characters
-	
-	if is_control_segment: return BracketControlOptions.Placeholder
-	return BracketControlOptions.Variable
-
-enum BracketControlOptions {
-	Variable,
-	Placeholder,
-	Replaced
-}

@@ -4,6 +4,7 @@ extends Control
 
 var activeTween: Tween
 var sceneChangingDisabled = false
+var while_transition = false
 signal finished
 
 func _ready():
@@ -27,14 +28,17 @@ func hide_scene(duration = 1.0):
 	await finished
 
 func alpha_tween(alpha, duration = 1.0):
-	overlay_tween(Color(fadeOverlay.color, alpha), duration)
+	overlay_tween(Color(Color.BLACK, alpha), duration)
 	await finished
 
-func overlay_tween(color: Color, duration = 1):
+func overlay_tween(color: Color, duration = 1.0):
+	fadeOverlay.modulate = Color(color, fadeOverlay.modulate.a)
+	while_transition = true
 	kill_tween()
 	activeTween = create_tween()
-	activeTween.tween_property($CanvasLayer/Overlay, "color", color, duration)
+	activeTween.tween_property(fadeOverlay, "color", color, duration)
 	await activeTween.finished
+	while_transition = false
 	emit_signal("finished")
 
 func kill_tween():

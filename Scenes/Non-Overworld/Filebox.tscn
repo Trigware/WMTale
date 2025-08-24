@@ -26,9 +26,9 @@ offset_bottom = 40.0
 
 [node name="playerName" type="Label" parent="Labels"]
 layout_mode = 0
-offset_left = 322.0
+offset_left = 286.0
 offset_top = 52.0
-offset_right = 1332.0
+offset_right = 1386.0
 offset_bottom = 148.0
 scale = Vector2(0.4, 0.4)
 theme_override_fonts/font = ExtResource("1_12k6e")
@@ -39,7 +39,7 @@ text = "[PLAYER NAME]"
 layout_mode = 0
 offset_left = 573.0
 offset_top = 52.0
-offset_right = 1208.0
+offset_right = 1365.0
 offset_bottom = 148.0
 scale = Vector2(0.4, 0.4)
 theme_override_fonts/font = ExtResource("1_12k6e")
@@ -49,9 +49,9 @@ horizontal_alignment = 2
 
 [node name="currentRoom" type="Label" parent="Labels"]
 layout_mode = 0
-offset_left = 322.0
+offset_left = 286.0
 offset_top = 96.0
-offset_right = 1332.0
+offset_right = 1386.0
 offset_bottom = 192.0
 scale = Vector2(0.4, 0.4)
 theme_override_fonts/font = ExtResource("1_12k6e")

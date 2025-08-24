@@ -180,7 +180,7 @@ func on_player_named():
 	create_tween().tween_property(characterAnimations, "modulate:a", 0, 1)
 	var tween = create_tween().tween_property(leafTexture, "position", finalLeafRescalePosition, 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-	await TextMethods.print_wait_localization("choosecharacter_postchoose_sayname", [SaveData.playerName])
+	await TextMethods.print_wait_localization("choosecharacter_postchoose_sayname", SaveData.playerName)
 	show_bible()
 
 func show_bible():

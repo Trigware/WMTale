@@ -13,4 +13,7 @@ func _ready():
 	if Overworld.saveFileCorrupted:
 		Overworld.currentRoom = Overworld.Room.ErrorHandlerer
 		extraInfo = Localization.get_text("errorhandler_extrainfo_savecorrupted")
-	errorDescription.text = Localization.get_text("errorhandler_room_description", [Overworld.currentRoom, extraInfo])
+	errorDescription.text = Localization.get_text("errorhandler_room_description", {
+		"roomID": Overworld.currentRoom,
+		"extraInfo": extraInfo
+	})

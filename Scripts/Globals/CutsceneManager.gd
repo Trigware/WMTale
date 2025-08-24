@@ -36,10 +36,6 @@ func after_cutscene_finished(cutscene: Cutscene):
 	if cutscene == Cutscene.Nixie_Introductory:
 		NPCData.set_data(NPCData.ID.BibleInteractPrompt_SAVEINTROROOM, NPCData.Field.Deactivated, true)
 
-func get_base_cutscene_key():
-	var base_key = "Cutscene_" + CutsceneManager.latest_cutscene_name
-	return base_key
-
 func complete_cutscene():
 	await get_tree().process_frame
 	emit_signal("cutscene_completed")
@@ -75,7 +71,7 @@ func play_spawnroom_cutscene():
 func play_cemetarygate_cutscene():
 	await Player.move_camera_to(465, -850)
 	await wait(1)
-	await TextMethods.print_sequence(get_base_cutscene_key(), {}, PresetSystem.Preset.OverworldTreeTalk)
+	await print_cutscene_sequence({}, PresetSystem.Preset.OverworldTreeTalk)
 	await Player.return_camera()
 	complete_cutscene()
 
@@ -101,16 +97,21 @@ func nixie_introductory_jump(nixie):
 	nixie.jump_to_point(Vector2(player_pos.x, player_pos.y - 10))
 	emit_signal("nixie_jumps")
 	await nixie.near_ground
-	TextSystem.clear_text(true)
+	TextMethods.clear_text(true)
 	await Player.noticed(0.35)
 	await MovingNPC.move_player_by_backwards(-50)
-	nixie.nail_swing("AttackMessage_MISS")
-	await wait(99999)
+	await nixie.nail_swing("AttackMessage_MISS")
 	emit_signal("nixie_fall_finished")
 
 signal nixie_fall_finished
 signal nixie_jumps
 
 func play_character_dialog_tester_cutscene():
-	await TextMethods.print_sequence("Cutscene_Character_Dialog_Tester", {}, PresetSystem.Preset.CharacterDialog)
+	await print_cutscene_sequence({
+		"has_mushroom": Inventory.has_item(Inventory.Item.GLOWING_MUSHROOM)
+	})
 	complete_cutscene()
+
+func print_cutscene_sequence(variables := {}, preset := PresetSystem.Preset.RegularDialog):
+	var base_key = "Cutscene_" + CutsceneManager.latest_cutscene_name
+	await TextMethods.print_sequence(base_key, variables, preset, "root")

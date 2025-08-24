@@ -7,7 +7,9 @@ var currentRoom := Room.ErrorHandlerer
 var latestExitRoom := Room.ErrorHandlerer
 var initialPosition := Vector2.ZERO
 var saveFileCorrupted = false
-var time_since_room_loaded = 0.0
+var triggerLocked = false
+var time_since_room_load : float
+var delayRoomRequest = {}
 
 var party_members := []
 
@@ -15,9 +17,13 @@ var party_members := []
 @onready var baseLight = $"Base Light"
 
 var base_light_color = Color("d9d9d9")
+const debug_mode_active := false
 
 func _process(delta):
-	time_since_room_loaded += delta
+	time_since_room_load += delta
+	if activeRoom == null or not debug_mode_active: return
+	if Input.is_action_just_pressed("debug_previous_room"): debug_room_load(currentRoom - 1)
+	if Input.is_action_just_pressed("debug_next_room"): debug_room_load(currentRoom + 1)
 
 func enable():
 	scale = Vector2(scaleConst, scaleConst)
@@ -32,19 +38,24 @@ func disable():
 	if activeRoom != null:
 		activeRoom.queue_free()
 
-func load_room(room: Room, newPlayerPosition := Vector2.ZERO, autoload := false):
-	SaveData.save_autosave_file()
-	if activeRoom != null:
-		activeRoom.queue_free()
-		await activeRoom.tree_exited
-	currentRoom = room
+func debug_room_load(room):
+	load_room(room, Vector2.ZERO, false, true)
+
+func load_room(room: Room, newPlayerPosition := Vector2.ZERO, autoload := false, debug_load := false):
 	var strRoom = get_room_enum(room)
 	var roomPath = "res://Rooms/" + strRoom + ".tscn"
 	if not ResourceLoader.exists(roomPath) or saveFileCorrupted:
+		if debug_load: return
 		Player.disable()
 		await get_tree().process_frame
 		add_child(UID.SCN_ERROR_HANDLELER.instantiate())
 		return
+	
+	if activeRoom != null:
+		activeRoom.queue_free()
+		await activeRoom.tree_exited
+	currentRoom = room
+	
 	setup_loaded_room(roomPath, strRoom, room, newPlayerPosition, autoload)
 
 func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoload):
@@ -60,15 +71,16 @@ func setup_loaded_room(roomPath, strRoom, room: Room, newPlayerPosition, autoloa
 		newPlayerPosition = Vector2(activeRoom.cutscenePosition) * scaleConst
 		CutsceneManager.let_cutscene_play_out(roomCutscene)
 	
+	SaveData.save_autosave_file()
 	latestExitRoom = room
 	if autoload and SaveData.load_at_room_center: newPlayerPosition = Vector2.ZERO
 	Player.set_pos(newPlayerPosition)
 	Player.reset_camera_smoothing()
-	MovingNPC.refresh_follower_agents()
 	if autoload: BibleOverworld.attempt_to_load_bible()
 	await check_if_no_rooms_loaded()
+	MovingNPC.create_follower_agents()
 	add_child(activeRoom)
-	time_since_room_loaded = 0.0
+	time_since_room_load = 0
 	var roomMusic = activeRoom.roomMusic
 	Audio.play_music(roomMusic, activeRoom.roomMusicPitchRange, activeRoom.playNoMusic)
 
@@ -79,9 +91,6 @@ func check_if_no_rooms_loaded():
 		if is_room:
 			child.queue_free()
 			await child.tree_exited
-
-func trigger_blocked():
-	return Overworld.time_since_room_loaded < 0.05
 
 enum Room
 {
@@ -105,3 +114,6 @@ func get_room_enum(room: Room) -> String:
 
 func get_room_ingame_name(room):
 	return Localization.get_text("room_name_" + get_room_enum(int(room)))
+
+func trigger_blocked():
+	return time_since_room_load < 0.05

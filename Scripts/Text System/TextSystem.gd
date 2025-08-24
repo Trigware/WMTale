@@ -1,12 +1,12 @@
 extends Control
-	
+
 @onready var textNode = $CanvasLayer/Text
 @onready var typewritterTimer = $TypewritterTimer
 @onready var textboxNode = $CanvasLayer/Textbox
 @onready var choicerNode = $CanvasLayer/Textbox/Choicer
 
 @onready var choicer_leaf = $CanvasLayer/Textbox/Choicer/Leaf
-@onready var waitLeaf = $"CanvasLayer/Wait Leaf"
+@onready var waitLeaf = $"CanvasLayer/Textbox/Wait Leaf"
 @onready var choice_label_options := {
 	Vector2.LEFT: $"CanvasLayer/Textbox/Choicer/Choice A",
 	Vector2.RIGHT: $"CanvasLayer/Textbox/Choicer/Choice B",
@@ -16,8 +16,12 @@ extends Control
 
 @onready var true_text_node = textNode
 @onready var true_outlined_text = $"CanvasLayer/Outlined Text"
+@onready var canvasLayer = $CanvasLayer
+@onready var portrait_bg = $CanvasLayer/Textbox/Portrait
+@onready var character_portrait_node = $CanvasLayer/Textbox/Portrait/Character
 
-const standardScreenWidth = 1152
+const silentCharacters := [',', '.', '!', '?', ' ', '\n', '\t']
+
 var currentCharacterIndex := 0
 var printedText = ""
 var fontSize = 0
@@ -35,15 +39,28 @@ var currentPitchRange = 0
 var overwriteSkippable = false
 var lockAction = false
 var v_text_finished = false
-var in_choicer = false
 var currentOverlappingSoundsValue := false
 var canInteract = true
 var init_color
 var end_latest_text_automatically := false
 var end_latest_text_externally := false
 var current_line_choicer = false
+var latest_printed_character : String
+var time_since_textbox_closed : float
+var wait_leaf_position_at_start : Vector2
+var textbox_y_scale_at_ready : float
 
 const default_pause_duration := 0.5
+const textbox_show_duration := 0.15
+const new_textbox_duration := 0.02
+const textbox_show_offset := -Vector2(35, 20)
+const y_scale_multiplier_at_show := 0.875
+const waitleaf_show_duration := 0.35
+const waitleaf_show_x_offset := -15
+
+const full_hide_portrait_progression := 0.5
+const full_show_portrait_progression := -0.06
+const portrait_show_duration := 0.45
 
 signal text_finished
 signal want_next_text
@@ -52,13 +69,23 @@ signal want_choicer
 func _ready():
 	typewritterTimer.timeout.connect(print_next_char)
 	want_next_text.connect(on_wanting_new_text)
-	text_finished.connect(show_wait_leaf)
+	wait_leaf_position_at_start = waitLeaf.position
+	waitLeaf.modulate.a = 0
+	textbox_y_scale_at_ready = textboxNode.scale.y
+	textboxNode.hide()
+	choicerNode.hide()
+	textNode.text = ""
 	PresetSystem.preset_variations()
+	hide_portrait()
+
+func _process(delta):
+	time_since_textbox_closed += delta
 
 func print_text(text, speed, textSize, textPosition, lineLength,
 				centerAlign, allowTextSkip, talkAudio, pitchRange,
 				textbox, overlappingSounds, outline, initial_color,
 				end_automatically, end_externally):
+	TextParser.latest_suffix_instruction = ""
 	Player.node.animationNode.stop()
 	lockAction = true
 	if overwriteSkippable:
@@ -81,6 +108,12 @@ func print_text(text, speed, textSize, textPosition, lineLength,
 	currentTextAudio = talkAudio
 	currentPitchRange = pitchRange
 	textboxNode.visible = textbox
+	
+	waitLeaf.modulate.a = 0
+	if time_since_textbox_closed > new_textbox_duration and textbox:
+		show_textbox()
+	
+	update_portrait()
 	currentOverlappingSoundsValue = overlappingSounds
 	
 	var regularText = TextParser.record_control_text(text)
@@ -95,11 +128,18 @@ func print_text(text, speed, textSize, textPosition, lineLength,
 		return
 	
 	textNode.text = printedText
+	if does_player_no_choices():
+		await get_tree().process_frame
+		finish_text()
+		if not Localization.is_latest_textkey_empty: emit_signal("want_next_text")
+		return
 	await give_choice_from_print_text(regularText == "")
 
+func does_player_no_choices():
+	return ChoicerSystem.choicer_options == {}
+
 func give_choice_from_print_text(empty_text := false):
-	if ChoicerSystem.choicer_options == {}: return
-	show_wait_leaf()
+	if does_player_no_choices(): return
 	current_line_choicer = true
 	if not empty_text:
 		await want_choicer
@@ -114,20 +154,33 @@ func skip_text():
 	textNode.text = add_color_to_text(printedText)
 	currentCharacterIndex = printedText.length()
 
-func finish_text():
+func finish_text(show_leaf = true):
 	v_text_finished = true
 	emit_signal("text_finished")
+	if show_leaf: show_wait_leaf()
 
 func on_wanting_new_text():
 	v_text_finished = false
 	if ChoicerSystem.in_choicer: return
 	textboxNode.hide()
+	time_since_textbox_closed = 0
 	lockAction = false
 	TextMethods.clear_text()
 
+var wait_leaf_alpha_tween : Tween = null
+var wait_leaf_movement_tween : Tween = null
+
 func show_wait_leaf():
-	if textboxNode.visible:
-		waitLeaf.show()
+	if not textboxNode.visible: return
+	
+	if wait_leaf_alpha_tween != null: wait_leaf_alpha_tween.kill()
+	if wait_leaf_movement_tween != null: wait_leaf_movement_tween.kill()
+	
+	waitLeaf.position.x = wait_leaf_position_at_start.x + waitleaf_show_x_offset
+	wait_leaf_alpha_tween = create_tween()
+	wait_leaf_alpha_tween.tween_property(waitLeaf, "modulate:a", 1, waitleaf_show_duration)
+	wait_leaf_movement_tween = create_tween()
+	wait_leaf_movement_tween.tween_property(waitLeaf, "position", wait_leaf_position_at_start, waitleaf_show_duration)
 
 func print_next_char():
 	if delayed: return
@@ -137,22 +190,34 @@ func print_next_char():
 		delayed = true
 		await get_tree().create_timer(delay).timeout
 		delayed = false
-	if currentOverlappingSoundsValue:
-		Audio.play_stream(currentTextAudio, currentPitchRange)
-	else:
-		Audio.play_awaited_stream(currentTextAudio, currentPitchRange)
+	
 	if currentCharacterIndex < printedText.length():
-		textNode.text += "[color=" + currentColor + "]" + printedText[currentCharacterIndex] + "[/color]"
+		latest_printed_character = printedText[currentCharacterIndex]
+		play_char_audio()
+		textNode.text += "[color=" + currentColor + "]" + latest_printed_character + "[/color]"
 		currentCharacterIndex += 1
 		return
 		
 	typewritterTimer.stop()
 	textCanBeSkipped = false
 	
+	show_wait_leaf()
 	await give_choice_from_print_text()
-	finish_text()
+	finish_text(false)
 	if end_latest_text_automatically:
 		emit_signal("want_next_text")
+
+func play_char_audio():
+	var talk_audio = get_talk_audio()
+	if latest_printed_character in silentCharacters: return
+	if currentOverlappingSoundsValue: Audio.play_stream(talk_audio, currentPitchRange)
+	else: Audio.play_awaited_stream(talk_audio, currentPitchRange)
+
+func get_talk_audio():
+	if current_speaking_character == SpeakingCharacter.Narrator: return currentTextAudio
+	var current_speaker_name = get_speaker_name(current_speaking_character)
+	var audio_path = "res://Audio/Talk/" + current_speaker_name + ".mp3"
+	return load(audio_path)
 
 func split_text_by_lines(text, lineLength) -> String:
 	if lineLength == 0: return text
@@ -182,7 +247,7 @@ func get_text_width(text) -> float:
 	return (font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fontSize)).x
 
 func align_to_center(text):
-	var centerX = standardScreenWidth / 2.0
+	var centerX = get_viewport().get_visible_rect().size.x / 2.0
 	textNode.position.x = centerX - get_text_width(text) / 2
 
 func add_color_to_text(text) -> String:
@@ -209,3 +274,49 @@ func _unhandled_input(_event: InputEvent):
 		skip_text()
 	if ChoicerSystem.in_choicer:
 		ChoicerSystem.handle_choicer_inputs()
+
+var current_speaking_character := SpeakingCharacter.Narrator
+var character_portrait_texture : Texture2D = null
+
+enum SpeakingCharacter {
+	Narrator,
+	Nixie
+}
+
+func get_speaker_name(speaker: SpeakingCharacter):
+	return SpeakingCharacter.find_key(speaker)
+
+func show_textbox():
+	textboxNode.scale.y = textbox_y_scale_at_ready * y_scale_multiplier_at_show
+	canvasLayer.offset = textbox_show_offset
+	var movement_tween = create_tween().tween_property(canvasLayer, "offset", Vector2.ZERO, textbox_show_duration)
+	movement_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	var scale_tween = create_tween().tween_property(textboxNode, "scale:y", textbox_y_scale_at_ready, textbox_show_duration)
+	scale_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+func update_portrait():
+	if character_portrait_texture == null:
+		hide_portrait()
+		return
+	character_portrait_node.texture = character_portrait_texture
+	show_portrait()
+
+func show_portrait():
+	portrait_tween(full_show_portrait_progression)
+
+func hide_portrait():
+	portrait_tween(full_hide_portrait_progression)
+
+func portrait_tween(final):
+	create_tween().tween_method(
+		func(progress): set_portrait_progress(progress),
+		get_portrait_progress(),
+		final,
+		portrait_show_duration
+	).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+
+func set_portrait_progress(value):
+	portrait_bg.material.set_shader_parameter("hide_progression", value)
+
+func get_portrait_progress():
+	return portrait_bg.material.get_shader_parameter("hide_progression")

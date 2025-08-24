@@ -1,7 +1,7 @@
 extends Node
 
 var follower_agents := {}
-const follower_distance = 35
+const follower_distance = 15
 
 @warning_ignore("unused_signal")
 signal near_ground
@@ -42,28 +42,14 @@ func move_player_to(x, y, speed = 1, final_look_dir := Vector2.ZERO):
 func get_agent_type_name(agent_type: Enum.AgentType):
 	return Enum.AgentType.find_key(agent_type)
 
-func refresh_follower_agents():
+func create_follower_agents():
 	Player.footsteps.clear()
-	for agent_name in follower_agents.keys():
-		var agent = follower_agents[agent_name]
-		agent.queue_free()
-	for agent_variation_str in Overworld.party_members:
-		var agent_variation = MovingNPC.convert_str_to_agent_variation(agent_variation_str)
-		create_follower_agent(agent_variation)
-
-func create_follower_agent(agent_variation: Enum.AgentVariation):
-	follower_agents[agent_variation] = create_simple_moving_npc(Enum.AgentType.FollowerAgent, agent_variation)
-
-func check_for_follower_movement():
-	var agent_index = 1
-	var last_index = Player.footsteps.size() - 1
-	for agent_name in follower_agents.keys():
-		var agent = follower_agents[agent_name]
-		var target_index = last_index - follower_distance * agent_index
-		if target_index < 0: continue
-		var footstep = Player.footsteps[target_index]
-		agent.take_step_towards_player(footstep)
-		agent_index += 1
+	for follower in follower_agents.values():
+		follower.queue_free()
+	follower_agents.clear()
+	for follower in Overworld.party_members:
+		var follower_variation = convert_str_to_agent_variation(follower)
+		follower_agents[follower_variation] = create_simple_moving_npc(Enum.AgentType.FollowerAgent, follower_variation)
 
 func update_followers_zindex():
 	var player_followers_arr := []
@@ -80,10 +66,6 @@ func update_followers_zindex():
 		follower.z_index = follower.base_follower_zindex + sorted_follower_index
 		sorted_follower_index += 1
 
-func get_follower_agent_with_index(index):
-	var follower_name = Overworld.party_members[index]
-	return follower_agents[follower_name]
-
 func get_agent_variation_as_str(agent_variation: Enum.AgentVariation) -> String:
 	return Enum.AgentVariation.find_key(agent_variation)
 
@@ -98,3 +80,11 @@ func set_texture_height(anim_node, uniform_func_scope):
 	var texture_size = frame_texture.get_size()
 	uniform_func_scope.set_uniform("image_pixel_height", texture_size.y)
 	return texture_size.y
+
+func update_follower_agents():
+	for follower_agent in follower_agents.values():
+		var used_distance = follower_distance * follower_agent.follower_index
+		var footstep_count = Player.footsteps.size()
+		if footstep_count <= used_distance: used_distance = footstep_count
+		var footstep = Player.footsteps[footstep_count - used_distance]
+		follower_agent.update_follower(footstep)

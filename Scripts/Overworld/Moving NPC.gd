@@ -29,6 +29,7 @@ const jump_height = 200
 const jump_gravity = 8
 const expected_jump_duration = 1.7
 const near_ground_distance = 180
+const agent_types_with_variations := [Enum.AgentType.FollowerAgent, Enum.AgentType.CutsceneAgent]
 
 @onready var sprite = $Sprite
 @onready var collider = $Collider
@@ -38,6 +39,7 @@ const near_ground_distance = 180
 
 signal near_ground
 
+#region Initialization
 func _ready():
 	if agent_type == Enum.AgentType.Uninitialized:
 		push_error("Uninitialized agent type for a moving NPC!")
@@ -47,20 +49,12 @@ func _ready():
 	if agent_type != Enum.AgentType.CutsceneAgent:
 		global_position = Player.get_body_pos()
 		name = get_appropriate_name()
-	if agent_type != Enum.AgentType.PlayerAgent:
-		setup_moving_npc()
-		set_follower_index()
-
-func on_animation_changed():
-	MovingNPC.set_texture_height(sprite, self)
-
-func set_follower_index():
-	follower_index = Overworld.party_members.find(agent_variation) + 1
+	if agent_type != Enum.AgentType.PlayerAgent: setup_moving_npc()
+	if agent_type == Enum.AgentType.FollowerAgent: set_follower_index()
 
 func setup_moving_npc():
 	add_to_group("Moving NPC")
-	var is_cutscene_agent = agent_type == Enum.AgentType.CutsceneAgent
-	if not is_cutscene_agent and agent_variation == Enum.AgentVariation.NoVariation:
+	if agent_variation == Enum.AgentVariation.NoVariation and agent_type in agent_types_with_variations:
 		push_error("Excepted agent variation for a " + name + ", but found none!")
 		return
 	
@@ -74,17 +68,94 @@ func setup_moving_npc():
 	if on_ready_default_scale: set_to_default_scale()
 	if on_ready_animation != "": set_anim(on_ready_animation)
 	
-	if not is_cutscene_agent:
-		set_walk_animation(Player.node.stringAnimation)
-
-func set_walk_animation(dir):
-	var animation_name = "walk_" + str(dir).to_lower()
-	set_anim(animation_name)
+	if agent_type != Enum.AgentType.CutsceneAgent: set_walk_animation(Player.node.stringAnimation)
 
 func get_appropriate_name():
 	var agent_type_name = MovingNPC.get_agent_type_name(agent_type)
 	if agent_variation == Enum.AgentVariation.NoVariation: return agent_type_name
 	return MovingNPC.get_agent_variation_as_str(agent_variation) + " (" + agent_type_name + ")"
+
+func set_to_default_scale():
+	var default_both_axis_scale = 1
+	if agent_type in [Enum.AgentType.PlayerAgent, Enum.AgentType.FollowerAgent]:
+		default_both_axis_scale = 3
+	match agent_variation:
+		Enum.AgentVariation.Nixie: default_both_axis_scale = 1.15
+	scale_both_axis(default_both_axis_scale)
+
+func scale_both_axis(new_scale: float):
+	scale = Vector2(new_scale, new_scale)
+#endregion
+#region Animations
+func on_animation_changed():
+	MovingNPC.set_texture_height(sprite, self)
+
+func set_walk_animation(dir):
+	var animation_name = "walk_" + str(dir).to_lower()
+	set_anim(animation_name)
+
+func play_walk_animation(dir):
+	set_walk_animation(dir)
+	play_current()
+
+func set_anim(anim_name):
+	sprite.animation = anim_name
+
+func set_direction_animation():
+	if final_look_dir == Vector2.ZERO: return
+	controlled_body.stringAnimation = get_string_direction(final_look_dir)
+	controlled_body.update_walk_animation_frame()
+
+func get_string_direction(dir: Vector2):
+	if go_backwards: dir = -dir
+	if dir == Vector2.ZERO: return ""
+	if dir.x != 0: return "Left" if dir.x < 0 else "Right"
+	return "Up" if dir.y < 0 else "Down"
+
+func string_to_vector_direction(str_dir: String) -> Vector2:
+	match str_dir:
+		"Left": return Vector2.LEFT
+		"Right": return Vector2.RIGHT
+		"Up": return Vector2.UP
+		"Down": return Vector2.DOWN
+	push_error("Attempted to parse invalid string direction " + str_dir + "!")
+	return Vector2.ZERO
+
+func play_animation(anim_name):
+	sprite.play(anim_name)
+
+func play_current():
+	sprite.play(sprite.animation)
+
+func get_texture_size():
+	return sprite.texture.get_size()
+#endregion
+#region Shaders
+func set_uniform(parameter: String, value):
+	var shader_mat = get_shader_material()
+	shader_mat.set_shader_parameter(parameter, float(value))
+
+func get_uniform(parameter: String):
+	var shader_mat = get_shader_material()
+	return shader_mat.get_shader_parameter(parameter)
+
+func get_shader_material() -> ShaderMaterial:
+	return sprite.material
+
+func tween_hide_progression(final, duration):
+	var visibility_tween = create_tween()
+	visibility_tween.tween_method(
+		func(val):
+			set_uniform("hide_progression", val + 0.01),
+		get_uniform("hide_progression"),
+		final,
+		duration
+	)
+	visibility_tween.set_ease(Tween.EASE_IN_OUT)
+	visibility_tween.set_trans(Tween.TRANS_EXPO)
+	await visibility_tween.finished
+#endregion
+#region Movement
 
 func move_by(x_offset, y_offset):
 	await move_to_target(controlled_body.global_position + Vector2(x_offset, y_offset) * Overworld.scaleConst)
@@ -115,26 +186,6 @@ func move_to_point(point: Vector2, dir: Vector2):
 		previous_distance_to_point = distance_to_point
 		await get_tree().process_frame
 
-func set_direction_animation():
-	if final_look_dir == Vector2.ZERO: return
-	controlled_body.stringAnimation = get_string_direction(final_look_dir)
-	controlled_body.update_walk_animation_frame()
-
-func get_string_direction(dir: Vector2):
-	if go_backwards: dir = -dir
-	if dir == Vector2.ZERO: return ""
-	if dir.x != 0: return "Left" if dir.x < 0 else "Right"
-	return "Up" if dir.y < 0 else "Down"
-
-func string_to_vector_direction(str_dir: String) -> Vector2:
-	match str_dir:
-		"Left": return Vector2.LEFT
-		"Right": return Vector2.RIGHT
-		"Up": return Vector2.UP
-		"Down": return Vector2.DOWN
-	push_error("Attempted to parse invalid string direction " + str_dir + "!")
-	return Vector2.ZERO
-
 func get_diagonal_path_info():
 	var current_position = controlled_body.global_position
 	var delta = current_target - current_position
@@ -150,57 +201,6 @@ func get_dialogal_path(delta: Vector2):
 
 func get_movement_direction(vec: Vector2):
 	return Vector2(sign(vec.x), sign(vec.y))
-	
-func take_step_towards_player(footstep):
-	var previous_position = global_position
-	var target = footstep["target"]
-	var sink_progress = footstep["hide_progression"]
-	set_uniform("hide_progression", sink_progress)
-	global_position = target
-	var delta = target - previous_position
-	var str_dir = get_string_direction(delta)
-	if str_dir != "": stringAnimation = str_dir
-	sprite.play()
-	set_walk_animation(stringAnimation)
-
-func set_uniform(parameter: String, value):
-	var shader_mat = get_shader_material()
-	shader_mat.set_shader_parameter(parameter, float(value))
-
-func get_uniform(parameter: String):
-	var shader_mat = get_shader_material()
-	return shader_mat.get_shader_parameter(parameter)
-
-func get_shader_material() -> ShaderMaterial:
-	return sprite.material
-
-func play_animation(anim_name):
-	sprite.play(anim_name)
-
-func play_current():
-	sprite.play(sprite.animation)
-
-func set_anim(anim_name):
-	sprite.animation = anim_name
-
-func scale_both_axis(new_scale: float):
-	scale = Vector2(new_scale, new_scale)
-
-func get_texture_size():
-	return sprite.texture.get_size()
-
-func tween_hide_progression(final, duration):
-	var visibility_tween = create_tween()
-	visibility_tween.tween_method(
-		func(val):
-			set_uniform("hide_progression", val + 0.01),
-		get_uniform("hide_progression"),
-		final,
-		duration
-	)
-	visibility_tween.set_ease(Tween.EASE_IN_OUT)
-	visibility_tween.set_trans(Tween.TRANS_EXPO)
-	await visibility_tween.finished
 
 func jump_to_point(point: Vector2):
 	near_ground_signal_emitted = false
@@ -212,6 +212,7 @@ func jump_to_point(point: Vector2):
 	horizontal_jump_tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 
 func _physics_process(_delta):
+	if agent_type != Enum.AgentType.CutsceneAgent: return
 	var notice_vertical_position = jump_vertical_destination - near_ground_distance
 	if not near_ground_signal_emitted and global_position.y > notice_vertical_position:
 		emit_signal("near_ground")
@@ -226,7 +227,8 @@ func _physics_process(_delta):
 		velocity.y = -jump_height
 		initial_jump = false
 	move_and_slide()
-
+#endregion
+#region Effects
 func spawn_damage_label(text, color := Color.WHITE, offset_x := 0.0, offset_y := 0.0):
 	var instance = UID.SCN_HEALTH_CHANGE_INFO.instantiate()
 	Player.hp_particle_point.add_child(instance)
@@ -245,11 +247,15 @@ func nail_swing(text_key):
 
 func wait(time: float):
 	await get_tree().create_timer(time).timeout
+#endregion
+#region FollowerAgent
 
-func set_to_default_scale():
-	var default_both_axis_scale = 1
-	if agent_type in [Enum.AgentType.PlayerAgent, Enum.AgentType.FollowerAgent]:
-		default_both_axis_scale = 3
-	match agent_variation:
-		Enum.AgentVariation.Nixie: default_both_axis_scale = 1.15
-	scale_both_axis(default_both_axis_scale)
+func set_follower_index():
+	follower_index = MovingNPC.follower_agents.size() + 1
+
+func update_follower(footstep):
+	global_position = footstep["target"]
+	play_walk_animation(footstep["direction"])
+	set_uniform("hide_progression", footstep["hide_progression"])
+
+#endregion

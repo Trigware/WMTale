@@ -14,7 +14,7 @@
 size = Vector2(158, 135)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nusi1"]
-size = Vector2(20, 350)
+size = Vector2(133.375, 350)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_07ehf"]
 size = Vector2(30, 315)
@@ -36,7 +36,7 @@ tile_map_data = PackedByteArray("AAD+/wAAAAAAAAAAAAD+/wEAAAAAAAEAAAD//wAAAAABAAA
 tile_set = ExtResource("2_brkrn")
 
 [node name="Environment" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAMAAAAAAAEAAAD9/wIAAAAAAAAAAAD9/wQAAAAAAAQAAAAIAP7/AAAAAAAAAAD7//7/AAABAAQAAAD9//3/AAAAAAMAAAD7//v/AAAAAAEAAAACAP7/AAAAAAIAAAD7//f/AAAAAAAAAAAGAP3/AAABAAQAAAAFAAQAAAAAAAMAAAD///v/AAAAAAIAAAD7/wAAAAAAAAIAAAADAAMAAAAAAAQAAAABAPn/AAAAAAQAAAD8//r/AAAAAAQAAAD7//n/AAABAAQAAAA=")
+tile_map_data = PackedByteArray("AAAAAAMAAAAAAAEAAAD9/wIAAAAAAAAAAAD9/wQAAAAAAAQAAAAIAP7/AAAAAAAAAAD7//7/AAABAAQAAAD9//3/AAAAAAMAAAD7//v/AAAAAAEAAAACAP7/AAAAAAIAAAD7//f/AAAAAAAAAAAGAP3/AAABAAQAAAAFAAQAAAAAAAMAAAD///v/AAAAAAIAAAD7/wAAAAAAAAIAAAADAAMAAAAAAAQAAAABAPn/AAAAAAQAAAD8//r/AAABAAQAAAD7//n/AAABAAQAAAA=")
 tile_set = ExtResource("3_nusi1")
 
 [node name="Bushes" type="TileMapLayer" parent="."]
@@ -81,7 +81,7 @@ new_position = Vector2(-256, 0)
 y_player_dependent = true
 
 [node name="Trigger Shape" parent="Enterance Trigger" index="0"]
-position = Vector2(472.625, 20)
+position = Vector2(529.313, 20)
 shape = SubResource("RectangleShape2D_nusi1")
 
 [node name="Obstruction" parent="Enterance Trigger" index="1"]
@@ -111,6 +111,17 @@ position = Vector2(-40, -296)
 scale = Vector2(-1.75, 1.75)
 metadata/npc_id = "BlockTree_SPAWNROOM"
 
+[node name="Static Body" parent="Block Tree/Layered NPC/Layered Manager" index="0"]
+collision_layer = 3
+
+[node name="Collider" parent="Block Tree/Layered NPC/Layered Manager/Static Body" index="0"]
+position = Vector2(-5, 54.6071)
+scale = Vector2(1, 1)
+
+[node name="Trigger Zone" parent="Block Tree/Layered NPC" index="1"]
+position = Vector2(-4.57143, 72)
+scale = Vector2(0.999999, 0.999999)
+
 [node name="Purple Tree" parent="." instance=ExtResource("9_brkrn")]
 position = Vector2(520, -64)
 scale = Vector2(3, 3)
@@ -120,3 +131,5 @@ metadata/npc_id = "PurpleTree_SPAWNROOM"
 [editable path="Mushroom"]
 [editable path="Enterance Trigger"]
 [editable path="Interact Reminder"]
+[editable path="Block Tree"]
+[editable path="Block Tree/Layered NPC"]

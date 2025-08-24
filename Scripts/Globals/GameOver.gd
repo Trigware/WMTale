@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-const screen_width = 1152
-const screen_height = 648
 const base_selector_position_y = 275
 const space_between_options = 65
 
@@ -44,26 +42,16 @@ func _ready():
 	LeafMode.stamina_root.hide()
 	LeafMode.health_root.hide()
 	setup()
-	leaf.position += Vector2(screen_width, screen_height) / 2
+	leaf.position += get_viewport().get_visible_rect().size / 2
 	await get_tree().create_timer(1).timeout
 	LeafMode.game_over = false
 	Audio.play_sound(UID.SFX_LEAF_BREAK)
 	leaf.play()
 	await get_tree().create_timer(1.5).timeout
-	if SaveData.death_counter == 1:
-		first_death()
-		return
-	show_game_over()
-
-func first_death():
-	await TextMethods.print_sequence("GameOver_FirstDeath", {"name": SaveData.playerName}, PresetSystem.Preset.FirstGameOver)
 	tween_node(image)
-	show_options()
-
-func show_game_over():
-	tween_node(image)
-	await get_tree().create_timer(1).timeout
-	await TextMethods.print_random_sequence("GameOver_Comment", "", {}, PresetSystem.Preset.GameOver)
+	await TextMethods.print_sequence("GameOver", {
+		"first_death": SaveData.death_counter == 1
+	})
 	show_options()
 
 func show_options():
